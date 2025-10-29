@@ -1,11 +1,146 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>我的个人主页</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎来到小h的背包</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            /* 使用本地背景图片 */
+            background: url('images/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.65); /* 稍微透明让背景透出 */
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3); /* 添加白色边框增强质感 */
+        }
+        
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #667eea;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .title {
+            color: #667eea;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        
+        .intro {
+            text-align: left;
+            margin: 30px 0;
+        }
+        
+        .skills {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .skill-tag {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        .contact {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .contact a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        
+        .contact a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello world！</h1>
-    <p>这是我的GitHub个人主页，正在建设中...</p>
-    <p>我是[小h]，一名[IT爱好者]。</p>
+    <div class="container">
+        <div class="card">
+            <!-- 头像 - 确保你的图片在 images/avatar.jpg -->
+            <img src="images/avatar.jpg" alt="小礼的头像" class="avatar">
+            
+            <h1>你好, 我是小h 👋</h1>
+            <p class="title">IT | 前端开发</p>
+            
+            <div class="intro">
+                <h2>About 小h</h2>
+                <p>欢迎来到小h的背包, 这里收藏了小h的所有法宝和魔法书</p>
+                
+                <h3>My skills</h3>
+                <div class="skills">
+                    <span class="skill-tag">HTML/CSS</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">Git</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">计组</span>
+                </div>
+            </div>
+            
+            <div class="contact">
+                <h3>Contact me</h3>
+                <p>
+                    📧 <a href="mailto:your-email@example.com">671312329@qq.com</a><br>
+                    💻 <a href="https://github.com/ZhouH-671" target="_blank">GitHub</a>
+                </p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
