@@ -224,8 +224,63 @@
             border-radius: 12px;
             font-size: 0.8em;
         }
+
+        /* 子分类样式 */
+        .has-sub {
+            position: relative;
+        }
+
+        .subcategories {
+            margin: 10px 0 20px 0;
+            animation: slideDown 0.3s ease;
+        }
+
+        .subcategories-inner {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .subcategory-btn {
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .subcategory-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .subcategory-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="card">
@@ -270,7 +325,16 @@
                         <button class="category-btn active" data-category="all">All</button>
                         <button class="category-btn" data-category="tech">About JavaScript</button>
                         <button class="category-btn" data-category="life">Daliy life</button>
-                        <button class="category-btn" data-category="learning">About Study</button>
+                        <button class="category-btn" data-category="learning">About Math</button>
+                    </div>
+
+                    <!-- 数学分类的子类 默认隐藏 -->
+                    <div class="subcategories hidden" id="math-subcategories">
+                        <div class="subcategories-inner">
+                            <button class="subcategory-btn" data-category="Linear-Algebra">Linear Algebra</button>
+                            <button class="subcategory-btn" data-category="math-analysis">Math analysis</button>
+                            <button class="subcategory-btn" data-category="Discrete-Mathematics">Discrete Mathematics</button>
+                        </div>
                     </div>
         
                     <!-- 文章列表容器 -->
@@ -309,68 +373,144 @@
     </div>
 
     <script>
-    // 文章分类切换功能
     document.addEventListener('DOMContentLoaded', function() {
         const categoryBtns = document.querySelectorAll('.category-btn');
-        const articleLists = document.querySelectorAll('.articles-list');
+        const articlesContainer = document.querySelector('.articles-container');
+        const mathSubcategories = document.getElementById('math-subcategories');
+        const subcategoryBtns = document.querySelectorAll('.subcategory-btn');
     
+        // 各个分类的空状态提示
+        const emptyMessages = {
+            'all': '📝 No articles published yet, stay tuned!',
+            'tech': '💻 No articles in JavaScript category',
+            'life': '🌿 No articles in Daily life category', 
+            'learning': '📖 No articles in Math category',
+            'Linear-Algebra': '📐 No articles in Linear Algebra category',
+            'math-analysis': '∫ No articles in Math Analysis category',
+            'Discrete-Mathematics': '🔢 No articles in Discrete Mathematics category'
+        };
+    
+        // 主分类点击事件
         categoryBtns.forEach(btn => {
             btn.addEventListener('click', function() {
-                // 移除所有按钮的active类
+                const category = this.getAttribute('data-category');
+            
+                // 移除所有主分类按钮的active类
                 categoryBtns.forEach(b => b.classList.remove('active'));
                 // 给当前点击的按钮添加active类
                 this.classList.add('active');
             
-                // 获取分类
-                const category = this.getAttribute('data-category');
-            
-                // 隐藏所有文章列表
-                articleLists.forEach(list => list.classList.add('hidden'));
-            
-                // 显示对应的文章列表
-                const targetList = document.getElementById(`${category}-articles`);
-                if (targetList) {
-                    targetList.classList.remove('hidden');
+                // 处理数学分类的特殊逻辑
+                if (category === 'learning') {
+                    // 显示数学子分类
+                    mathSubcategories.classList.remove('hidden');
+                    // 默认显示数学分类的文章列表
+                    showCategory('learning');
+                } else {
+                    // 隐藏数学子分类
+                    mathSubcategories.classList.add('hidden');
+                    // 移除子分类按钮的active状态
+                    subcategoryBtns.forEach(btn => btn.classList.remove('active'));
+                    // 显示对应分类的文章
+                    showCategory(category);
                 }
             });
         });
     
-        // 示例：未来添加文章的函数（现在不需要调用）
+        // 子分类点击事件
+        subcategoryBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+            
+                // 移除所有子分类按钮的active类
+                subcategoryBtns.forEach(b => b.classList.remove('active'));
+                // 给当前点击的按钮添加active类
+                this.classList.add('active');
+            
+                // 显示对应的文章列表
+                showCategory(category);
+            });
+        });
+    
+        function showCategory(category) {
+            // 检查是否已存在该分类的容器
+            let categoryList = document.getElementById(`${category}-articles`);
+        
+            if (!categoryList) {
+                // 如果不存在，创建新的文章列表
+                categoryList = document.createElement('div');
+                categoryList.id = `${category}-articles`;
+                categoryList.className = 'articles-list';
+            
+                // 添加空状态提示
+                const noArticlesDiv = document.createElement('div');
+                noArticlesDiv.className = 'no-articles';
+                noArticlesDiv.innerHTML = `<p>${emptyMessages[category]}</p>`;
+            
+                categoryList.appendChild(noArticlesDiv);
+                articlesContainer.appendChild(categoryList);
+            } else {
+                // 如果已存在，直接显示
+                categoryList.classList.remove('hidden');
+            }
+        
+            // 隐藏其他所有文章列表
+            document.querySelectorAll('.articles-list').forEach(list => {
+                if (list.id !== `${category}-articles`) {
+                    list.classList.add('hidden');
+                }
+            });
+        }
+    
+        // 未来添加文章的函数
         function addArticle(title, category, date, link) {
             const articleHTML = `
                 <div class="article-item">
                     <a href="${link}" class="article-title">${title}</a>
                     <div class="article-meta">
                         <span class="article-date">${date}</span>
-                        <span class="article-category">${category}</span>
+                        <span class="article-category">${getCategoryName(category)}</span>
                     </div>
                 </div>
             `;
         
             // 添加到对应的分类列表
-            const categoryList = document.getElementById(`${category}-articles`);
-            const noArticlesDiv = categoryList.querySelector('.no-articles');
+            addArticleToCategory(category, articleHTML);
+            // 同时添加到全部文章列表
+            addArticleToCategory('all', articleHTML);
+        }
+    
+        function addArticleToCategory(category, articleHTML) {
+            let categoryList = document.getElementById(`${category}-articles`);
         
+            if (!categoryList) {
+                showCategory(category);
+                categoryList = document.getElementById(`${category}-articles`);
+            }
+        
+            const noArticlesDiv = categoryList.querySelector('.no-articles');
             if (noArticlesDiv) {
                 noArticlesDiv.remove();
             }
         
             categoryList.innerHTML += articleHTML;
-        
-            // 同时添加到全部文章列表
-            const allList = document.getElementById('all-articles');
-            const allNoArticles = allList.querySelector('.no-articles');
-        
-            if (allNoArticles) {
-                allNoArticles.remove();
-            }
-        
-            allList.innerHTML += articleHTML;
         }
     
-        // 未来有文章时，可以这样调用：
-        // addArticle('我的第一篇文章', 'tech', '2024-01-15', '#');
-        // addArticle('学习心得', 'learning', '2024-01-10', '#');
+        function getCategoryName(category) {
+            const categoryNames = {
+                'all': 'All',
+                'tech': 'JavaScript',
+                'life': 'Daily Life',
+                'learning': 'Math',
+                'Linear-Algebra': 'Linear Algebra',
+                'math-analysis': 'Math Analysis',
+                'Discrete-Mathematics': 'Discrete Mathematics'
+            };
+            return categoryNames[category] || category;
+        }
+    
+        // 初始化显示全部文章
+        showCategory('all');
     });
     </script>
 </body>
