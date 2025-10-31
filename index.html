@@ -218,11 +218,42 @@
         }
 
         .article-category {
-            background: #e74c3c;
+            background: #0501fa;
             color: white;
-            padding: 2px 8px;
+            padding: 4px 12px;
             border-radius: 12px;
             font-size: 0.8em;
+            font-weight: 500;
+        }
+
+        /* 文章封面图片样式 */
+        .article-cover {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 0;
+        }
+
+        .article-content {
+            padding: 15px;
+        }
+
+        /* 更新文章项样式以支持封面图片 */
+        .article-item {
+            background: white;
+            border-radius: 10px;
+            padding: 0;
+            margin-bottom: 20px;
+            border-left: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .article-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
         /* 子分类样式 */
@@ -463,20 +494,22 @@
         }
     
         // 未来添加文章的函数
-        function addArticle(title, category, date, link) {
+        // 修改addArticle函数，添加coverImage参数
+        function addArticle(title, category, date, link, coverImage = '') {
             const articleHTML = `
                 <div class="article-item">
-                    <a href="${link}" class="article-title">${title}</a>
-                    <div class="article-meta">
-                        <span class="article-date">${date}</span>
-                        <span class="article-category">${getCategoryName(category)}</span>
+                    ${coverImage ? `<img src="${coverImage}" alt="${title}" class="article-cover">` : ''}
+                    <div class="article-content">
+                        <a href="${link}" class="article-title">${title}</a>
+                        <div class="article-meta">
+                            <span class="article-date">${date}</span>
+                            <span class="article-category">${getCategoryName(category)}</span>
+                        </div>
                     </div>
                 </div>
             `;
-        
-            // 添加到对应的分类列表
+    
             addArticleToCategory(category, articleHTML);
-            // 同时添加到全部文章列表
             addArticleToCategory('all', articleHTML);
         }
     
@@ -508,6 +541,15 @@
             };
             return categoryNames[category] || category;
         }
+
+        // 添加文章链接
+        addArticle(
+            '2025工科高代复习——Chapter2: 行列式',  // 文章标题
+            'Linear-Algebra',           // 分类
+            '2025-10-31',               // 发布日期
+            'articles/Chapter2_Determinants.html',  // 文章文件路径
+            'images/article_covers/Chapter2_Determinants.jpeg'  // 封面图片路径
+        );
     
         // 初始化显示全部文章
         showCategory('all');
