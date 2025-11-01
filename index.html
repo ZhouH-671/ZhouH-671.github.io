@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>欢迎来到小h的背包</title>
+    <title>欢迎打开小h的背包</title>
     <style>
         * {
             margin: 0;
@@ -315,8 +315,8 @@
 <body>
     <div class="container">
         <div class="card">
-            <!-- 头像 - 确保你的图片在 images/avatar.jpg -->
-            <img src="images/avatar.jpg" alt="小礼的头像" class="avatar">
+            <!-- 头像 - 确保图片在 images/avatar.jpg -->
+            <img src="images/avatar.jpg" alt="小h的头像" class="avatar">
             
             <h1>Hello! There is the bag of xiaoH.👋</h1>
             <p class="title">IT | 前端开发</p>
@@ -436,7 +436,7 @@
                     // 显示数学子分类
                     mathSubcategories.classList.remove('hidden');
                     // 默认显示数学分类的文章列表
-                    showCategory('learning');
+                    showMathCategoryWithSubcategories();
                 } else {
                     // 隐藏数学子分类
                     mathSubcategories.classList.add('hidden');
@@ -448,6 +448,53 @@
             });
         });
     
+        // 显示数学大类及其所有子分类的文章
+        function showMathCategoryWithSubcategories() {
+            // 获取所有相关的分类
+            const mathCategories = ['learning', 'Linear-Algebra', 'math-analysis', 'Discrete-Mathematics'];
+    
+            // 隐藏所有文章列表
+            document.querySelectorAll('.articles-list').forEach(list => {
+                list.classList.add('hidden');
+            });
+    
+            // 创建或获取数学大类的容器
+            let mathContainer = document.getElementById('learning-articles');
+            if (!mathContainer) {
+                mathContainer = document.createElement('div');
+                mathContainer.id = 'learning-articles';
+                mathContainer.className = 'articles-list';
+                articlesContainer.appendChild(mathContainer);
+            }
+    
+            // 清空并重新填充数学大类的文章
+            mathContainer.innerHTML = '';
+    
+            // 收集所有数学相关分类的文章
+            mathCategories.forEach(mathCategory => {
+                const categoryList = document.getElementById(`${mathCategory}-articles`);
+                if (categoryList && categoryList.innerHTML !== '') {
+                    // 如果该分类有文章，添加到数学大类中
+                    const articles = categoryList.querySelectorAll('.article-item');
+                    articles.forEach(article => {
+                        mathContainer.appendChild(article.cloneNode(true));
+                    });
+                }
+            });
+    
+            // 如果没有文章，显示空状态
+            if (mathContainer.innerHTML === '') {
+                mathContainer.innerHTML = `
+                    <div class="no-articles">
+                        <p>${emptyMessages['learning']}</p>
+                    </div>
+                `;
+            }
+    
+            // 显示数学大类的容器
+            mathContainer.classList.remove('hidden');
+        }
+
         // 子分类点击事件
         subcategoryBtns.forEach(btn => {
             btn.addEventListener('click', function() {
@@ -458,6 +505,10 @@
                 // 给当前点击的按钮添加active类
                 this.classList.add('active');
             
+                // 隐藏数学子分类（点击子分类时收起下拉菜单）
+                //mathSubcategories.classList.add('hidden');
+        
+
                 // 显示对应的文章列表
                 showCategory(category);
             });
@@ -493,8 +544,7 @@
             });
         }
     
-        // 未来添加文章的函数
-        // 修改addArticle函数，添加coverImage参数
+        // 添加文章的addArticle函数
         function addArticle(title, category, date, link, coverImage = '') {
             const articleHTML = `
                 <div class="article-item">
