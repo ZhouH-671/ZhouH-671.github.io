@@ -28,3 +28,7 @@
     (1). $i = 8, k = 3$.
     (2). $i = 3, k = 6$.
 </div>
+
+<div class="questions">
+
+</div>
