@@ -1,0 +1,95 @@
+/* 文章栏目样式 */
+.articles-section {
+    margin-top: 30px;
+    padding: 20px 0;
+}
+
+.articles-section h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 3em;
+    font-weight: 700;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 文章列表 */
+.articles-container {
+    min-height: 200px;
+}
+
+.articles-list {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    backdrop-filter: blur(5px);
+}
+
+/* 无文章提示 */
+.no-articles {
+    text-align: center;
+    color: #7f8c8d;
+    padding: 40px 20px;
+}
+
+.no-articles p {
+    font-size: 1.2em;
+    margin: 0;
+}
+
+/* 文章项样式 */
+.article-item {
+    background: white;
+    border-radius: 10px;
+    padding: 0;
+    margin-bottom: 20px;
+    border-left: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.article-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.article-cover {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 0;
+}
+
+.article-content {
+    padding: 15px;
+}
+
+.article-title {
+    color: #2c3e50;
+    font-size: 1.3em;
+    margin-bottom: 8px;
+    text-decoration: none;
+}
+
+.article-title:hover {
+    color: #667eea;
+}
+
+.article-meta {
+    color: #7f8c8d;
+    font-size: 0.9em;
+    display: flex;
+    gap: 15px;
+}
+
+.article-category {
+    background: #0501fa;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 500;
+}
