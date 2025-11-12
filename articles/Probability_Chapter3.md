@@ -125,6 +125,24 @@ $$
 
 <h2 align="center">边缘分布</h2>
 
+&emsp;&emsp;二维随机变量 $(X, Y)$ 作为一个整体，具有分布函数 $F(x, y)$ ，而 $X$ 和 $Y$ 都是随机变量，各自也有分布函数，将它们分别记为$F_X(x), F_Y(y)$，依次称为随机变量 $(X, Y)$ 关于 $X$ 和关于 $Y$ 的<span>边缘分布函数</span>。有：
+
+$$
+F_X(x) = P\{ X \leq x, Y \leq \infty\} = F(x, \infty)
+$$
+
+即 $F_X(x) = F(x, \infty)$ 。同理 $F_Y(y) = F(\infty, y)$ 。对于离散型随机变量，有
+
+$$
+F_X(x) = F(x, \infty) = \sum_{x_i \leq x} \sum_{j=1}^{\infty} p_{ij}.
+$$
+
+则 $X$ 的分布律为
+
+$$
+
+$$
+
 <h2 align="center">条件分布</h2>
 
 <h2 align="center">相互独立的随机变量</h2>
