@@ -140,14 +140,122 @@ $$
 则 $X$ 的分布律为
 
 $$
+P \{X = x_i \} = \sum_{j=1}^{\infty} p_{ij}, j = 1, 2, ... .
+$$
+
+记 $p_{i·} = \sum_{j=1}^{\infty} p_{ij}, j = 1, 2, ... .$ ，称 $p_{i·}$ 为 $(X, Y)$ 关于 $X$ 的<span class="definition">边缘分布</span>。对于 $Y$ 完全相同。
+
+&emsp;&emsp;对于连续型随机变量 $(X, Y)$ 设它的概率密度为 $f(x, y)$ ，由于
 
 $$
+F_X(x) = F(x, \infty) = \int_{-\infty}^{x} [\int_{-\infty}^{\infty} f(x, y)dy] dx,
+$$
+
+则可知 $X$ 是一个连续型随机变量，且其概率密度为
+
+$$
+f_X(x) = \int_{-\infty}^{\infty} f(x, y)dy.
+$$
+
+称 $f_X(x)$ 为 $(X, Y)$ 关于 $X$ 的<span class="definition">边缘概率密度</span>。 $Y$ 与 $X$ 完全相同。
 
 <h2 align="center">条件分布</h2>
 
+&emsp;&emsp;由条件概率很自然地引出条件概率分布的概念。
+
+### 一、离散型随机变量
+
+&emsp;&emsp;设 $(X, Y)$ 是二维随机变量，其分布律为
+
+$$
+P\{X=x_i, Y=y_i\} = p_{ij}, i, j = 1, 2, ...
+$$
+
+$(X, Y)$ 关于 $X$ 和 $Y$ 的边缘分布率分别为
+
+$$
+P\{X=x_i\} = p_{i·} = \sum_{j=1}^{\infty} p_{ij}, i = 1, 2, ... \\
+P\{Y=y_j\} = p_{·j} = \sum_{i=1}^{\infty} p_{ij}, j = 1, 2, ...
+$$
+
+&emsp;&emsp;设 $p_{·j} > 0$ ，定义在事件 $\{Y = y_{j}\}$ 已发生的条件下事件 $\{X = x_{i}\}$ 发生的概率，也就是事件 $\{X=x_i | Y=y_j\}$ 的概率为
+
+$$
+P\{X=x_i | Y=y_j\} = \frac{P\{X=x_i, Y=y_j\}}{P\{Y=y_j\}} = \frac{p_{ij}}{p_{·j}}, i = 1, 2, ...
+$$
+
+为在 $Y=y_j$ 条件下随机变量 $X$ 的<span class="definition">条件分布率</span>。条件概率具有分布律的全部性质。
+
+### 二、连续型随机变量
+
+&emsp;&emsp;设二维随机变量 $(X, Y)$ 的概率密度为 $f(x, y)$ ，$(X, Y)$ 关于 $Y$ 的概率密度为 $f_Y(y)$ 。若对于固定的 $y, f_Y(y) > 0$ ，则称 $\frac{f(x,y)}{f_Y(y)}$ 为在 $Y=y$ 的条件下 $X$ 的<span class="definition">条件概率密度</span>，记为
+
+$$
+f_{X|Y}(x|y) = \frac{f(x, y)}{f_Y(y)}.
+$$
+
+称
+
+$$
+F_{X|Y}(x|y) = P\{X \leq x | Y \leq y\} = \int_{\infty}^{x} \frac{f(x, y)}{f_Y(y)} dx
+$$
+
+为在 $Y=y$ 的条件下 $X$ 的<span class="definition">条件分布函数</span>。
+
 <h2 align="center">相互独立的随机变量</h2>
 
+&emsp;&emsp;设 $F(x, y)$ 及 $F_X(x), F_Y(y)$ 分别是二维随机变量 $(X, Y)$ 的分布函数及边缘分布函数。若对于所有 $x, y$ 有
+
+$$
+P\{X \leq x, Y \leq y\} = P\{X \leq x\} P{Y \leq y}, \\
+F(x, y) = F_X(x) F_Y(y)
+$$
+
+则称随机变量 $X$ 和 $Y$ 是<span class="definition">相互独立</span>的。
+
+&emsp;&emsp;设 $f(x,y), f_X(x), f_Y(y)$ 分别是二维连续型随机变量 $(X, Y)$ 的概率密度和边缘概率密度，则 $X$ 和 $Y$ 相互独立的条件等价于：等式
+
+$$
+f(x, y) = f_X(x)F_Y(y)
+$$
+
+在平面上几乎处处成立，即在平面上除去“面积”为零的集合以外，处处成立。
+
 <h2 align="center">两个随机变量的函数的分布</h2>
+
+我们只讨论下面几个具体的函数。
+
+### 一、$Z = X + Y$ 的分布
+
+&emsp;&emsp;设 $(X, Y)$ 是二维随机变量，它的概率密度为 $f(x, y)$ ，则 $Z = X + Y$ 的概率密度为
+
+$$
+f_{X+Y}(z) = \int_{-\infty}^{\infty} f(z-y, y) dy = \int_{-\infty}^{\infty} f(x, z-x)dx
+$$
+
+若$X$ 和 $Y$ 相互独立，则 $f_{X+Y}(z) = \int_{-\infty}^{\infty} f_X(x)f_Y(z-x)dx$ 或 $f_{X+Y}(z) = \int_{-\infty}^{\infty} f_X(z-y)f_Y(y)dy$ 。这两个公式称为 $f_X$ 和 $f_Y$ 的<span class="definition">卷积公式</span>。
+
+&emsp;&emsp;可以证明：<span class="conclusion">有限个相互独立的正态随机变量的线性组合仍然服从正态分布</span>。
+
+### 二、$Z= \frac{Y}{X}$ 和 $Z = XY$ 的分布
+
+&emsp;&emsp;设 $(X, Y)$ 是二维随机变量，它的概率密度为 $f(x, y)$ ，则 $Z = \frac{Y}{X}$ 和 $Z = XY$ 的概率密度分别为
+
+$$
+f_{\frac{Y}{X}}(z) = \int_{-\infty}^{\infty} |x|f(x, xz) dx \\
+f_{XY}(z) = \int_{-\infty}^{\infty} \frac{1}{|x|}f(x, \frac{z}{x}) dx
+$$
+
+若$X$ 和 $Y$ 相互独立，则 $f_{\frac{Y}{X}}(z) = \int_{-\infty}^{\infty} |x|f_X(x)f_Y(xz)dx$ 以及 $f_{XY}(z) = \int_{-\infty}^{\infty} \frac{1}{|x|}f_X(x) f_Y(\frac{z}{x})dx$ 。
+
+### 三、$M = max\{X, Y\}$ 和 $N = min\{X, Y\}$ 的分布
+
+&emsp;&emsp;设 $X, Y$ 是两个相互独立的随机变量，则$M = max\{X, Y\}$ 和 $N = min\{X, Y\}$ 的分布函数为
+
+$$
+F_{max}(z) = F_X(z)F_Y(z) \\
+F_{min}(z) = 1- [1-F_X(z)][1-F_Y(z)]
+$$
 
 <h2 align="center">小结</h2>
 
