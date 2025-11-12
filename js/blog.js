@@ -1,4 +1,4 @@
-// js/blog.js - 博客功能主文件（重构版）
+// js/blog.js - 博客功能主文件（重构）
 class BlogManager {
     constructor() {
         this.config = {
@@ -9,7 +9,8 @@ class BlogManager {
                 'learning': '📖 No articles in Math category',
                 'Linear-Algebra': '📐 No articles in Linear Algebra category',
                 'math-analysis': '∫ No articles in Math Analysis category',
-                'Discrete-Mathematics': '🔢 No articles in Discrete Mathematics category'
+                'Discrete-Mathematics': '🔢 No articles in Discrete Mathematics category',
+                'Probability-Statistics': '📊 No articles in Probability and Statistics category'
             },
             categoryNames: {
                 'all': 'All',
@@ -18,9 +19,10 @@ class BlogManager {
                 'learning': 'Math',
                 'Linear-Algebra': 'Linear Algebra',
                 'math-analysis': 'Math Analysis',
-                'Discrete-Mathematics': 'Discrete Mathematics'
+                'Discrete-Mathematics': 'Discrete Mathematics',
+                'Probability-Statistics': 'Probability and Statistics'
             },
-            mathCategories: ['learning', 'Linear-Algebra', 'math-analysis', 'Discrete-Mathematics']
+            mathCategories: ['learning', 'Linear-Algebra', 'math-analysis', 'Discrete-Mathematics', 'Probability-Statistics']
         };
         
         this.elements = {};
@@ -233,6 +235,14 @@ class BlogManager {
                 date: '2025-11-05',
                 link: 'articles/DriftAway.html',
                 coverImage: 'images/article_covers/旅行者一号.jpeg'
+            },
+
+            {
+                title: '第三章 多维随机变量及其分布',
+                category: 'Probability-Statistics',
+                date: '2025-11-06',
+                link: 'articles/Probability_Chapter3.html',
+                coverImage: 'images/article_covers/probability_statistics.jpg'
             }
             // 可以在这里添加更多文章
         ];
