@@ -10,7 +10,7 @@
 
 ### 项目文件树
 
-你可以点击index.html文件进入我的博客主页。articles文件夹里存放了我的每一篇文章，暂时共分四类。目前发布出来的有两篇，分别是生活类中的《DriftAway》和数学类中概率统计子类中的《Probability_Chapter3.html》，后续会发布更多的文章。文章中的图片全部放在images文件夹中，供读者自行下载。
+你可以点击index.html文件进入我的博客主页。articles文件夹里存放了我的每一篇文章，暂时共分四类。我习惯现在md文件中写好内容，在导出成为html文件。目前发布出来的有两篇，分别是生活类中的《DriftAway》和数学类中概率统计子类中的《Probability_Chapter3.html》，后续会发布更多的文章。文章中的图片全部放在images文件夹中，供读者自行下载。
 
 ```
 ZhouH-671.github.io/
@@ -41,7 +41,6 @@ ZhouH-671.github.io/
 │   └── images/
 │       ├── avatar.jpg             
 │       ├── background.jpg
-│       ├── Probability_Chapter3_background.jpg
 │       └── article_covers/        
 │           ├── probability_statistics.jpg
 │           ├── Chapter2_Determinants.jpeg
@@ -60,9 +59,13 @@ ZhouH-671.github.io/
 │           ├── 木星的大红斑(1).jpeg
 │           ├── 木星的大红斑.jpeg
 │           └── 银河系.jpeg
+│       └── Probability/
+│           └── Probability_Chapter3_background.jpg
 └── 项目配置
     └── LICENSE                    # MIT许可证
 ```
+
+
 
 ## 修改日志
 
