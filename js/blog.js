@@ -243,6 +243,14 @@ class BlogManager {
                 date: '2025-11-06',
                 link: 'articles/Probability_Chapter3.html',
                 coverImage: 'images/article_covers/probability_statistics.jpg'
+            },
+
+            {
+                title: '深夜有感',
+                category: 'life',
+                date: '2025-11-16',
+                link: 'articles/dairy.html',
+                coverImage: 'images/article_covers/深夜有感.jpg'
             }
             // 可以在这里添加更多文章
         ];
