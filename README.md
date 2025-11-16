@@ -25,8 +25,10 @@ ZhouH-671.github.io/
 │       ├── Chapter2_Answer.md  
 │       ├── Chapter2_Determinants.html
 │       ├── Chapter2_Determinants.md 
+│       ├── dairy.html
+│       ├── dairy.md
 │       ├── DriftAway.html
-│       └── DriftAway.md         
+│       └── DriftAway.md       
 ├── 样式文件
 │   ├── css/
 │       ├── style.css              # 主样式表
@@ -36,16 +38,29 @@ ZhouH-671.github.io/
 │           └── articles.css       # 文章组件
 ├── 功能脚本
 │   └── js/
-│       └── blog.js                
+│       └── blog.js              
 ├── 图片资源
 │   └── images/
-│       ├── avatar.jpg             
+│       ├── avatar.jpg           
 │       ├── background.jpg
-│       └── article_covers/        
+│       ├── 1.jpg
+│       ├── 3.jpg
+│       ├── 4.jpg
+│       └── article_covers/      
 │           ├── probability_statistics.jpg
 │           ├── Chapter2_Determinants.jpeg
 │           ├── Linear_Algebra_Answer.png
 │           └── 旅行者一号.jpeg
+│       └── 深夜有感/
+│           ├── backgroundSky.jpg
+│           ├── 从主楼出来.jpg
+│           ├── 好好生活.jpg
+│           ├── 树叶飞起来.jpg
+│           ├── 香草.jpg
+│           ├── 小叶墙.jpg
+│           ├── 学校要爆炸.jpg
+│           ├── 一墙黄叶.jpg
+│           └── 一树花灯.jpg
 │       └── DriftAway/
 │           ├── backgroundSky.jpeg
 │           ├── 唱片.jpeg
@@ -65,8 +80,6 @@ ZhouH-671.github.io/
     └── LICENSE                    # MIT许可证
 ```
 
-
-
 ## 修改日志
 
 At 20251029 21:37 修复了一些已知问题。
@@ -80,3 +93,5 @@ At 20251112 12:52 发布了概统第三章的笔记第一版
 At 20251112日晚(写下这条日志已经是两天后，我已经无法准确地回忆起当时究竟是什么时候完成了这次修改) 发布了概统第三章笔记的第二版
 
 At 20251114 20:36 完善了README.nd文件的内容，首次添加了项目结构树
+
+At 20251116 12:16 发布了昨晚写的一篇日记，完善了结构树
