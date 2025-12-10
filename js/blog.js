@@ -238,6 +238,14 @@ class BlogManager {
             },
 
             {
+                title: '深夜有感',
+                category: 'life',
+                date: '2025-11-16',
+                link: 'articles/dairy.html',
+                coverImage: 'images/article_covers/深夜有感.jpg'
+            },
+
+            {
                 title: '第三章 多维随机变量及其分布',
                 category: 'Probability-Statistics',
                 date: '2025-11-06',
@@ -246,11 +254,19 @@ class BlogManager {
             },
 
             {
-                title: '深夜有感',
-                category: 'life',
-                date: '2025-11-16',
-                link: 'articles/dairy.html',
-                coverImage: 'images/article_covers/深夜有感.jpg'
+                title: '第一章 概率论的基本概念',
+                category: 'Probability-Statistics',
+                date: '2025-12-10',
+                link: 'articles/Probability_Chapter1.html',
+                coverImage: 'images/article_covers/probability_statistics.jpg'
+            },
+
+            {
+                title: '第四章 随机变量的数字特征',
+                category: 'Probability-Statistics',
+                date: '2025-12-10',
+                link: 'articles/Probability_Chapter4.html',
+                coverImage: 'images/article_covers/probability_statistics.jpg'
             }
             // 可以在这里添加更多文章
         ];

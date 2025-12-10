@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第一章 概率论的基本概念</title>
+    <style>
+        .definition {
+            color: #1890ff;
+            font-family: "楷体", "STKaiti", serif;
+            font-weight: bold;
+            background-color: #f0f8ff;
+            padding: 4px 8px;
+            border-left: 3px solid #1890ff;
+            margin: 8px 0;
+        }
+
+        .conclusion {
+            color: #52c41a;
+            font-family: "宋体", "SimSun", serif;
+            font-weight: bold;
+            background-color: #f6ffed;
+            padding: 4px 8px;
+            border-left: 3px solid #52c41a;
+            margin: 8px 0;
+        }
+
+        .problem {
+            color: #fa541c;
+            font-family: "黑体", "SimHei", sans-serif;
+            font-weight: bold;
+            background-color: #fff2e8;
+            padding: 4px 8px;
+            border-left: 3px solid #fa541c;
+            margin: 8px 0;
+        }
+        
+        body {
+            font-family: "宋体", "SimSun", serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            min-height: 100vh;
+            color: rgb(0, 0, 0);
+
+            background-image: url('../images/Probability/Probability_Chapter_background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* 文字内容容器样式 */
+        .content-container {
+            background-color: rgba(255, 255, 255, 0.25);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        
+        h1, h2 {
+            text-align: center;
+        }
+        
+        .center {
+            text-align: center;
+        }
+        
+        /* 分页样式 */
+        .page {
+            min-height: 80vh;
+            position: relative;
+            display: none;
+            padding-bottom: 80px;
+        }
+
+        /* 显示第一页 */
+        #page1 {
+            display: block;
+        }
+        
+        /* 导航按钮通用样式 */
+        .nav-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #1890ff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: "宋体", "SimSun", serif;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+            z-index: 1000;
+            width: 150px;
+            text-align: center;
+        }
+        
+        .nav-btn:hover {
+            background-color: #40a9ff;
+        }
+        
+        /* 下一页按钮位置 */
+        .next-btn {
+            right: 20px;
+        }
+
+        /* 上一页按钮样式和位置 */
+        .prev-btn {
+            left: 20px;
+            background-color: #52c41a;
+        }
+
+        .prev-btn:hover {
+            background-color: #73d13d;
+        }
+
+        /* 返回首页按钮样式和位置 */
+        .home-btn {
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #722ed1;
+        }
+
+        .home-btn:hover {
+            background-color: #9254de;
+        }
+
+        /* 返回主页按钮（左上角）样式 */
+        .home-btn-top {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #722ed1;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: "宋体", "SimSun", serif;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+            z-index: 1000;
+            width: 100px;
+            height: 36px;
+            text-align: center;
+            line-height: 20px;
+        }
+
+        .home-btn-top:hover {
+            background-color: #9254de;
+        }
+    </style>
+
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+
+    <script type="text/javascript" id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+</head>
+<body>
+
+<!-- 第一页：随机试验 -->
+<div id="page1" class="page">
+    <button class="nav-btn home-btn-top" onclick="goToHomePage()">返回主页</button>
+
+    <div class="content-container">
+        <h1>第一章 概率论的基本概念</h1>
+        <h2>随机试验</h2>
+    </div>
+
+    <button class="nav-btn next-btn" onclick="showPage(2)">下一页 →</button>
+</div>
+
+<!-- 第二页：样本空间；随机事件 -->
+<div id="page2" class="page">
+    <div class="content-container">
+        <h1>第一章 概率论的基本概念</h1>
+        <h2>样本空间；随机事件</h2>
+    </div>
+
+    <button class="nav-btn prev-btn" onclick="showPage(1)">← 上一页</button>
+    <button class="nav-btn home-btn" onclick="showPage(1)">返回首页</button>
+    <button class="nav-btn next-btn" onclick="showPage(3)">下一页 →</button>
+</div>
+
+<!-- 第三页：频率与概率 -->
+<div id="page3" class="page">
+    <div class="content-container">
+        <h1>第一章 概率论的基本概念</h1>
+        <h2>频率与概率</h2>
+    </div>
+
+    <button class="nav-btn prev-btn" onclick="showPage(2)">← 上一页</button>
+    <button class="nav-btn home-btn" onclick="showPage(1)">返回首页</button>
+    <button class="nav-btn next-btn" onclick="showPage(4)">下一页 →</button>
+</div>
+
+<!-- 第四页：等可能概型(古典概型) -->
+<div id="page4" class="page">
+    <div class="content-container">
+        <h1>第一章 概率论的基本概念</h1>
+        <h2>等可能概型(古典概型)</h2>
+    </div>
+
+    <button class="nav-btn prev-btn" onclick="showPage(3)">← 上一页</button>
+    <button class="nav-btn home-btn" onclick="showPage(1)">返回首页</button>
+    <button class="nav-btn next-btn" onclick="showPage(5)">下一页 →</button>
+</div>
+
+<!-- 第五页：条件概率 -->
+<div id="page5" class="page">
+    <div class="content-container">
+        <h1>第一章 概率论的基本概念</h1>
+        <h2>条件概率</h2>
+    </div>
+
+    <button class="nav-btn prev-btn" onclick="showPage(4)">← 上一页</button>
+    <button class="nav-btn home-btn" onclick="showPage(1)">返回首页</button>
+    <button class="nav-btn next-btn" onclick="showPage(6)">下一页 →</button>
+</div>
+
+<!-- 第六页：独立性 -->
+<div id="page6" class="page">
+    <div class="content-container">
+        <h1>第一章 概率论的基本概念</h1>
+        <h2>独立性</h2>
+    </div>
+
+    <button class="nav-btn prev-btn" onclick="showPage(5)">← 上一页</button>
+    <button class="nav-btn home-btn" onclick="showPage(1)">返回首页</button>
+    <button class="nav-btn next-btn" onclick="showPage(7)">下一页 →</button>
+</div>
+
+<!-- 第七页：小结 -->
+<div id="page7" class="page">
+    <div class="content-container">
+        <h1>第一章 概率论的基本概念</h1>
+        <h2>小结</h2>
+        
+        <hr>
+        
+        <p>&emsp;&emsp;随机试验的全部可能结果组成的集合 $S$ 称为样本空间。样本空间 $S$ 的子集称为事件，当且仅当这一子集中的一个样本点出现时，称这一事件发生。事件是一个集合，因而事件的关系与事件的运算自然按照集合论中集合之间的关系和集合的运算来处理。集合间的关系和集合的运算，读者是熟悉的，重要的是要知道它们在概率论中的含义。</p>
+        
+        <p>&emsp;&emsp;在一次实验中，一个事件(除必然事件与不可能事件外)可能发生也可能不发生，其发生的可能性的大小是客观存在的，事件发生的概率以及它的稳定性，表明能用一个数来表征事件在一次实验中发生的可能性的大小。我们从频率的稳定性及频率的性质得到启发和抽象，给出了概率的定义。我们定义了一个集合(事件)的函数 $P(·)$ ，它满足三条基本性质：</p>
+        
+        <ol>
+            <li>非负性</li>
+            <li>规范性</li>
+            <li>可列可加性</li>
+        </ol>
+        
+        <p>&emsp;&emsp;这一函数的函数值 $P(A)$ 就定义为事件 $A$ 概率。</p>
+        
+        <p>&emsp;&emsp;概率的定义只给出了概率必须满足的三条基本性质，并未对事件 $A$ 的概率 $P(A)$ 给定一个具体的数。只在古典概型的情况，对于每个事件 $A$ 给出了概率 $P(A) = k/n$ 。一般，我们可以进行大量的重复实验，得到事件 $A$ 的频率，而以频率作为 $P(A)$ 的近似值，或者根据频率的性质分析，得到 $P(A)$ 的取值。</p>
+        
+        <p>&emsp;&emsp;在古典概型中，我们证明了条件概率的公式</p>
+        
+        <p>$$P(B|A) = \frac{P(A \cap B)}{P(A)}, \quad P(A) > 0. \tag{5.2}$$</p>
+        
+        <p>&emsp;&emsp;在一般的情况，上式作为条件概率的定义。固定 $A$ ，条件概率 $P(·|A)$ 据具有概率定义中的三条基本性质，因而条件概率是一种概率。</p>
+        
+        <p>&emsp;&emsp;有两种计算条件概率 $P(B|A)$ 的方法：(1)按条件概率的含义，直接求出 $P(B|A)$ 。注意到，在求 $P(B|A)$ 时已知事件 $A$ 已发生，样本空间 $S$ 中所有不属于 $A$ 的样本点都被排除，原有的样本空间 $S$ 缩减成为 $S' = A$ 。在缩减了的样本空间 $S' = A$ 中计算事件 $B$ 的概率就得到 $P(B|A)$ 。(2)在 $S$ 中计算 $P(AB)$ 及 $P(A)$ ，再按(5.2)式求得 $P(B|A)$。</p>
+        
+        <p>&emsp;&emsp;将(5.2)式写成</p>
+        
+        <p>$$P(A \cap B) = P(B|A)P(A), \quad P(A) > 0. \tag{5.3}$$</p>
+        
+        <p>&emsp;&emsp;这就是乘法公式。我们常按上述第一种方法求出条件概率，从而按(5.3)可求得 $P(AB)$ 。</p>
+        
+        <p>&emsp;&emsp;事件的独立性是概率论中一个非常重要的概念。概率论与数理统计中的很多很多内容都是在独立的前提下讨论的。应该注意到，在实际应用中，对于事件的独立性，我们往往不是根据定义来验证而是根据实际意义来加以判断的。根据实际背景判断事件的独立性，往往并不困难。</p>
+    </div>
+
+    <button class="nav-btn prev-btn" onclick="showPage(6)">← 上一页</button>
+    <button class="nav-btn home-btn" onclick="showPage(1)">返回首页</button>
+</div>
+
+<script>
+    // 返回主页函数
+    function goToHomePage() {
+        window.location.href = '../index.html';
+    }
+    // 显示指定页面，隐藏其他所有页面
+    function showPage(pageNumber) {
+        // 隐藏所有页面
+        for (let i = 1; i <= 7; i++) {
+            document.getElementById('page' + i).style.display = 'none';
+        }
+        // 显示指定页面
+        document.getElementById('page' + pageNumber).style.display = 'block';
+        // 滚动到顶部
+        window.scrollTo(0, 0);
+    }
+    
+    // 初始化显示第一页
+    window.onload = function() {
+        showPage(1);
+    };
+</script>
+
+</body>
+</html>
