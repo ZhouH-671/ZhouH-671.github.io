@@ -246,18 +246,18 @@ class BlogManager {
             },
 
             {
-                title: '第三章 多维随机变量及其分布',
-                category: 'Probability-Statistics',
-                date: '2025-11-06',
-                link: 'articles/Probability_Chapter3.html',
-                coverImage: 'images/article_covers/probability_statistics.jpg'
-            },
-
-            {
                 title: '第一章 概率论的基本概念',
                 category: 'Probability-Statistics',
                 date: '2025-12-10',
                 link: 'articles/Probability_Chapter1.html',
+                coverImage: 'images/article_covers/probability_statistics.jpg'
+            },
+
+            {
+                title: '第三章 多维随机变量及其分布',
+                category: 'Probability-Statistics',
+                date: '2025-11-06',
+                link: 'articles/Probability_Chapter3.html',
                 coverImage: 'images/article_covers/probability_statistics.jpg'
             },
 
