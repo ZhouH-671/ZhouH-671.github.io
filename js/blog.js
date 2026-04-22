@@ -257,7 +257,7 @@ class BlogManager {
                 title: '生成随机数！抽题利器',
                 category: 'Probability-Statistics',
                 date: '2026-04-22',
-                link: 'articles/Random_Number_Generation.html',
+                link: 'articles/Random_Number_Memorization_Problem.html',
                 coverImage: 'images/1.png'
             },
             // 可以在这里添加更多文章
