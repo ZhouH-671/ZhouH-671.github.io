@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>随机数工坊 · 1～300 的奇妙数字</title>
+    <meta name="description" content="一个简单优雅的随机数生成器，每次生成1到300之间的整数，可用于抽选、决策或数学小实验。">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f9fafb;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Noto Sans', sans-serif;
+            line-height: 1.5;
+            color: #111827;
+            padding: 2rem 1rem;
+        }
+
+        /* 文章主容器 - 模拟博客正文宽度 */
+        .post-container {
+            max-width: 760px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        /* 文章头部 */
+        .post-header {
+            padding: 2rem 2rem 0.5rem 2rem;
+            border-bottom: 1px solid #f0f2f5;
+        }
+        .post-category {
+            display: inline-block;
+            background: #eef2ff;
+            color: #1e40af;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            letter-spacing: 0.3px;
+            margin-bottom: 1rem;
+        }
+        .post-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e293b, #2563eb);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+        .post-meta {
+            display: flex;
+            gap: 1.2rem;
+            color: #6b7280;
+            font-size: 0.85rem;
+            padding-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .post-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* 正文内容 */
+        .post-content {
+            padding: 2rem;
+        }
+
+        /* 随机数核心卡片 */
+        .randomizer-card {
+            background: #f8fafc;
+            border-radius: 1.5rem;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            margin: 1.5rem 0;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+        .random-number {
+            font-size: 5rem;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            background: linear-gradient(145deg, #0f172a, #3b82f6);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: 4px;
+            margin: 0.5rem 0;
+            word-break: break-word;
+        }
+        .range-label {
+            font-size: 0.9rem;
+            color: #475569;
+            background: #eef2ff;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            margin-bottom: 1rem;
+        }
+        .generate-btn {
+            background: #1e293b;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 3rem;
+            font-weight: 600;
+            font-size: 1rem;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 0.8rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .generate-btn:hover {
+            background: #0f172a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1);
+        }
+        .generate-btn:active {
+            transform: translateY(1px);
+        }
+        .history-area {
+            margin-top: 2rem;
+            border-top: 1px dashed #cbd5e1;
+            padding-top: 1.2rem;
+            text-align: left;
+        }
+        .history-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #334155;
+            letter-spacing: 0.3px;
+            margin-bottom: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+        .history-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        .history-badge {
+            background: white;
+            border-radius: 2rem;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.85rem;
+            font-family: monospace;
+            font-weight: 500;
+            color: #1f2937;
+            border: 1px solid #e2e8f0;
+            transition: 0.1s;
+        }
+        .clear-history {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 0.7rem;
+            cursor: pointer;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            transition: 0.2s;
+        }
+        .clear-history:hover {
+            background: #f1f5f9;
+            color: #ef4444;
+        }
+        .info-note {
+            background: #fef9e3;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem 1.2rem;
+            border-radius: 1rem;
+            margin: 1.8rem 0 0.5rem 0;
+            font-size: 0.9rem;
+            color: #92400e;
+        }
+        hr {
+            margin: 1.5rem 0;
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, #e2e8f0, transparent);
+        }
+        footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #9ca3af;
+            padding: 1rem 2rem 2rem;
+            border-top: 1px solid #f0f2f5;
+        }
+        @media (max-width: 550px) {
+            .post-title { font-size: 1.6rem; }
+            .random-number { font-size: 3.2rem; }
+            .post-content { padding: 1.5rem; }
+            .post-header { padding: 1.5rem 1.5rem 0rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="post-container">
+    <div class="post-header">
+        <div class="post-category">🎲 数学小实验 · 概率与统计</div>
+        <h1 class="post-title">灵数一掷：1 ~ 300 随机发生器</h1>
+        <div class="post-meta">
+            <span>📅 2026-04-22</span>
+            <span>⏱️ 阅读 1 分钟</span>
+            <span>🎯 趣味工具</span>
+        </div>
+    </div>
+
+    <div class="post-content">
+        <p>在决策、抽签或数学模拟中，一个<strong>真正随机的整数</strong>常常带来惊喜。这个迷你工具基于 <code>Math.random()</code> 生成<strong>1 到 300</strong> 之间的均匀随机整数，每一次点击都是全新且独立的数字。</p>
+
+        <!-- 随机数核心组件 -->
+        <div class="randomizer-card">
+            <div class="range-label">⚡ 当前范围 · 1 ～ 300</div>
+            <div class="random-number" id="randomNumberDisplay">—</div>
+            <button class="generate-btn" id="generateBtn">
+                ✨ 掷出随机数
+            </button>
+
+            <!-- 历史记录区域 -->
+            <div class="history-area">
+                <div class="history-title">
+                    <span>📋 最近生成记录</span>
+                    <button class="clear-history" id="clearHistoryBtn">清空记录</button>
+                </div>
+                <div class="history-badges" id="historyContainer">
+                    <span style="color:#9ca3af; font-size:0.75rem;">暂无记录，点击按钮生成</span>
+                </div>
+            </div>
+        </div>
+
+        <h2>🎯 如何使用</h2>
+        <p>点击 <strong>「掷出随机数」</strong> 按钮，页面会立刻产生一个介于 1 与 300 之间的整数（包含1和300）。每次生成都会自动保存到「最近生成记录」中，最多保留最近 10 条，方便您追踪多轮结果。</p>
+
+        <h2>📐 随机性说明</h2>
+        <p>本生成器采用 JavaScript 内置的 <code>Math.random()</code> 结合均匀分布算法：<br>
+        <code>Math.floor(Math.random() * 300) + 1</code> 。理论上每个数字出现的概率均等 (≈ 0.333%)，适用于课堂抽选、日常小决定或概率验证小实验。</p>
+
+        <div class="info-note">
+            💡 <strong>小贴士</strong>：如果您需要更复杂的随机种子或加密级随机，可考虑 Web Crypto API，但对于日常随机决策，当前算法已足够公平有趣。
+        </div>
+
+        <hr />
+
+        <h2>🔢 应用场景</h2>
+        <ul style="margin-left: 1.5rem; color: #334155;">
+            <li>📖 随机抽取课本习题序号（1~300）</li>
+            <li>🎮 桌游或课堂互动随机点数</li>
+            <li>📊 快速生成模拟数据样本</li>
+            <li>✨ 每日幸运数字 / 随机灵感</li>
+        </ul>
+
+        <p style="margin-top: 1.5rem;">愿这个小小的随机数盒子，为您的学习和生活带来一点未知的乐趣。试试看，下一个数字会是多少？</p>
+    </div>
+
+    <footer>
+        🌟 纯粹随机 · 每次点击都是一次独立事件
+    </footer>
+</div>
+
+<script>
+    (function() {
+        // 随机数生成核心: 返回 1～300 之间的整数
+        function getRandomInt() {
+            return Math.floor(Math.random() * 300) + 1;
+        }
+
+        // DOM 元素
+        const displayDiv = document.getElementById('randomNumberDisplay');
+        const generateBtn = document.getElementById('generateBtn');
+        const historyContainer = document.getElementById('historyContainer');
+        const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+
+        // 存储历史记录（最多10条，最新在前或后？通常最新显示在后面或前面，为了让体验自然，最新显示在左侧/尾部）
+        // 设计为数组存储数字，最新生成的追加到数组末尾，展示时顺序: 最近的显示在最右侧？为了界面整洁，展示最新在左侧或右侧都可以，采用顺序展示，最新出现在最末尾（右侧）
+        let historyNumbers = [];
+
+        // 最大保存记录数
+        const MAX_HISTORY = 10;
+
+        // 更新显示区域与历史区域
+        function updateDisplay(number) {
+            displayDiv.textContent = number;
+        }
+
+        function renderHistory() {
+            if (!historyContainer) return;
+            if (historyNumbers.length === 0) {
+                historyContainer.innerHTML = '<span style="color:#9ca3af; font-size:0.75rem;">暂无记录，点击按钮生成</span>';
+                return;
+            }
+            // 生成徽章列表，保持顺序（最早的在前，最新的在后）
+            const fragment = document.createDocumentFragment();
+            historyNumbers.forEach((num, idx) => {
+                const badge = document.createElement('span');
+                badge.className = 'history-badge';
+                badge.textContent = num;
+                // 可以增加简单的动画或提示，但保持干净
+                fragment.appendChild(badge);
+            });
+            historyContainer.innerHTML = '';
+            historyContainer.appendChild(fragment);
+        }
+
+        // 添加新记录到历史
+        function addToHistory(number) {
+            historyNumbers.push(number);
+            // 如果超过最大长度，移除最旧的（数组头部）
+            if (historyNumbers.length > MAX_HISTORY) {
+                historyNumbers.shift();
+            }
+            renderHistory();
+        }
+
+        // 清空历史
+        function clearHistory() {
+            historyNumbers = [];
+            renderHistory();
+            // 不清空当前显示的大数字，只清空记录栏
+        }
+
+        // 生成随机数并执行完整更新（生成新数字、加入历史、更新界面）
+        function generateAndUpdate() {
+            const newNumber = getRandomInt();
+            updateDisplay(newNumber);
+            addToHistory(newNumber);
+            // 添加一个微小触感（可选，但不影响功能）
+        }
+
+        // 页面初始化时，自动生成一个随机数，让文章打开后直接看到一个数字（而不是横线）
+        function initRandomOnLoad() {
+            const initialNum = getRandomInt();
+            updateDisplay(initialNum);
+            // 可选：是否将初始数字加入历史？ 为了保持行为一致，通常初始页面展示不加入历史记录（避免误认为已经生成过）
+            // 但为了更好的体验，也可以不加，按用户第一次点击才记录。但大多数工具会显示一个默认数字且不记录历史。此处采用：初始数字仅为展示，不进入历史。
+            // 如果想保留初始数字进历史可取消注释下面一行，但一般建议首次自动生成不记历史更符合“主动生成”语义。
+            // addToHistory(initialNum);
+            // 决定: 初始数字不干扰历史记录，让用户主动点击后开始记录更干净。
+            displayDiv.textContent = initialNum;
+        }
+
+        // 绑定事件
+        generateBtn.addEventListener('click', () => {
+            generateAndUpdate();
+        });
+
+        clearHistoryBtn.addEventListener('click', () => {
+            clearHistory();
+        });
+
+        // 启动
+        initRandomOnLoad();
+    })();
+</script>
+</body>
+</html>

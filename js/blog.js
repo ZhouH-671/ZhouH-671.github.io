@@ -1,4 +1,4 @@
-// js/blog.js - 博客功能主文件（重构）
+// js/blog.js - 博客功能主文件
 class BlogManager {
     constructor() {
         this.config = {
@@ -230,22 +230,6 @@ class BlogManager {
         // 预定义文章数据
         const initialArticles = [
             {
-                title: '渐行渐远',
-                category: 'life',
-                date: '2025-11-05',
-                link: 'articles/DriftAway.html',
-                coverImage: 'images/article_covers/旅行者一号.jpeg'
-            },
-
-            {
-                title: '深夜有感',
-                category: 'life',
-                date: '2025-11-16',
-                link: 'articles/dairy.html',
-                coverImage: 'images/article_covers/深夜有感.jpg'
-            },
-
-            {
                 title: '第一章 概率论的基本概念',
                 category: 'Probability-Statistics',
                 date: '2025-12-10',
@@ -267,7 +251,15 @@ class BlogManager {
                 date: '2025-12-10',
                 link: 'articles/Probability_Chapter4.html',
                 coverImage: 'images/article_covers/probability_statistics.jpg'
-            }
+            },
+
+            {
+                title: '生成随机数！抽题利器',
+                category: 'Probability-Statistics',
+                date: '2026-04-22',
+                link: 'articles/number.html',
+                coverImage: 'images/1.png'
+            },
             // 可以在这里添加更多文章
         ];
 
