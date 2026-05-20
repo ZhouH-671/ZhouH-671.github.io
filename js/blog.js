@@ -258,7 +258,15 @@ class BlogManager {
                 category: 'Probability-Statistics',
                 date: '2026-04-22',
                 link: 'articles/Random_Number_Memorization_Problem.html',
-                coverImage: 'images/1.png'
+                coverImage: 'images/article_covers/cover1.png'
+            },
+
+            {
+                title: 'A Letter to You',
+                category: 'life',
+                date: '2026-05-20',
+                link: 'articles/Letter.html',
+                coverImage: 'images/article_covers/cover2.jpg'
             },
             // 可以在这里添加更多文章
         ];
