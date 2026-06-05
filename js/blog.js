@@ -268,6 +268,14 @@ class BlogManager {
                 link: 'articles/Letter.html',
                 coverImage: 'images/article_covers/cover2.jpg'
             },
+
+            {
+                title: 'Air police 3000 ',
+                category: 'life',
+                date: '2026-06-05',
+                link: 'articles/AirplaneGame.html',
+                coverImage: 'images/article_covers/旅行者一号.jpeg'
+            },
             // 可以在这里添加更多文章
         ];
 
