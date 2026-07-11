@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算机组成原理学习网站</title>
+    <style>
+        .definition {
+            color: #1890ff;
+            font-family: "楷体", "STKaiti", serif;
+            font-weight: bold;
+            background-color: #f0f8ff;
+            padding: 4px 8px;
+            border-left: 3px solid #1890ff;
+            margin: 8px 0;
+        }
+
+        .conclusion {
+            color: #52c41a;
+            font-family: "宋体", "SimSun", serif;
+            font-weight: bold;
+            background-color: #f6ffed;
+            padding: 4px 8px;
+            border-left: 3px solid #52c41a;
+            margin: 8px 0;
+        }
+
+        .problem {
+            color: #fa541c;
+            font-family: "黑体", "SimHei", sans-serif;
+            font-weight: bold;
+            background-color: #fff2e8;
+            padding: 4px 8px;
+            border-left: 3px solid #fa541c;
+            margin: 8px 0;
+        }
+
+        blockquote {
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin: 20px 0;
+            color: #f90000;
+            font-style: italic;
+        }
+        
+        body {
+            font-family: "宋体", "SimSun", serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            min-height: 100vh;
+            color: rgb(0, 0, 0);
+            background-image: url('../../images/background/comupterOrganization.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* 文字内容容器样式 */
+        .content-container {
+            background-color: rgba(255, 255, 255, 0.25);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        
+        h1, h2 {
+            text-align: center;
+        }
+        
+        .center {
+            text-align: center;
+        }
+        
+        /* 分页样式 */
+        .page {
+            min-height: 80vh;
+            position: relative;
+            display: none;
+            padding-bottom: 80px;
+        }
+
+        /* 显示第一页 */
+        #page1 {
+            display: block;
+        }
+        
+        /* 导航按钮通用样式 */
+        .nav-btn {
+            position: fixed;
+            bottom: 20px;
+            background-color: #1890ff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: "宋体", "SimSun", serif;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+            z-index: 1000;
+            width: 150px;
+            text-align: center;
+        }
+        
+        .nav-btn:hover {
+            background-color: #40a9ff;
+        }
+        
+        /* 下一页按钮位置 */
+        .next-btn {
+            right: 20px;
+        }
+
+        /* 上一页按钮样式和位置 */
+        .prev-btn {
+            left: 20px;
+            background-color: #52c41a;
+        }
+
+        .prev-btn:hover {
+            background-color: #73d13d;
+        }
+
+        /* 返回首页按钮样式和位置 */
+        .home-btn {
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #722ed1;
+        }
+
+        .home-btn:hover {
+            background-color: #9254de;
+        }
+
+        /* 返回主页按钮（左上角）样式 */
+        .home-btn-top {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #722ed1;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: "宋体", "SimSun", serif;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+            z-index: 1000;
+            width: 100px;
+            height: 36px;
+            text-align: center;
+            line-height: 20px;
+        }
+
+        .home-btn-top:hover {
+            background-color: #9254de;
+        }
+
+        /* 页面内链接样式 */
+        .content-container a {
+            color: #1890ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .content-container a:hover {
+            text-decoration: underline;
+            color: #40a9ff;
+        }
+
+        /* 引用块（>）样式 - 与 blockquote 一致 */
+        .content-container > blockquote {
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin: 20px 0;
+            color: #f90000;
+            font-style: italic;
+        }
+    </style>
+
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+
+    <script type="text/javascript" id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+</head>
+<body>
+
+<!-- 第一页：引言 + 实验部分 -->
+<div id="page1" class="page">
+    <button class="nav-btn home-btn-top" onclick="goToHomePage()">返回主页</button>
+
+    <div class="content-container">
+        <h1>计算机组成原理</h1>
+
+        <blockquote>欢迎来到小h学长整理的计算机组成原理学习网站！课程内容分为实验课与理论课两部分：理论课进行原理讲解，实验课将最终利用相关知识完成五级流水线的、支持异常/中断、可在FPGA上运行的MIPS CPU。这门课是计算机专业的最重要，最核心，也是最难的一门课之一。欢迎入坑！以下将分为实验部分和理论部分来分别介绍。</blockquote>
+
+        <h2>实验部分</h2>
+
+        <p>本课程的实验难度相对较大，这里对学习的内容进行简要的介绍。</p>
+
+        <p>详细的教程请点击下方链接进行学习：<a href="../../computeOrganization/index.html">计算机组成原理实验网站</a></p>
+    </div>
+
+    <button class="nav-btn next-btn" onclick="showPage(2)">下一页 →</button>
+</div>
+
+<!-- 第二页：理论部分 -->
+<div id="page2" class="page">
+    <div class="content-container">
+        <h1>计算机组成原理学习网站</h1>
+
+        <h2>理论部分</h2>
+
+        <p>理论课程讲授数字电路的基本知识与计算机各组成部分的理论知识。整体内容逻辑性强，同时也是考研的核心内容。后面的内容会逐渐更新，敬请期待！</p>
+    </div>
+
+    <button class="nav-btn prev-btn" onclick="showPage(1)">← 上一页</button>
+    <button class="nav-btn home-btn" onclick="showPage(1)">返回首页</button>
+    <button class="nav-btn next-btn" onclick="showPage(3)">下一页 →</button>
+</div>
+
+<!-- 第三页：小结（占位，防止点击下一页出错） -->
+<div id="page3" class="page">
+    <div class="content-container">
+        <h1>计算机组成原理学习网站</h1>
+        <p style="text-align:center; color:#999; font-size:18px; margin-top:80px;">—— 内容结束 ——</p>
+    </div>
+
+    <button class="nav-btn prev-btn" onclick="showPage(2)">← 上一页</button>
+    <button class="nav-btn home-btn" onclick="showPage(1)">返回首页</button>
+</div>
+
+<script>
+    // 返回主页函数
+    function goToHomePage() {
+        window.location.href = '../../index.html';
+    }
+
+    // 显示指定页面，隐藏其他所有页面
+    function showPage(pageNumber) {
+        // 隐藏所有页面
+        for (let i = 1; i <= 3; i++) {
+            document.getElementById('page' + i).style.display = 'none';
+        }
+        // 显示指定页面
+        document.getElementById('page' + pageNumber).style.display = 'block';
+        // 滚动到顶部
+        window.scrollTo(0, 0);
+    }
+    
+    // 初始化显示第一页
+    window.onload = function() {
+        showPage(1);
+    };
+</script>
+
+</body>
+</html>

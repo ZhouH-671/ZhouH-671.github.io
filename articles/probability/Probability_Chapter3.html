@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第三章 多维随机变量及其分布</title>
+    <style>
+        .definition {
+            color: #1890ff;
+            font-family: "楷体", "STKaiti", serif;
+            font-weight: bold;
+            background-color: #f0f8ff;
+            padding: 4px 8px;
+            border-left: 3px solid #1890ff;
+            margin: 8px 0;
+        }
+
+        .conclusion {
+            color: #52c41a;
+            font-family: "宋体", "SimSun", serif;
+            font-weight: bold;
+            background-color: #f6ffed;
+            padding: 4px 8px;
+            border-left: 3px solid #52c41a;
+            margin: 8px 0;
+        }
+
+        .problem {
+            color: #fa541c;
+            font-family: "黑体", "SimHei", sans-serif;
+            font-weight: bold;
+            background-color: #fff2e8;
+            padding: 4px 8px;
+            border-left: 3px solid #fa541c;
+            margin: 8px 0;
+        }
+        
+        body {
+            font-family: "宋体", "SimSun", serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            min-height: 100vh;
+            color: rgb(0, 0, 0); /* 文字颜色 */
+
+            background-image: url('../../images/Probability/Probability_Chapter_background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* 文字内容容器样式 */
+        .content-container {
+            background-color: rgba(255, 255, 255, 0.25); /* 半透明黑色背景 */
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px); /* 背景模糊效果 */
+        }
+        
+        h1, h2 {
+            text-align: center;
+        }
+        
+        .center {
+            text-align: center;
+        }
+        
+        /* 分页样式 */
+        .page {
+            min-height: 80vh;
+            position: relative;
+            display: none; /* 默认隐藏所有页面 */
+            padding-bottom: 80px; /* 添加底部内边距，避免内容被按钮遮挡 */
+        }
+
+        /* 显示第一页 */
+        #page1 {
+            display: block;
+        }
+        
+        /* 导航按钮通用样式 */
+        .nav-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #1890ff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: "宋体", "SimSun", serif;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+            z-index: 1000; /* 确保按键在最上层 */
+            width: 150px;
+            text-align: center;
+        }
+        
+        .nav-btn:hover {
+            background-color: #40a9ff;
+        }
+        
+        /* 下一页按钮位置 */
+        .next-btn {
+            right: 20px;
+        }
+
+        /* 上一页按钮样式和位置 */
+        .prev-btn {
+            left: 20px;
+            background-color: #52c41a;
+        }
+
+        .prev-btn:hover {
+            background-color: #73d13d;
+        }
+
+        /* 返回首页按钮样式和位置 */
+        .home-btn {
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #722ed1;
+        }
+
+        .home-btn:hover {
+            background-color: #9254de;
+        }
+
+        /* 返回主页按钮（左上角）样式 */
+        .home-btn-top {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #722ed1;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: "宋体", "SimSun", serif;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+            z-index: 1000;
+            width: 100px;
+            height: 36px;
+            text-align: center;
+            line-height: 20px;
+        }
+
+        .home-btn-top:hover {
+            background-color: #9254de;
+        }
+    </style>
+
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+
+    <script type="text/javascript" id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+</head>
+<body>
+
+<!-- 第一页 -->
+<div id="page1" class="page">
+    <!-- 添加返回主页按钮 -->
+    <button class="nav-btn home-btn-top" onclick="goToHomePage()">返回主页</button>
+
+    <div class="content-container">
+        <h1>第三章 多维随机变量及其分布</h1>
+
+        <h2>二维随机变量</h2>
+
+        <h3>一、二维随机变量和分布函数</h3>
+
+        <p>&emsp;&emsp;一般，设E是一个随机试验，它的样本空间是$S=\{e\}$，设$X=X\{e\}$和$Y=Y\{e\}$是定义在S上的随机变量，由它们构成的一个向量$(X, Y)$，叫做<span class="definition">二维随机向量</span>或<span class="definition">二维随机变量</span>。</p>
+
+        <p>&emsp;&emsp;设 $(X, Y)$ 是二维随机变量，对于任意实数$x, y$，二元函数：</p>
+
+        <p>$$F(x, y) = P\{(X \leq x) \cap (Y \leq y)\} \overset{\text{记作}} {=} P(X \leq x, Y \leq y)$$</p>
+
+        <p>称为二维随机变量 $(X, Y)$ 的<span class="definition">分布函数</span>，或称为随机变量X和Y的<span class="definition">联合分布函数</span>。</p>
+
+        <p>&emsp;&emsp;容易算出随机点 $(X, Y)$ 落在矩形域 $\{ (x,y)| x_1 < x \leq x_2, y_1 < y \leq y_2\}$ 的概率为</p>
+
+        <p>$$P \{ x_1 < X \leq x_2, y_1 < Y \leq y_2\} = F(x_2, y_2) - F(x_1, y_2) - F(x_2, y_1) + F(x_1, y_1)$$</p>
+
+        <p>&emsp;&emsp;分布函数 $F(x, y)$ 具有以下的基本性质：</p>
+
+        <ol>
+            <li>$F(x, y)$ 是变量X和Y的不减函数；</li>
+            <li>$0 \leq F(x, y) \leq 1$ 且
+                <div class="center">
+                    对于任意固定的 $y$ ，$F(-\infty, y) = 0$,<br>
+                    对于任意固定的 $x$ , $F(x, -\infty) = 0$,<br>
+                    $F(-\infty, -\infty) = 0, F(+\infty, +\infty) = 1$.
+                </div>
+            </li>
+            <li>$F(x+0, y) = F(x, y), F(x, y+0) = F(x, y)$， 即 $F(x, y)$ 关于 $x$ 右连续，关于 $y$ 也右连续;</li>
+            <li>对于任意 $(x_1, y_1), (x_2, y_2), x_1 < x_2, y_1 < y_2$，下述不等式成立： $$ F(x_2, y_2) - F(x_1, y_2) - f(x_2, y_1) + F(x_1, y_1) \geq 0 ，$$ 也就是概率的非负性。</li>
+        </ol>
+
+        <h3>二、离散型随机变量</h3>
+
+        <p>&emsp;&emsp;如果二维随机变量 $(X,Y)$ 全部可能取到的值是有限对或可列无限多对，则称 $(X, Y)$ 是<span class="definition">离散型随机变量</span>。</p>
+
+        <p>&emsp;&emsp;设二维离散型随机变量 $(X, Y)$ 全部可能取的值为 $(x_i, y_i), i, j = 1,2,...$ ，记 $P\{ X=x_i, Y=y_i \} = p_{ij}, i,j=1,2,...$，则由概率的定义有</p>
+
+        <p>$$p_{ij} \geq 0, \sum_{i=1}^{\infty} \sum_{j=1}^{\infty} p_{ij} = 1.$$</p>
+
+        <p>&emsp;&emsp;我们称 $P\{ X=x_i, Y=y_i \} = p_{ij}, i,j=1,2,...$ 为二维离散型随机变量 $(X,Y)$ 的<span class="definition">分布律</span>，或随机变量 $X$ 和 $Y$ 的<span class="definition">联合分布律</span>。</p>
+
+        <p>&emsp;&emsp;将 $(X, Y)$ 看成一个随机点的坐标，则离散型随机变量 $X$ 和 $Y$ 的联合分布函数为</p>
+
+        <p>$$F(x, y) = \sum_{x_i \leq x} \sum_{y_i \leq y} p_{ij}.$$</p>
+
+        <h3>三、连续型随机变量</h3>
+
+        <p>&emsp;&emsp;与一维随机变量相似，对于二维随机变量 $(X, Y)$ 的分布函数 $F(x, y)$ ，如果存在非负的函数 $f(x, y)$ 使对任意 $x,y$ 有</p>
+
+        <p>$$F(x, y) = \int_{-\infty}^{y} \int_{-\infty}^{x} f(u, v) dudv,$$</p>
+
+        <p>则称 $(X, Y)$ 是<span class="definition">连续型二位随机变量</span>，函数 $f(x,y)$ 称为二维随机变量 $(X, Y)$ 的概率密度，或称为随机变量 $X$ 和 $Y$ 的<span class="definition">联合概率密度</span>。</p>
+
+        <p>&emsp;&emsp;按照定义，概率密度 $f(x, y)$ 具有如下定义：</p>
+
+        <ol>
+            <li>$f(x, y) \geq 0$ ;</li>
+            <li>$\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y)dxdy = F(\infty, \infty) = 1$</li>
+            <li>设 $G$ 是 $xOy$ 平面上的区域，点 $(x,y)$ 落在 $G$ 内的概率为</li>
+        </ol>
+
+        <p>$$P\{ (X, Y) \in G\} = \iint_G f(x,y)dxdy$$</p>
+
+        <ol start="4">
+            <li>若 $f(x,y)$ 在点 $(x,y)$ 连续，则有</li>
+        </ol>
+
+        <p>$$\frac{\partial^2 F(x, y)}{\partial x \partial y} = f(x, y)$$</p>
+
+        <h3>四、n维随机变量</h3>
+
+        <p>&emsp;&emsp;以上关于二维随机变量的讨论，不难推广到 $n(n > 2)$ 维随机变量的情况。一般，设 $E$ 是一个随机试验，他的样本空间是 $S = \{ e \} $ ，设 $X_1 =  X_1\{e\}, X_2 =  X_2\{e\}, ..., X_n =  X_n\{e\}$ 是定义在 $S$ 上的随机变量，由他们构成的一个 $n$ 维向量 $(X_1, X_2, ...,   X_n)$ 叫做<span class="definition">n维随机变量</span>。它的分布函数定义也类似。</p>
+
+    </div>
+
+    <!-- 下一页按钮 -->
+    <button class="nav-btn next-btn" onclick="showPage(2)">下一页 →</button>
+</div>
+
+<!-- 第二页：边缘分布 -->
+<div id="page2" class="page">
+    <div class="content-container">
+        <h1>第三章 多维随机变量及其分布</h1>
+
+        <h2>边缘分布</h2>
+    
+        <!-- 这里放"边缘分布"章节的所有内容 -->
+        <p>&emsp;&emsp;二维随机变量 $(X, Y)$ 作为一个整体，具有分布函数 $F(x, y)$ ，而 $X$ 和 $Y$ 都是随机变量，各自也有分布函数，将它们分别记为$F_X(x), F_Y(y)$，依次称为随机变量 $(X, Y)$ 关于 $X$ 和关于 $Y$ 的<span class="definition">边缘分布函数</span>。有：</p>
+
+        <p>$$F_X(x) = P\{ X \leq x, Y \leq \infty\} = F(x, \infty)$$</p>
+
+        <p>即 $F_X(x) = F(x, \infty)$ 。同理 $F_Y(y) = F(\infty, y)$ 。对于离散型随机变量，有</p>
+
+        <p>$$F_X(x) = F(x, \infty) = \sum_{x_i \leq x} \sum_{j=1}^{\infty} p_{ij}.$$</p>
+
+        <p>则 $X$ 的分布律为</p>
+
+        <p>$$P \{X = x_i \} = \sum_{j=1}^{\infty} p_{ij}, j = 1, 2, ... .$$</p>
+
+        <p>记 $p_{i·} = \sum_{j=1}^{\infty} p_{ij}, j = 1, 2, ... .$ ，称 $p_{i·}$ 为 $(X, Y)$ 关于 $X$ 的<span class="definition">边缘分布</span>。对于 $Y$ 完全相同。</p>
+
+        <p>&emsp;&emsp;对于连续型随机变量 $(X, Y)$ 设它的概率密度为 $f(x, y)$ ，由于</p>
+
+        <p>$$F_X(x) = F(x, \infty) = \int_{-\infty}^{x} [\int_{-\infty}^{\infty} f(x, y)dy] dx,$$</p>
+
+        <p>则可知 $X$ 是一个连续型随机变量，且其概率密度为</p>
+
+        <p>$$f_X(x) = \int_{-\infty}^{\infty} f(x, y)dy.$$</p>
+
+        <p>称 $f_X(x)$ 为 $(X, Y)$ 关于 $X$ 的<span class="definition">边缘概率密度</span>。 $Y$ 与 $X$ 完全相同。</p>
+    </div>
+
+    <button class="nav-btn prev-btn" onclick="showPage(1)">← 上一页</button>
+    <button class="nav-btn home-btn" onclick="showPage(1)">返回首页</button>
+    <button class="nav-btn next-btn" onclick="showPage(3)">下一页 →</button>
+</div>
+
+<!-- 第三页：条件分布 -->
+<div id="page3" class="page">
+    <div class="content-container">
+        <h1>第三章 多维随机变量及其分布</h1>
+
+        <h2>条件分布</h2>
+    
+        <!-- 这里放"条件分布"章节的所有内容 -->
+        <p>&emsp;&emsp;由条件概率很自然地引出条件概率分布的概念。</p>
+
+        <h3>一、离散型随机变量</h3>
+
+        <p>&emsp;&emsp;设 $(X, Y)$ 是二维随机变量，其分布律为</p>
+
+        <p>$$P\{X=x_i, Y=y_i\} = p_{ij}, i, j = 1, 2, ...$$</p>
+
+        <p>$(X, Y)$ 关于 $X$ 和 $Y$ 的边缘分布率分别为</p>
+
+        <p>$$P\{X=x_i\} = p_{i·} = \sum_{j=1}^{\infty} p_{ij}, i = 1, 2, ... \\$$</p>
+        <p>$$P\{Y=y_j\} = p_{·j} = \sum_{i=1}^{\infty} p_{ij}, j = 1, 2, ...$$</p>
+
+        <p>&emsp;&emsp;设 $p_{·j} > 0$ ，定义在事件 $\{Y = y_{j}\}$ 已发生的条件下事件 $\{X = x_{i}\}$ 发生的概率，也就是事件 $\{X=x_i | Y=y_j\}$ 的概率为</p>
+
+        <p>$$P\{X=x_i | Y=y_j\} = \frac{P\{X=x_i, Y=y_j\}}{P\{Y=y_j\}} = \frac{p_{ij}}{p_{·j}}, i = 1, 2, ...$$</p>
+
+        <p>为在 $Y=y_j$ 条件下随机变量 $X$ 的<span class="definition">条件分布率</span>。条件概率具有分布律的全部性质。</p>
+
+        <h3>二、连续型随机变量</h3>
+
+        <p>&emsp;&emsp;设二维随机变量 $(X, Y)$ 的概率密度为 $f(x, y)$ ，$(X, Y)$ 关于 $Y$ 的概率密度为 $f_Y(y)$ 。若对于固定的 $y, f_Y(y) > 0$ ，则称 $\frac{f(x,y)}{f_Y(y)}$ 为在 $Y=y$ 的条件下 $X$ 的<span class="definition">条件概率密度</span>，记为</p>
+
+        <p>$$f_{X|Y}(x|y) = \frac{f(x, y)}{f_Y(y)}.$$</p>
+
+        <p>称</p>
+
+        <p>$$F_{X|Y}(x|y) = P\{X \leq x | Y \leq y\} = \int_{\infty}^{x} \frac{f(x, y)}{f_Y(y)} dx$$</p>
+
+        <p>为在 $Y=y$ 的条件下 $X$ 的<span class="definition">条件分布函数</span>。</p>
+    </div>
+
+    <button class="nav-btn prev-btn" onclick="showPage(2)">← 上一页</button>
+    <button class="nav-btn home-btn" onclick="showPage(1)">返回首页</button>
+    <button class="nav-btn next-btn" onclick="showPage(4)">下一页 →</button>
+</div>
+
+<!-- 第四页：相互独立的随机变量 -->
+<div id="page4" class="page">
+    <div class="content-container">
+        <h1>第三章 多维随机变量及其分布</h1>
+        <h2>相互独立的随机变量</h2>
+    
+        <!-- 这里放"相互独立的随机变量"章节的所有内容 -->
+        <p>&emsp;&emsp;设 $F(x, y)$ 及 $F_X(x), F_Y(y)$ 分别是二维随机变量 $(X, Y)$ 的分布函数及边缘分布函数。若对于所有 $x, y$ 有</p>
+
+        <p>$$P\{X \leq x, Y \leq y\} = P\{X \leq x\} P{Y \leq y}, \\$$</p>
+        <p>$$F(x, y) = F_X(x) F_Y(y)$$</p>
+
+        <p>则称随机变量 $X$ 和 $Y$ 是<span class="definition">相互独立</span>的。</p>
+
+        <p>&emsp;&emsp;设 $f(x,y), f_X(x), f_Y(y)$ 分别是二维连续型随机变量 $(X, Y)$ 的概率密度和边缘概率密度，则 $X$ 和 $Y$ 相互独立的条件等价于：等式</p>
+
+        <p>$$f(x, y) = f_X(x)F_Y(y)$$</p>
+
+        <p>在平面上几乎处处成立，即在平面上除去"面积"为零的集合以外，处处成立。</p>
+    </div>
+
+    <button class="nav-btn prev-btn" onclick="showPage(3)">← 上一页</button>
+    <button class="nav-btn home-btn" onclick="showPage(1)">返回首页</button>
+    <button class="nav-btn next-btn" onclick="showPage(5)">下一页 →</button>
+</div>
+
+<!-- 第五页：两个随机变量的函数的分布 -->
+<div id="page5" class="page">
+    <div class="content-container">
+        <h1>第三章 多维随机变量及其分布</h1>
+        <h2>两个随机变量的函数的分布</h2>
+    
+        <!-- 这里放"两个随机变量的函数的分布"章节的所有内容 -->
+        <p>我们只讨论下面几个具体的函数。</p>
+
+        <h3>一、$Z = X + Y$ 的分布</h3>
+
+        <p>&emsp;&emsp;设 $(X, Y)$ 是二维随机变量，它的概率密度为 $f(x, y)$ ，则 $Z = X + Y$ 的概率密度为</p>
+
+        <p>$$f_{X+Y}(z) = \int_{-\infty}^{\infty} f(z-y, y) dy = \int_{-\infty}^{\infty} f(x, z-x)dx$$</p>
+
+        <p>若$X$ 和 $Y$ 相互独立，则 $f_{X+Y}(z) = \int_{-\infty}^{\infty} f_X(x)f_Y(z-x)dx$ 或 $f_{X+Y}(z) = \int_{-\infty}^{\infty} f_X(z-y)f_Y(y)dy$ 。这两个公式称为 $f_X$ 和 $f_Y$ 的<span class="definition">卷积公式</span>。</p>
+
+        <p>&emsp;&emsp;可以证明：<span class="conclusion">有限个相互独立的正态随机变量的线性组合仍然服从正态分布</span>。</p>
+
+        <h3>二、$Z= \frac{Y}{X}$ 和 $Z = XY$ 的分布</h3>
+
+        <p>&emsp;&emsp;设 $(X, Y)$ 是二维随机变量，它的概率密度为 $f(x, y)$ ，则 $Z = \frac{Y}{X}$ 和 $Z = XY$ 的概率密度分别为</p>
+
+        <p>$$f_{\frac{Y}{X}}(z) = \int_{-\infty}^{\infty} |x|f(x, xz) dx \\$$</p>
+        <p>$$f_{XY}(z) = \int_{-\infty}^{\infty} \frac{1}{|x|}f(x, \frac{z}{x}) dx$$</p>
+
+        <p>若$X$ 和 $Y$ 相互独立，则 $f_{\frac{Y}{X}}(z) = \int_{-\infty}^{\infty} |x|f_X(x)f_Y(xz)dx$ 以及 $f_{XY}(z) = \int_{-\infty}^{\infty} \frac{1}{|x|}f_X(x) f_Y(\frac{z}{x})dx$ 。</p>
+
+        <h3>三、$M = max\{X, Y\}$ 和 $N = min\{X, Y\}$ 的分布</h3>
+
+        <p>&emsp;&emsp;设 $X, Y$ 是两个相互独立的随机变量，则$M = max\{X, Y\}$ 和 $N = min\{X, Y\}$ 的分布函数为</p>
+
+        <p>$$F_{max}(z) = F_X(z)F_Y(z) \\$$</p>
+        <p>$$F_{min}(z) = 1- [1-F_X(z)][1-F_Y(z)]$$</p>
+    </div>
+
+    <button class="nav-btn prev-btn" onclick="showPage(4)">← 上一页</button>
+    <button class="nav-btn home-btn" onclick="showPage(1)">返回首页</button>
+    <button class="nav-btn next-btn" onclick="showPage(6)">下一页 →</button>
+</div>
+
+<!-- 第六页 -->
+<div id="page6" class="page">
+    <div class="content-container">
+        <h1>第三章 多维随机变量及其分布</h1>
+
+        <h2>小结</h2>
+
+        <p>&emsp;&emsp;将一维随机变量的概念加以扩充，就得到多维随机变量，我们着重讨论了二维随机变量，和一维随机变量一样，我们定义二维随机变量$(X, Y)$的分布函数</p>
+
+        <p>$$F(x,y) = P(X \leq x, Y \leq y), -\infty < x < \infty, -\infty < y < \infty$$</p>
+
+        <p>对于离散型随机变量$(X, Y)$定义了分布律</p>
+
+        <p>$$P(X = x_i, Y = y_j) = p_{ij}, i = 1, 2, \cdots, j = 1, 2, \cdots, \sum_{i=1} ^ {\infty} \sum_{j=1} ^ {\infty} p_{ij} = 1.$$</p>
+
+        <p>对于连续型随机变量$(X, Y)$定义了概率密度$f(x, y)(f(x, y) \geq 0)$</p>
+
+        <p>$$F(x, y) = \int_{-\infty} ^ {x} \int_{-\infty} ^ {y} f(x, y) dxdy, \quad \forall x, y.$$</p>
+
+        <p>&emsp;&emsp;二维随机变量的分布律与概率密度的性质与一维的相似。特别，对于二维连续型随机变量，有公式</p>
+
+        <p>$$P\{ (x, y) \in G \} = \iint \limits_G f(x, y) dxdy,$$</p>
+
+        <p>其中，G是平面上的某区域(它是一维连续型变量的公式$P(a < X \leq b) = \int_a^b f(x)dx$的扩充)。这一公式常用来求随机变量的不等式成立的概率，例如</p>
+
+        <p>$$P(Y \leq X) = P \{ (X, Y) \in G \} = \iint \limits_G f(x, y) dxdy,$$</p>
+
+        <p>其中，G为半平面$y \leq x$。</p>
+
+        <p>&emsp;&emsp;在研究二维变量$(X, Y)$时，除了讨论上述与一维变量类似的内容外，还要讨论以下的新内容：边缘分布、条件分布、随机变量的独立性等。</p>
+
+        <p>&emsp;&emsp;注意到，对于$(X, Y)$的分布可以确定关于X、关于Y的边缘分布。反之，由关于X、关于Y的边缘分布一般是不能确定$(X, Y)$的分布的。只有当X、Y相互独立时，由两边缘分布能确定$(X, Y)$的分布。</p>
+
+        <p>&emsp;&emsp;随机变量的独立性是随机事件独立性的扩充。我们也常利用问题的实际意义去判断两个随机变量的独立性。例如，若X，Y分别代表两个工厂生产的显像管的寿命，我们可以认为X、Y是相互独立的。</p>
+
+        <p>&emsp;&emsp;我们还讨论了$Z = X + Y, \quad Z = Y / X, \quad M = max\{ X, Y \}, \quad N = min\{ X,Y \}$的分布的求法(设$(X, Y)$的分布已知)。</p>
+
+        <p>&emsp;&emsp;本章在进行各种问题的计算时，要用到二重积分或用到二元函数固定其中一个变量对另一个变量的积分。此时千万要搞清楚积分变量的变化范围。题目做错，往往是由于在进行积分运算时，将有关的积分区间或积分区域搞错了。在做题时，画出有关函数的定义域的图形。对于正确确定积分上下限肯定是有帮助的。另外，所求得的边缘密度、条件密度或$Z = X + Y$的密度等，往往是分段函数，正确写出分段函数的表达式当然是必须的。</p>
+    </div>
+
+    <!-- 返回按钮 -->
+    <button class="nav-btn prev-btn" onclick="showPage(5)">← 上一页</button>
+    <button class="nav-btn home-btn" onclick="showPage(1)">返回首页</button>
+</div>
+
+<script>
+    // 返回主页函数
+    function goToHomePage() {
+        window.location.href = '../../index.html';
+    }
+    // 显示指定页面，隐藏其他所有页面
+    function showPage(pageNumber) {
+        // 隐藏所有页面
+        for (let i = 1; i <= 6; i++) {
+            document.getElementById('page' + i).style.display = 'none';
+        }
+        // 显示指定页面
+        document.getElementById('page' + pageNumber).style.display = 'block';
+        // 滚动到顶部
+        window.scrollTo(0, 0);
+    }
+    
+    // 初始化显示第一页
+    window.onload = function() {
+        showPage(1);
+    };
+</script>
+
+</body>
+</html>

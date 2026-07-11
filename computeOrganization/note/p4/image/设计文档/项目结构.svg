@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="mindmap" class="markmap mindmap"><style>.markmap {
+  --markmap-max-width: 9999px;
+  --markmap-a-color: #0097e6;
+  --markmap-a-hover-color: #00a8ff;
+  --markmap-code-bg: #f0f0f0;
+  --markmap-code-color: #555;
+  --markmap-highlight-bg: #ffeaa7;
+  --markmap-table-border: 1px solid currentColor;
+  --markmap-font: 300 16px/20px sans-serif;
+  --markmap-circle-open-bg: #fff;
+  --markmap-text-color: #333;
+  --markmap-highlight-node-bg: #ff02;
+
+  font: var(--markmap-font);
+  color: var(--markmap-text-color);
+}
+
+  .markmap-link {
+    fill: none;
+  }
+
+  .markmap-node &gt; circle {
+      cursor: pointer;
+    }
+
+  .markmap-foreign {
+    display: inline-block;
+  }
+
+  .markmap-foreign p {
+      margin: 0;
+    }
+
+  .markmap-foreign a {
+      color: var(--markmap-a-color);
+    }
+
+  .markmap-foreign a:hover {
+        color: var(--markmap-a-hover-color);
+      }
+
+  .markmap-foreign code {
+      padding: 0.25em;
+      font-size: calc(1em - 2px);
+      color: var(--markmap-code-color);
+      background-color: var(--markmap-code-bg);
+      border-radius: 2px;
+    }
+
+  .markmap-foreign pre {
+      margin: 0;
+    }
+
+  .markmap-foreign pre &gt; code {
+        display: block;
+      }
+
+  .markmap-foreign del {
+      text-decoration: line-through;
+    }
+
+  .markmap-foreign em {
+      font-style: italic;
+    }
+
+  .markmap-foreign strong {
+      font-weight: bold;
+    }
+
+  .markmap-foreign mark {
+      background: var(--markmap-highlight-bg);
+    }
+
+  .markmap-foreign table,
+    .markmap-foreign th,
+    .markmap-foreign td {
+      border-collapse: collapse;
+      border: var(--markmap-table-border);
+    }
+
+  .markmap-foreign img {
+      display: inline-block;
+    }
+
+  .markmap-foreign svg {
+      fill: currentColor;
+    }
+
+  .markmap-foreign &gt; div {
+      width: var(--markmap-max-width);
+      text-align: left;
+    }
+
+  .markmap-foreign &gt; div &gt; div {
+        display: inline-block;
+      }
+
+  .markmap-highlight rect {
+    fill: var(--markmap-highlight-node-bg);
+  }
+
+.markmap-dark .markmap {
+  --markmap-code-bg: #1a1b26;
+  --markmap-code-color: #ddd;
+  --markmap-circle-open-bg: #444;
+  --markmap-text-color: #eee;
+}
+</style><g transform="translate(126.83680467140545,332.60537284065674) scale(0.8877188157665402)"><path class="markmap-link" data-depth="4" data-path="1.2.3.4" d="M278,-217.242C318,-217.242,318,-344.18,358,-344.18" stroke-width="1.1875" stroke="rgb(214, 39, 40)"/><path class="markmap-link" data-depth="4" data-path="1.2.3.5" d="M278,-217.242C318,-217.242,318,-315.992,358,-315.992" stroke-width="1.1875" stroke="rgb(148, 103, 189)"/><path class="markmap-link" data-depth="4" data-path="1.2.3.6" d="M278,-217.242C318,-217.242,318,-287.805,358,-287.805" stroke-width="1.1875" stroke="rgb(140, 86, 75)"/><path class="markmap-link" data-depth="4" data-path="1.2.3.7" d="M278,-217.242C318,-217.242,318,-259.617,358,-259.617" stroke-width="1.1875" stroke="rgb(227, 119, 194)"/><path class="markmap-link" data-depth="4" data-path="1.2.3.8" d="M278,-217.242C318,-217.242,318,-231.43,358,-231.43" stroke-width="1.1875" stroke="rgb(127, 127, 127)"/><path class="markmap-link" data-depth="4" data-path="1.2.3.9" d="M278,-217.242C318,-217.242,318,-203.242,358,-203.242" stroke-width="1.1875" stroke="rgb(188, 189, 34)"/><path class="markmap-link" data-depth="4" data-path="1.2.3.10" d="M278,-217.242C318,-217.242,318,-175.055,358,-175.055" stroke-width="1.1875" stroke="rgb(23, 190, 207)"/><path class="markmap-link" data-depth="4" data-path="1.2.3.11" d="M278,-217.242C318,-217.242,318,-146.867,358,-146.867" stroke-width="1.1875" stroke="rgb(31, 119, 180)"/><path class="markmap-link" data-depth="4" data-path="1.2.3.12" d="M278,-217.242C318,-217.242,318,-118.68,358,-118.68" stroke-width="1.1875" stroke="rgb(255, 127, 14)"/><path class="markmap-link" data-depth="4" data-path="1.2.3.13" d="M278,-217.242C318,-217.242,318,-90.492,358,-90.492" stroke-width="1.1875" stroke="rgb(44, 160, 44)"/><path class="markmap-link" data-depth="4" data-path="1.2.14.15" d="M265,-57.211C305,-57.211,305,-57.305,345,-57.305" stroke-width="1.1875" stroke="rgb(148, 103, 189)"/><path class="markmap-link" data-depth="3" data-path="1.2.3" d="M117,-122.852C157,-122.852,157,-217.242,197,-217.242" stroke-width="1.375" stroke="rgb(44, 160, 44)"/><path class="markmap-link" data-depth="3" data-path="1.2.14" d="M117,-122.852C157,-122.852,157,-57.211,197,-57.211" stroke-width="1.375" stroke="rgb(214, 39, 40)"/><path class="markmap-link" data-depth="3" data-path="1.17.18" d="M123,146.602C163,146.602,163,4.539,203,4.539" stroke-width="1.375" stroke="rgb(127, 127, 127)"/><path class="markmap-link" data-depth="3" data-path="1.17.19" d="M123,146.602C163,146.602,163,32.914,203,32.914" stroke-width="1.375" stroke="rgb(188, 189, 34)"/><path class="markmap-link" data-depth="3" data-path="1.17.20" d="M123,146.602C163,146.602,163,61.289,203,61.289" stroke-width="1.375" stroke="rgb(23, 190, 207)"/><path class="markmap-link" data-depth="3" data-path="1.17.21" d="M123,146.602C163,146.602,163,89.664,203,89.664" stroke-width="1.375" stroke="rgb(31, 119, 180)"/><path class="markmap-link" data-depth="3" data-path="1.17.22" d="M123,146.602C163,146.602,163,118.039,203,118.039" stroke-width="1.375" stroke="rgb(255, 127, 14)"/><path class="markmap-link" data-depth="3" data-path="1.17.23" d="M123,146.602C163,146.602,163,146.414,203,146.414" stroke-width="1.375" stroke="rgb(44, 160, 44)"/><path class="markmap-link" data-depth="3" data-path="1.17.24" d="M123,146.602C163,146.602,163,174.789,203,174.789" stroke-width="1.375" stroke="rgb(214, 39, 40)"/><path class="markmap-link" data-depth="3" data-path="1.17.25" d="M123,146.602C163,146.602,163,203.164,203,203.164" stroke-width="1.375" stroke="rgb(148, 103, 189)"/><path class="markmap-link" data-depth="3" data-path="1.17.26" d="M123,146.602C163,146.602,163,231.539,203,231.539" stroke-width="1.375" stroke="rgb(140, 86, 75)"/><path class="markmap-link" data-depth="3" data-path="1.17.27" d="M123,146.602C163,146.602,163,259.914,203,259.914" stroke-width="1.375" stroke="rgb(227, 119, 194)"/><path class="markmap-link" data-depth="3" data-path="1.17.28" d="M123,146.602C163,146.602,163,288.289,203,288.289" stroke-width="1.375" stroke="rgb(127, 127, 127)"/><path class="markmap-link" data-depth="2" data-path="1.2" d="M0,1.25C40,1.25,40,-122.852,80,-122.852" stroke-width="1.75" stroke="rgb(255, 127, 14)"/><path class="markmap-link" data-depth="2" data-path="1.17" d="M0,1.25C40,1.25,40,146.602,80,146.602" stroke-width="1.75" stroke="rgb(227, 119, 194)"/><path class="markmap-link" data-depth="3" data-path="1.2.16" d="M117,-122.852C157,-122.852,157,-28.836,197,-28.836" stroke-width="1.375" stroke="rgb(140, 86, 75)"/><g class="markmap-highlight"/><g data-depth="4" data-path="1.2.3.4" class="markmap-node" transform="translate(358, -366.7734375)"><line stroke="#d62728" stroke-width="1.1875" x1="-1" x2="75" y1="22.59375" y2="22.59375"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="57" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">code.txt</div></div></foreignObject></g><g data-depth="4" data-path="1.2.3.5" class="markmap-node" transform="translate(358, -338.5859375)"><line stroke="#9467bd" stroke-width="1.1875" x1="-1" x2="53" y1="22.59375" y2="22.59375"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="35" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">IFU.v</div></div></foreignObject></g><g data-depth="4" data-path="1.2.3.6" class="markmap-node" transform="translate(358, -310.3984375)"><line stroke="#8c564b" stroke-width="1.1875" x1="-1" x2="49" y1="22.59375" y2="22.59375"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="31" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">PC.v</div></div></foreignObject></g><g data-depth="4" data-path="1.2.3.7" class="markmap-node" transform="translate(358, -282.2109375)"><line stroke="#e377c2" stroke-width="1.1875" x1="-1" x2="61" y1="22.59375" y2="22.59375"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="43" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">NPC.v</div></div></foreignObject></g><g data-depth="4" data-path="1.2.3.8" class="markmap-node" transform="translate(358, -254.0234375)"><line stroke="#7f7f7f" stroke-width="1.1875" x1="-1" x2="46" y1="22.59375" y2="22.59375"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="28" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">IM.v</div></div></foreignObject></g><g data-depth="4" data-path="1.2.3.9" class="markmap-node" transform="translate(358, -225.8359375)"><line stroke="#bcbd22" stroke-width="1.1875" x1="-1" x2="81" y1="22.59375" y2="22.59375"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="63" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Splitter.v</div></div></foreignObject></g><g data-depth="4" data-path="1.2.3.10" class="markmap-node" transform="translate(358, -197.6484375)"><line stroke="#17becf" stroke-width="1.1875" x1="-1" x2="57" y1="22.59375" y2="22.59375"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="39" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">GRF.v</div></div></foreignObject></g><g data-depth="4" data-path="1.2.3.11" class="markmap-node" transform="translate(358, -169.4609375)"><line stroke="#1f77b4" stroke-width="1.1875" x1="-1" x2="54" y1="22.59375" y2="22.59375"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="36" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">EXT.v</div></div></foreignObject></g><g data-depth="4" data-path="1.2.3.12" class="markmap-node" transform="translate(358, -141.2734375)"><line stroke="#ff7f0e" stroke-width="1.1875" x1="-1" x2="58" y1="22.59375" y2="22.59375"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="40" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">ALU.v</div></div></foreignObject></g><g data-depth="4" data-path="1.2.3.13" class="markmap-node" transform="translate(358, -113.0859375)"><line stroke="#2ca02c" stroke-width="1.1875" x1="-1" x2="53" y1="22.59375" y2="22.59375"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="35" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">DM.v</div></div></foreignObject></g><g data-depth="3" data-path="1.2.3" class="markmap-node" transform="translate(197, -239.9296875)"><line stroke="#2ca02c" stroke-width="1.375" x1="-1" x2="83" y1="22.6875" y2="22.6875"/><circle stroke-width="1.5" r="6" stroke="#2ca02c" fill="var(--markmap-circle-open-bg)" cx="81" cy="22.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="65" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">datapath</div></div></foreignObject></g><g data-depth="4" data-path="1.2.14.15" class="markmap-node" transform="translate(345, -79.8984375)"><line stroke="#9467bd" stroke-width="1.1875" x1="-1" x2="99" y1="22.59375" y2="22.59375"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="81" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">controller.v</div></div></foreignObject></g><g data-depth="3" data-path="1.2.14" class="markmap-node" transform="translate(197, -79.8984375)"><line stroke="#d62728" stroke-width="1.375" x1="-1" x2="70" y1="22.6875" y2="22.6875"/><circle stroke-width="1.5" r="6" stroke="#d62728" fill="var(--markmap-circle-open-bg)" cx="68" cy="22.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="52" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">cnotrol</div></div></foreignObject></g><g data-depth="3" data-path="1.2.16" class="markmap-node" transform="translate(197, -51.5234375)"><line stroke="#8c564b" stroke-width="1.375" x1="-1" x2="65" y1="22.6875" y2="22.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="47" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">mips.v</div></div></foreignObject></g><g data-depth="2" data-path="1.2" class="markmap-node" transform="translate(80, -145.7265625)"><line stroke="#ff7f0e" stroke-width="1.75" x1="-1" x2="39" y1="22.875" y2="22.875"/><circle stroke-width="1.5" r="6" stroke="#ff7f0e" fill="var(--markmap-circle-open-bg)" cx="37" cy="22.875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="21" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">src</div></div></foreignObject></g><g data-depth="3" data-path="1.17.18" class="markmap-node" transform="translate(203, -18.1484375)"><line stroke="#7f7f7f" stroke-width="1.375" x1="-1" x2="82" y1="22.6875" y2="22.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="64" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">mips.vvp</div></div></foreignObject></g><g data-depth="3" data-path="1.17.19" class="markmap-node" transform="translate(203, 10.2265625)"><line stroke="#bcbd22" stroke-width="1.375" x1="-1" x2="71" y1="22.6875" y2="22.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="53" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">IFU.vvp</div></div></foreignObject></g><g data-depth="3" data-path="1.17.20" class="markmap-node" transform="translate(203, 38.6015625)"><line stroke="#17becf" stroke-width="1.375" x1="-1" x2="67" y1="22.6875" y2="22.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="49" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">PC.vvp</div></div></foreignObject></g><g data-depth="3" data-path="1.17.21" class="markmap-node" transform="translate(203, 66.9765625)"><line stroke="#1f77b4" stroke-width="1.375" x1="-1" x2="78" y1="22.6875" y2="22.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="60" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">NPC.vvp</div></div></foreignObject></g><g data-depth="3" data-path="1.17.22" class="markmap-node" transform="translate(203, 95.3515625)"><line stroke="#ff7f0e" stroke-width="1.375" x1="-1" x2="64" y1="22.6875" y2="22.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="46" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">IM.vvp</div></div></foreignObject></g><g data-depth="3" data-path="1.17.23" class="markmap-node" transform="translate(203, 123.7265625)"><line stroke="#2ca02c" stroke-width="1.375" x1="-1" x2="99" y1="22.6875" y2="22.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="81" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Splitter.vvp</div></div></foreignObject></g><g data-depth="3" data-path="1.17.24" class="markmap-node" transform="translate(203, 152.1015625)"><line stroke="#d62728" stroke-width="1.375" x1="-1" x2="75" y1="22.6875" y2="22.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="57" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">GRF.vvp</div></div></foreignObject></g><g data-depth="3" data-path="1.17.25" class="markmap-node" transform="translate(203, 180.4765625)"><line stroke="#9467bd" stroke-width="1.375" x1="-1" x2="72" y1="22.6875" y2="22.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="54" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">EXT.vvp</div></div></foreignObject></g><g data-depth="3" data-path="1.17.26" class="markmap-node" transform="translate(203, 208.8515625)"><line stroke="#8c564b" stroke-width="1.375" x1="-1" x2="75" y1="22.6875" y2="22.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="57" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">ALU.vvp</div></div></foreignObject></g><g data-depth="3" data-path="1.17.27" class="markmap-node" transform="translate(203, 237.2265625)"><line stroke="#e377c2" stroke-width="1.375" x1="-1" x2="70" y1="22.6875" y2="22.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="52" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">DM.vvp</div></div></foreignObject></g><g data-depth="3" data-path="1.17.28" class="markmap-node" transform="translate(203, 265.6015625)"><line stroke="#7f7f7f" stroke-width="1.375" x1="-1" x2="116" y1="22.6875" y2="22.6875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="98" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">controller.vvp</div></div></foreignObject></g><g data-depth="2" data-path="1.17" class="markmap-node" transform="translate(80, 123.7265625)"><line stroke="#e377c2" stroke-width="1.75" x1="-1" x2="45" y1="22.875" y2="22.875"/><circle stroke-width="1.5" r="6" stroke="#e377c2" fill="var(--markmap-circle-open-bg)" cx="43" cy="22.875"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="27" height="22"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml">text</div></div></foreignObject></g><g data-depth="1" data-path="1" class="markmap-node" transform="translate(0,0)"><line stroke="#1f77b4" stroke-width="2.5" x1="-1" x2="2" y1="1.25" y2="1.25"/><circle stroke-width="1.5" r="6" stroke="#1f77b4" fill="var(--markmap-circle-open-bg)" cx="0" cy="1.25"/><foreignObject class="markmap-foreign" x="8" y="0" style="opacity: 1;" width="0" height="0"><div xmlns="http://www.w3.org/1999/xhtml"><div xmlns="http://www.w3.org/1999/xhtml"></div></div></foreignObject></g></g></svg>

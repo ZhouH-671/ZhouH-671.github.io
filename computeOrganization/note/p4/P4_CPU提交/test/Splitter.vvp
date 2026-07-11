@@ -1,0 +1,43 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "D:\Verilog\iverilog\lib\ivl\system.vpi";
+:vpi_module "D:\Verilog\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "D:\Verilog\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "D:\Verilog\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "D:\Verilog\iverilog\lib\ivl\va_math.vpi";
+S_000002767e182830 .scope module, "Splitter" "Splitter" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 32 "instruction";
+    .port_info 1 /OUTPUT 6 "opcode";
+    .port_info 2 /OUTPUT 5 "rs";
+    .port_info 3 /OUTPUT 5 "rt";
+    .port_info 4 /OUTPUT 5 "rd";
+    .port_info 5 /OUTPUT 5 "shamt";
+    .port_info 6 /OUTPUT 6 "funct";
+    .port_info 7 /OUTPUT 16 "imm16";
+    .port_info 8 /OUTPUT 26 "imm26";
+v000002767df09be0_0 .net "funct", 5 0, L_000002767e1fc370;  1 drivers
+v000002767df09a20_0 .net "imm16", 15 0, L_000002767e1fc7d0;  1 drivers
+v000002767df09050_0 .net "imm26", 25 0, L_000002767e1fca50;  1 drivers
+o000002767e1b7068 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v000002767e1a4810_0 .net "instruction", 31 0, o000002767e1b7068;  0 drivers
+v000002767df0bdc0_0 .net "opcode", 5 0, L_000002767e1fc2d0;  1 drivers
+v000002767df09f60_0 .net "rd", 4 0, L_000002767e1fc9b0;  1 drivers
+v000002767e1fc870_0 .net "rs", 4 0, L_000002767e1fc230;  1 drivers
+v000002767e1fbd30_0 .net "rt", 4 0, L_000002767e1fc410;  1 drivers
+v000002767e1fc190_0 .net "shamt", 4 0, L_000002767e1fc690;  1 drivers
+L_000002767e1fc2d0 .part o000002767e1b7068, 26, 6;
+L_000002767e1fc230 .part o000002767e1b7068, 21, 5;
+L_000002767e1fc410 .part o000002767e1b7068, 16, 5;
+L_000002767e1fc9b0 .part o000002767e1b7068, 11, 5;
+L_000002767e1fc690 .part o000002767e1b7068, 6, 5;
+L_000002767e1fc370 .part o000002767e1b7068, 0, 6;
+L_000002767e1fc7d0 .part o000002767e1b7068, 0, 16;
+L_000002767e1fca50 .part o000002767e1b7068, 0, 26;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "Splitter.v";

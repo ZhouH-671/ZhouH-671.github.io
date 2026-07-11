@@ -233,24 +233,24 @@ class BlogManager {
                 title: '第一章 概率论的基本概念',
                 category: 'Probability-Statistics',
                 date: '2025-12-10',
-                link: 'articles/Probability_Chapter1.html',
-                coverImage: 'images/article_covers/probability_statistics.jpg'
+                link: 'articles/probability/Probability_Chapter1.html',
+                coverImage: 'images/articleCovers/probability_statistics.jpg'
             },
 
             {
                 title: '第三章 多维随机变量及其分布',
                 category: 'Probability-Statistics',
                 date: '2025-11-06',
-                link: 'articles/Probability_Chapter3.html',
-                coverImage: 'images/article_covers/probability_statistics.jpg'
+                link: 'articles/probability/Probability_Chapter3.html',
+                coverImage: 'images/articleCovers/probability_statistics.jpg'
             },
 
             {
                 title: '第四章 随机变量的数字特征',
                 category: 'Probability-Statistics',
                 date: '2025-12-10',
-                link: 'articles/Probability_Chapter4.html',
-                coverImage: 'images/article_covers/probability_statistics.jpg'
+                link: 'articles/probability/Probability_Chapter4.html',
+                coverImage: 'images/articleCovers/probability_statistics.jpg'
             },
 
             {
@@ -258,23 +258,15 @@ class BlogManager {
                 category: 'Probability-Statistics',
                 date: '2026-04-22',
                 link: 'articles/Random_Number_Memorization_Problem.html',
-                coverImage: 'images/article_covers/cover1.png'
+                coverImage: 'images/articleCovers/cover1.png'
             },
 
             {
-                title: 'A Letter to You',
-                category: 'life',
-                date: '2026-05-20',
-                link: 'articles/Letter.html',
-                coverImage: 'images/article_covers/cover2.jpg'
-            },
-
-            {
-                title: 'Air police 3000 ',
-                category: 'life',
-                date: '2026-06-05',
-                link: 'articles/AirplaneGame.html',
-                coverImage: 'images/article_covers/旅行者一号.jpeg'
+                title: '计算机组成原理',
+                category: 'tech',
+                date: '2026-07-11',
+                link: 'articles/compute/computerOrganization.html',
+                coverImage: 'images/articleCovers/computerOrganization.png'
             },
             // 可以在这里添加更多文章
         ];

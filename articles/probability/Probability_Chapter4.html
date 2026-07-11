@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第四章 随机变量的数字特征</title>
+    <style>
+        .definition {
+            color: #1890ff;
+            font-family: "楷体", "STKaiti", serif;
+            font-weight: bold;
+            background-color: #f0f8ff;
+            padding: 4px 8px;
+            border-left: 3px solid #1890ff;
+            margin: 8px 0;
+        }
+
+        .conclusion {
+            color: #52c41a;
+            font-family: "宋体", "SimSun", serif;
+            font-weight: bold;
+            background-color: #f6ffed;
+            padding: 4px 8px;
+            border-left: 3px solid #52c41a;
+            margin: 8px 0;
+        }
+
+        .problem {
+            color: #fa541c;
+            font-family: "黑体", "SimHei", sans-serif;
+            font-weight: bold;
+            background-color: #fff2e8;
+            padding: 4px 8px;
+            border-left: 3px solid #fa541c;
+            margin: 8px 0;
+        }
+
+        blockquote {
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin: 20px 0;
+            color: #f90000;
+            font-style: italic;
+        }
+        
+        body {
+            font-family: "宋体", "SimSun", serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            min-height: 100vh;
+            color: rgb(0, 0, 0);
+            background-image: url('../../images/Probability/Probability_Chapter_background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* 文字内容容器样式 */
+        .content-container {
+            background-color: rgba(255, 255, 255, 0.25);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+        
+        h1, h2 {
+            text-align: center;
+        }
+        
+        .center {
+            text-align: center;
+        }
+        
+        /* 分页样式 */
+        .page {
+            min-height: 80vh;
+            position: relative;
+            display: none;
+            padding-bottom: 80px;
+        }
+
+        /* 显示第一页 */
+        #page1 {
+            display: block;
+        }
+        
+        /* 导航按钮通用样式 */
+        .nav-btn {
+            position: fixed;
+            bottom: 20px;
+            background-color: #1890ff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: "宋体", "SimSun", serif;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+            z-index: 1000;
+            width: 150px;
+            text-align: center;
+        }
+        
+        .nav-btn:hover {
+            background-color: #40a9ff;
+        }
+        
+        /* 下一页按钮位置 */
+        .next-btn {
+            right: 20px;
+        }
+
+        /* 上一页按钮样式和位置 */
+        .prev-btn {
+            left: 20px;
+            background-color: #52c41a;
+        }
+
+        .prev-btn:hover {
+            background-color: #73d13d;
+        }
+
+        /* 返回首页按钮样式和位置 */
+        .home-btn {
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #722ed1;
+        }
+
+        .home-btn:hover {
+            background-color: #9254de;
+        }
+
+        /* 返回主页按钮（左上角）样式 */
+        .home-btn-top {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #722ed1;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: "宋体", "SimSun", serif;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+            z-index: 1000;
+            width: 100px;
+            height: 36px;
+            text-align: center;
+            line-height: 20px;
+        }
+
+        .home-btn-top:hover {
+            background-color: #9254de;
+        }
+    </style>
+
+    <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+
+    <script type="text/javascript" id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+</head>
+<body>
+
+<!-- 第一页：引言和数学期望 -->
+<div id="page1" class="page">
+    <button class="nav-btn home-btn-top" onclick="goToHomePage()">返回主页</button>
+
+    <div class="content-container">
+        <h1>第四章 随机变量的数字特征</h1>
+
+        <p>&emsp;&emsp;上一章介绍了随机变量的分布函数、概率密度和分布律，它们都能描述随机变量，但在实际应用中，我们更关心的是能<strong>描述随机变量一种特征的常数</strong>。能刻画随机变量某一方面的特征的常数统称为<span class="definition">数字特征</span>。本章介绍的有：<strong>数学期望、方差、相关系数和矩</strong>。</p>
+
+        <h2>数学期望</h2>
+
+        <h3>一、数学期望的定义</h3>
+
+        <blockquote>原来一个随机变量的均值或期望是可以不存在的。</blockquote>
+
+        <p>&emsp;&emsp;设离散型随机变量 $X$ 的分布律为</p>
+
+        <p>$$P\{X = x_k\} = p_k, k = 1, 2, ... .$$</p>
+
+        <p>若级数</p>
+
+        <p>$$\sum_{k = 1}^{\infty} x_k p_k$$</p>
+
+        <p>绝对收敛，则称级数 $ \sum_{k = 1}^{\infty} x_k p_k $ 的和为随机变量 $X$ 的<span class="definition">数学期望</span>，记为 $E(X)$ ，即</p>
+
+        <p>$$E(X) = \sum_{k=1}^{\infty} x_k p_k.$$</p>
+
+        <p>&emsp;&emsp;设连续型随机变量 $X$ 的概率密度为 $f(x)$ ，若积分</p>
+
+        <p>$$\int_{-\infty}^{\infty} xf(x)dx$$</p>
+
+        <p>绝对收敛，则称积分 $ \int_{-\infty}^{\infty} xf(x)dx $ 的值为随机变量 $X$ 的<span class="definition">数学期望</span>，记为 $E(X)$ ，即</p>
+
+        <p>$$E(X) = \int_{-\infty}^{\infty} xf(x)dx$$</p>
+
+        <p>&emsp;&emsp;数学期望简称期望，又称为<span class="definition">均值</span>。</p>
+
+        <h3>二、随机变量的函数的期望</h3>
+
+        <p>&emsp;&emsp;设 $Y$ 是随机变量 $X$ 的函数： $Y=g(X)$ ($g$ 是连续函数)。</p>
+
+        <p>1. 如果 $X$ 是离散型随机变量，它的分布律为 $P\{X = x_k\} = p_k, k=1, 2, ...,$ 若 $ \sum_{k = 1}^{\infty} g(x_k) p_k $ 绝对收敛，则有</p>
+
+        <p>$$E(Y) = \sum_{k = 1}^{\infty} g(x_k) p_k$$</p>
+
+        <p>2. 如果 $X$ 是连续性随机变量，它的概率密度为 $f(x)$ ，若 $\int_{-\infty}^{\infty} g(x)f(x)dx$ 绝对收敛，则有</p>
+
+        <p>$$E(Y) =  \int_{-\infty}^{\infty} g(x)f(x)dx$$</p>
+
+        <p>3. 设 $Z$ 是随机变量 $X, Y$ 的函数 $Z = g(X, Y)$ ($g$ 是连续函数) ，那么 $Z$ 是一个一维随机变量。若二维随机变量 $(X, Y)$ 的概率密度为 $f(x, y)$ ，则有</p>
+
+        <p>$$E(Z) = E[g(X, Y)] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x, y)f(x, y) dxdy,$$</p>
+
+        <p>又若 $(X, Y)$ 是一个离散型随机变量，其分布律为 $P\{X = x_i, Y = y_i\} = p_{ij}, i, j = 1, 2, ...$ ，则有</p>
+
+        <p>$$E(Z) = E[g(X, Y)] = \sum_{j=1}^{\infty} \sum_{i=1}^{\infty} g(x_i, y_i)p_{ij}$$</p>
+
+        <h3>三、数学期望的性质</h3>
+
+        <p>1. 设 $C$ 是一个常数，则有 $E(C) = C$；</p>
+        <p>2. 设 $X$ 是一个随机变量， $C$ 是一个常数，则有 $E(CX) = CE(X)$ ；</p>
+        <p>3. 设 $X,Y$ 是两个随机变量，则有 $E(X+Y) = E(X)+E(Y)$；</p>
+        <p>4. 设 $X, Y$ 是相互独立的随机变量，则有 $E(XY) = E(X)E(Y)$。</p>
+
+        <blockquote>数学期望的线性计算可以改变计算顺序，乘法要注意两个随机变量必须<strong>独立</strong>。</blockquote>
+    </div>
+
+    <button class="nav-btn next-btn" onclick="showPage(2)">下一页 →</button>
+</div>
+
+<!-- 第二页：方差 -->
+<div id="page2" class="page">
+    <div class="content-container">
+        <h1>第四章 随机变量的数字特征</h1>
+        <h2>方差</h2>
+
+        <!-- 这里放"方差"章节的所有内容 -->
+        <p>方差内容待补充...</p>
+    </div>
+
+    <button class="nav-btn prev-btn" onclick="showPage(1)">← 上一页</button>
+    <button class="nav-btn home-btn" onclick="showPage(1)">返回首页</button>
+    <button class="nav-btn next-btn" onclick="showPage(3)">下一页 →</button>
+</div>
+
+<!-- 第三页：协方差及相关系数 -->
+<div id="page3" class="page">
+    <div class="content-container">
+        <h1>第四章 随机变量的数字特征</h1>
+        <h2>协方差及相关系数</h2>
+
+        <!-- 这里放"协方差及相关系数"章节的所有内容 -->
+        <p>协方差及相关系数内容待补充...</p>
+    </div>
+
+    <button class="nav-btn prev-btn" onclick="showPage(2)">← 上一页</button>
+    <button class="nav-btn home-btn" onclick="showPage(1)">返回首页</button>
+    <button class="nav-btn next-btn" onclick="showPage(4)">下一页 →</button>
+</div>
+
+<!-- 第四页：矩、协方差矩阵 -->
+<div id="page4" class="page">
+    <div class="content-container">
+        <h1>第四章 随机变量的数字特征</h1>
+        <h2>矩、协方差矩阵</h2>
+
+        <!-- 这里放"矩、协方差矩阵"章节的所有内容 -->
+        <p>矩、协方差矩阵内容待补充...</p>
+    </div>
+
+    <button class="nav-btn prev-btn" onclick="showPage(3)">← 上一页</button>
+    <button class="nav-btn home-btn" onclick="showPage(1)">返回首页</button>
+    <button class="nav-btn next-btn" onclick="showPage(5)">下一页 →</button>
+</div>
+
+<!-- 第五页：小结 -->
+<div id="page5" class="page">
+    <div class="content-container">
+        <h1>第四章 随机变量的数字特征</h1>
+        <h2>小结</h2>
+
+        <p>&emsp;&emsp;随机变量的数字特征是由随机变量的分布确定的，能描述一个随机变量某一个方面的特征的常数。最重要的数字特征是数学期望和方差。数学期望 $E(X)$ 描述随机变量 $X$ 取值的平均大小，方差 $D(X) = E{[X - E(X)]^2}$ 描述随机变量 $X$ 与它自己的数学期望 $E(X)$ 的偏离程度。数学期望和方差在理论上都非常重要。</p>
+
+        <p>&emsp;&emsp;要掌握随机变量的函数 $Y=g(X)$ 的数学期望 $E(Y) = E[g(X)]$ 的计算公式。这两个公式的意义在于当我们求 $E(Y)$ 时，不必先求出 $Y=g(X)$ 的分布律或概率密度，而只需利用 $X$ 的分布律或概率密度就可以了，这样做的好处是明显的。</p>
+
+        <p>&emsp;&emsp;要掌握数学期望和方差的性质。提请读者注意的是：</p>
+
+        <p>(1). 当 $X_1, X_2$ 独立或 $X_1, X_2$ 不相关时，才有 $E(X_1X_2) = E(X_1)E(X_2)$；</p>
+        <p>(2). 设 $C$ 为常数，则有 $D(CX) = C^2D(X)$ ，右边的系数是 $C^2$， 不是 $C$；</p>
+        <p>(3). $D(X_1 + X_2) = D(X_1) + D(X_2) + 2Cov(X_1, X_2)$ ，当 $X_1, X_2$ 独立或 $X_1, X_2$ 不相关时才有</p>
+
+        <p>$$D(X_1 + X_2) = D(X_1) + D(X_2)$$</p>
+
+        <p>例如：若 $X_1, X_2$ 独立，则有 $D(2X_1 - 3X_2) = 4D(X_1) + 9D(X_2)$ 。</p>
+
+        <p>&emsp;&emsp;相关系数 $\rho_{XY}$ 有时也被称为线性相关系数，它是一个可以用来描述随机变量 $(X, Y)$  的两个分量 $X, Y$ 之间的线性关系紧密程度的数字特征，当 $|\rho_{XY}|$ 较小时， $X, Y$ 的线性相关性的程度较差；当 $\rho_{XY}=0$ 时称 $X, Y$ 不相关。不相关是指 $X, Y$ 之间不存在线性关系， $X, Y$ 不相关，他们还可能存在除线性关系之外的关系。又由于 $X, Y$ 相互独立是指 $X, Y$ 的一般关系而言的，因此有以下结论： $X, Y$ 相互独立则 $X, Y$ 一定不相关；反之，若 $X, Y$ 不相关则 $X, Y$ 不一定相互独立。</p>
+
+        <p>&emsp;&emsp;特别，对于二维正态随机变量 $(X, Y)$ ,  $X, Y$ 不相关与 $X, Y$ 相互独立是等价的。而二元正态随机变量的相关系数 $\rho_{XY}$ 就是参数 $\rho$ 。于是，用" $\rho = 0$ "是否成立来检验 $X, Y$ 是否相互独立是很方便的。</p>
+
+        <p>&emsp;&emsp;切比雪夫不等式给出了在随机变量 $X$ 的分布未知，只知道 $E(X)$ 和 $D(X)$ 的情况下，对事件 ${|X - E(X)| \leq \epsilon}$ 概率的下限的估计。</p>
+    </div>
+
+    <button class="nav-btn prev-btn" onclick="showPage(4)">← 上一页</button>
+    <button class="nav-btn home-btn" onclick="showPage(1)">返回首页</button>
+</div>
+
+<script>
+    // 返回主页函数
+    function goToHomePage() {
+        window.location.href = '../../index.html';
+    }
+    // 显示指定页面，隐藏其他所有页面
+    function showPage(pageNumber) {
+        // 隐藏所有页面
+        for (let i = 1; i <= 5; i++) {
+            document.getElementById('page' + i).style.display = 'none';
+        }
+        // 显示指定页面
+        document.getElementById('page' + pageNumber).style.display = 'block';
+        // 滚动到顶部
+        window.scrollTo(0, 0);
+    }
+    
+    // 初始化显示第一页
+    window.onload = function() {
+        showPage(1);
+    };
+</script>
+
+</body>
+</html>

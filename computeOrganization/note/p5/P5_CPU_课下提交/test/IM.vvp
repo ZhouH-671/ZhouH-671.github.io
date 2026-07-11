@@ -1,0 +1,40 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "D:\Verilog\iverilog\lib\ivl\system.vpi";
+:vpi_module "D:\Verilog\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "D:\Verilog\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "D:\Verilog\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "D:\Verilog\iverilog\lib\ivl\va_math.vpi";
+S_0000025906442ce0 .scope module, "IM" "IM" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 32 "addr";
+    .port_info 1 /OUTPUT 32 "instr";
+L_00000259064430f0 .functor BUFZ 32, L_000002590642e9b0, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>;
+v0000025906443490_0 .net "IM_addr", 31 0, L_000002590642e910;  1 drivers
+L_00000259064bc028 .functor BUFT 1, C4<00000000000000000011000000000000>, C4<0>, C4<0>, C4<0>;
+v0000025906443820_0 .net/2u *"_ivl_0", 31 0, L_00000259064bc028;  1 drivers
+L_00000259064bc070 .functor BUFT 1, C4<00>, C4<0>, C4<0>, C4<0>;
+v000002590642b3b0_0 .net *"_ivl_11", 1 0, L_00000259064bc070;  1 drivers
+v0000025906442e70_0 .net *"_ivl_4", 31 0, L_000002590642e9b0;  1 drivers
+v0000025906442f10_0 .net *"_ivl_7", 11 0, L_000002590642ea50;  1 drivers
+v0000025906442fb0_0 .net *"_ivl_8", 13 0, L_0000025906471480;  1 drivers
+o00000259064770c8 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v0000025906443050_0 .net "addr", 31 0, o00000259064770c8;  0 drivers
+v000002590642e740 .array "imemory", 0 4095, 31 0;
+v000002590642e7e0_0 .net "instr", 31 0, L_00000259064430f0;  1 drivers
+L_000002590642e910 .arith/sub 32, o00000259064770c8, L_00000259064bc028;
+L_000002590642e9b0 .array/port v000002590642e740, L_0000025906471480;
+L_000002590642ea50 .part L_000002590642e910, 2, 12;
+L_0000025906471480 .concat [ 12 2 0 0], L_000002590642ea50, L_00000259064bc070;
+    .scope S_0000025906442ce0;
+T_0 ;
+    %vpi_call 2 10 "$readmemh", "code.txt", v000002590642e740 {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "./src/datapath/IM.v";

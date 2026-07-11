@@ -1,0 +1,187 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "D:\Verilog\iverilog\lib\ivl\system.vpi";
+:vpi_module "D:\Verilog\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "D:\Verilog\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "D:\Verilog\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "D:\Verilog\iverilog\lib\ivl\va_math.vpi";
+S_0000013067337020 .scope module, "GRF" "GRF" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 5 "A1";
+    .port_info 1 /INPUT 5 "A2";
+    .port_info 2 /INPUT 5 "A3";
+    .port_info 3 /INPUT 32 "WD";
+    .port_info 4 /INPUT 1 "GRF_WE";
+    .port_info 5 /INPUT 1 "clk";
+    .port_info 6 /INPUT 1 "reset";
+    .port_info 7 /INPUT 32 "currentPC";
+    .port_info 8 /OUTPUT 32 "RD1";
+    .port_info 9 /OUTPUT 32 "RD2";
+o0000013067349fb8 .functor BUFZ 5, C4<zzzzz>; HiZ drive
+v0000013067313490_0 .net "A1", 4 0, o0000013067349fb8;  0 drivers
+o0000013067349fe8 .functor BUFZ 5, C4<zzzzz>; HiZ drive
+v0000013067337b50_0 .net "A2", 4 0, o0000013067349fe8;  0 drivers
+o000001306734a018 .functor BUFZ 5, C4<zzzzz>; HiZ drive
+v000001306728bbf0_0 .net "A3", 4 0, o000001306734a018;  0 drivers
+o000001306734a048 .functor BUFZ 1, C4<z>; HiZ drive
+v000001306728bc90_0 .net "GRF_WE", 0 0, o000001306734a048;  0 drivers
+v0000013067344960_0 .var "RD1", 31 0;
+v0000013067344a00_0 .var "RD2", 31 0;
+o000001306734a0d8 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v0000013067344aa0_0 .net "WD", 31 0, o000001306734a0d8;  0 drivers
+o000001306734a108 .functor BUFZ 1, C4<z>; HiZ drive
+v0000013067344b40_0 .net "clk", 0 0, o000001306734a108;  0 drivers
+o000001306734a138 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v0000013067344be0_0 .net "currentPC", 31 0, o000001306734a138;  0 drivers
+v0000013067344c80_0 .var/i "i", 31 0;
+v0000013067344d20 .array "register", 31 0, 31 0;
+o000001306734a798 .functor BUFZ 1, C4<z>; HiZ drive
+v0000013067344ed0_0 .net "reset", 0 0, o000001306734a798;  0 drivers
+v0000013067344d20_0 .array/port v0000013067344d20, 0;
+v0000013067344d20_1 .array/port v0000013067344d20, 1;
+v0000013067344d20_2 .array/port v0000013067344d20, 2;
+E_0000013067287e70/0 .event anyedge, v0000013067313490_0, v0000013067344d20_0, v0000013067344d20_1, v0000013067344d20_2;
+v0000013067344d20_3 .array/port v0000013067344d20, 3;
+v0000013067344d20_4 .array/port v0000013067344d20, 4;
+v0000013067344d20_5 .array/port v0000013067344d20, 5;
+v0000013067344d20_6 .array/port v0000013067344d20, 6;
+E_0000013067287e70/1 .event anyedge, v0000013067344d20_3, v0000013067344d20_4, v0000013067344d20_5, v0000013067344d20_6;
+v0000013067344d20_7 .array/port v0000013067344d20, 7;
+v0000013067344d20_8 .array/port v0000013067344d20, 8;
+v0000013067344d20_9 .array/port v0000013067344d20, 9;
+v0000013067344d20_10 .array/port v0000013067344d20, 10;
+E_0000013067287e70/2 .event anyedge, v0000013067344d20_7, v0000013067344d20_8, v0000013067344d20_9, v0000013067344d20_10;
+v0000013067344d20_11 .array/port v0000013067344d20, 11;
+v0000013067344d20_12 .array/port v0000013067344d20, 12;
+v0000013067344d20_13 .array/port v0000013067344d20, 13;
+v0000013067344d20_14 .array/port v0000013067344d20, 14;
+E_0000013067287e70/3 .event anyedge, v0000013067344d20_11, v0000013067344d20_12, v0000013067344d20_13, v0000013067344d20_14;
+v0000013067344d20_15 .array/port v0000013067344d20, 15;
+v0000013067344d20_16 .array/port v0000013067344d20, 16;
+v0000013067344d20_17 .array/port v0000013067344d20, 17;
+v0000013067344d20_18 .array/port v0000013067344d20, 18;
+E_0000013067287e70/4 .event anyedge, v0000013067344d20_15, v0000013067344d20_16, v0000013067344d20_17, v0000013067344d20_18;
+v0000013067344d20_19 .array/port v0000013067344d20, 19;
+v0000013067344d20_20 .array/port v0000013067344d20, 20;
+v0000013067344d20_21 .array/port v0000013067344d20, 21;
+v0000013067344d20_22 .array/port v0000013067344d20, 22;
+E_0000013067287e70/5 .event anyedge, v0000013067344d20_19, v0000013067344d20_20, v0000013067344d20_21, v0000013067344d20_22;
+v0000013067344d20_23 .array/port v0000013067344d20, 23;
+v0000013067344d20_24 .array/port v0000013067344d20, 24;
+v0000013067344d20_25 .array/port v0000013067344d20, 25;
+v0000013067344d20_26 .array/port v0000013067344d20, 26;
+E_0000013067287e70/6 .event anyedge, v0000013067344d20_23, v0000013067344d20_24, v0000013067344d20_25, v0000013067344d20_26;
+v0000013067344d20_27 .array/port v0000013067344d20, 27;
+v0000013067344d20_28 .array/port v0000013067344d20, 28;
+v0000013067344d20_29 .array/port v0000013067344d20, 29;
+v0000013067344d20_30 .array/port v0000013067344d20, 30;
+E_0000013067287e70/7 .event anyedge, v0000013067344d20_27, v0000013067344d20_28, v0000013067344d20_29, v0000013067344d20_30;
+v0000013067344d20_31 .array/port v0000013067344d20, 31;
+E_0000013067287e70/8 .event anyedge, v0000013067344d20_31, v0000013067337b50_0;
+E_0000013067287e70 .event/or E_0000013067287e70/0, E_0000013067287e70/1, E_0000013067287e70/2, E_0000013067287e70/3, E_0000013067287e70/4, E_0000013067287e70/5, E_0000013067287e70/6, E_0000013067287e70/7, E_0000013067287e70/8;
+E_0000013067288af0 .event posedge, v0000013067344b40_0;
+    .scope S_0000013067337020;
+T_0 ;
+    %wait E_0000013067288af0;
+    %load/vec4 v0000013067344ed0_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_0.0, 8;
+    %pushi/vec4 0, 0, 32;
+    %store/vec4 v0000013067344c80_0, 0, 32;
+T_0.2 ;
+    %load/vec4 v0000013067344c80_0;
+    %cmpi/s 32, 0, 32;
+    %jmp/0xz T_0.3, 5;
+    %pushi/vec4 0, 0, 32;
+    %ix/getv/s 3, v0000013067344c80_0;
+    %ix/load 4, 0, 0; Constant delay
+    %assign/vec4/a/d v0000013067344d20, 0, 4;
+    %load/vec4 v0000013067344c80_0;
+    %addi 1, 0, 32;
+    %store/vec4 v0000013067344c80_0, 0, 32;
+    %jmp T_0.2;
+T_0.3 ;
+    %jmp T_0.1;
+T_0.0 ;
+    %load/vec4 v000001306728bc90_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_0.4, 8;
+    %vpi_call 2 25 "$display", "@%h: $%d <= %h", v0000013067344be0_0, v000001306728bbf0_0, v0000013067344aa0_0 {0 0 0};
+T_0.4 ;
+    %load/vec4 v000001306728bc90_0;
+    %flag_set/vec4 9;
+    %flag_get/vec4 9;
+    %jmp/0 T_0.8, 9;
+    %load/vec4 v000001306728bbf0_0;
+    %pushi/vec4 0, 0, 5;
+    %cmp/ne;
+    %flag_get/vec4 4;
+    %and;
+T_0.8;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_0.6, 8;
+    %load/vec4 v0000013067344aa0_0;
+    %load/vec4 v000001306728bbf0_0;
+    %pad/u 7;
+    %ix/vec4 3;
+    %ix/load 4, 0, 0; Constant delay
+    %assign/vec4/a/d v0000013067344d20, 0, 4;
+    %jmp T_0.7;
+T_0.6 ;
+    %load/vec4 v000001306728bbf0_0;
+    %pad/u 7;
+    %ix/vec4 4;
+    %load/vec4a v0000013067344d20, 4;
+    %load/vec4 v000001306728bbf0_0;
+    %pad/u 7;
+    %ix/vec4 3;
+    %ix/load 4, 0, 0; Constant delay
+    %assign/vec4/a/d v0000013067344d20, 0, 4;
+T_0.7 ;
+T_0.1 ;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_0000013067337020;
+T_1 ;
+    %wait E_0000013067287e70;
+    %load/vec4 v0000013067313490_0;
+    %cmpi/e 0, 0, 5;
+    %flag_mov 8, 4;
+    %jmp/0 T_1.0, 8;
+    %pushi/vec4 0, 0, 32;
+    %jmp/1 T_1.1, 8;
+T_1.0 ; End of true expr.
+    %load/vec4 v0000013067313490_0;
+    %pad/u 7;
+    %ix/vec4 4;
+    %load/vec4a v0000013067344d20, 4;
+    %jmp/0 T_1.1, 8;
+ ; End of false expr.
+    %blend;
+T_1.1;
+    %store/vec4 v0000013067344960_0, 0, 32;
+    %load/vec4 v0000013067337b50_0;
+    %cmpi/e 0, 0, 5;
+    %flag_mov 8, 4;
+    %jmp/0 T_1.2, 8;
+    %pushi/vec4 0, 0, 32;
+    %jmp/1 T_1.3, 8;
+T_1.2 ; End of true expr.
+    %load/vec4 v0000013067337b50_0;
+    %pad/u 7;
+    %ix/vec4 4;
+    %load/vec4a v0000013067344d20, 4;
+    %jmp/0 T_1.3, 8;
+ ; End of false expr.
+    %blend;
+T_1.3;
+    %store/vec4 v0000013067344a00_0, 0, 32;
+    %jmp T_1;
+    .thread T_1, $push;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "src/datapath/GRF.v";

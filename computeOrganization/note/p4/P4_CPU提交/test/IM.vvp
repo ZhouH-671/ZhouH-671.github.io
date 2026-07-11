@@ -1,0 +1,40 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "D:\Verilog\iverilog\lib\ivl\system.vpi";
+:vpi_module "D:\Verilog\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "D:\Verilog\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "D:\Verilog\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "D:\Verilog\iverilog\lib\ivl\va_math.vpi";
+S_00000250ce42b590 .scope module, "IM" "IM" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 32 "currentPC";
+    .port_info 1 /OUTPUT 32 "instruction";
+L_00000250ce42b450 .functor BUFZ 32, L_00000250ce42ec10, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>, C4<00000000000000000000000000000000>;
+v00000250ce443840_0 .net "IM_address", 31 0, L_00000250ce42eb70;  1 drivers
+L_00000250ce4bc028 .functor BUFT 1, C4<00000000000000000011000000000000>, C4<0>, C4<0>, C4<0>;
+v00000250ce42b3b0_0 .net/2u *"_ivl_0", 31 0, L_00000250ce4bc028;  1 drivers
+L_00000250ce4bc070 .functor BUFT 1, C4<00>, C4<0>, C4<0>, C4<0>;
+v00000250ce42e680_0 .net *"_ivl_11", 1 0, L_00000250ce4bc070;  1 drivers
+v00000250ce42e720_0 .net *"_ivl_4", 31 0, L_00000250ce42ec10;  1 drivers
+v00000250ce42e7c0_0 .net *"_ivl_7", 11 0, L_00000250ce42ecb0;  1 drivers
+v00000250ce42e860_0 .net *"_ivl_8", 13 0, L_00000250ce4710c0;  1 drivers
+o00000250ce4770c8 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v00000250ce42e900_0 .net "currentPC", 31 0, o00000250ce4770c8;  0 drivers
+v00000250ce42e9a0_0 .net "instruction", 31 0, L_00000250ce42b450;  1 drivers
+v00000250ce42ea40 .array "memory", 4095 0, 31 0;
+L_00000250ce42eb70 .arith/sub 32, o00000250ce4770c8, L_00000250ce4bc028;
+L_00000250ce42ec10 .array/port v00000250ce42ea40, L_00000250ce4710c0;
+L_00000250ce42ecb0 .part L_00000250ce42eb70, 2, 12;
+L_00000250ce4710c0 .concat [ 12 2 0 0], L_00000250ce42ecb0, L_00000250ce4bc070;
+    .scope S_00000250ce42b590;
+T_0 ;
+    %vpi_call 2 10 "$readmemh", "src/datapath/code.txt", v00000250ce42ea40 {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "src/datapath/IM.v";

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>计算机组成原理 · 实验导航</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f0f4fa;
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding-top: 30px;
+            padding-bottom: 50px;
+        }
+
+        /* 主卡片容器 */
+        .document-wrapper {
+            max-width: 1100px;
+            width: 100%;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(0, 20, 40, 0.04);
+            overflow: hidden;
+            margin: 0 20px;
+        }
+
+        /* ===== 顶部导航栏 ===== */
+        .top-nav {
+            background: #0b1a33;
+            padding: 0 40px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #1f3a5f;
+            min-height: 64px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+            letter-spacing: 0.3px;
+            padding: 10px 0;
+        }
+
+        .nav-brand .brand-icon {
+            font-size: 22px;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 0;
+        }
+
+        .nav-links a {
+            color: #cfdcee;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+
+        .nav-links a:hover {
+            background: #1f3a5f;
+            color: white;
+            border-color: #3a6a9f;
+        }
+
+        .nav-links a.active {
+            background: #2a5a8a;
+            color: white;
+            border-color: #4a7ab0;
+            box-shadow: 0 2px 8px rgba(42, 90, 138, 0.3);
+        }
+
+        .nav-links a.active:hover {
+            background: #356a9a;
+        }
+
+        /* 导航栏右侧辅助文字（可选） */
+        .nav-sub {
+            color: #8aa6c9;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+            padding: 0 6px;
+        }
+
+        /* ===== 文档内容 ===== */
+        .document-card {
+            padding: 40px 56px 48px 56px;
+        }
+
+        .main-title {
+            font-size: 34px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #0b1a33;
+            margin-bottom: 28px;
+            border-bottom: 2px solid #e6edf6;
+            padding-bottom: 18px;
+        }
+
+        .section-head {
+            font-size: 22px;
+            font-weight: 600;
+            color: #0b1a33;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            letter-spacing: 0.3px;
+        }
+
+        .section-head:first-of-type {
+            margin-top: 0;
+        }
+
+        .text-body {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #1e2f44;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .text-body strong {
+            color: #0b1a33;
+            font-weight: 600;
+        }
+
+        .tutorial-list {
+            list-style: none;
+            padding-left: 8px;
+            margin: 18px 0 22px 0;
+        }
+
+        .tutorial-list li {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #1e2f44;
+            padding: 6px 0 6px 28px;
+            position: relative;
+            border-bottom: 1px solid #f0f4fa;
+        }
+
+        .tutorial-list li:last-child {
+            border-bottom: none;
+        }
+
+        .tutorial-list li::before {
+            content: "▹";
+            position: absolute;
+            left: 4px;
+            color: #2a6b9c;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .nav-link {
+            display: inline-block;
+            background: #eef3fa;
+            padding: 2px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: #0b1a33;
+            text-decoration: none;
+            font-size: 15px;
+            transition: background 0.15s, transform 0.1s;
+            margin-left: 4px;
+            border: 1px solid #d5e0ec;
+        }
+
+        .nav-link:hover {
+            background: #dce6f2;
+            transform: scale(1.02);
+        }
+
+        .nav-link-sm {
+            font-size: 14px;
+            padding: 1px 14px;
+            margin-left: 2px;
+        }
+
+        .divider-light {
+            margin: 28px 0 24px 0;
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, #d9e2ec, transparent);
+        }
+
+        .sim-tool-box {
+            background: #f2f6fd;
+            border-radius: 20px;
+            padding: 24px 30px;
+            margin: 28px 0 12px 0;
+            border-left: 6px solid #3a7bb5;
+        }
+
+        .sim-tool-box .sim-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0b1a33;
+            margin-bottom: 10px;
+            letter-spacing: 0.2px;
+        }
+
+        .sim-tool-box .text-body {
+            margin-bottom: 6px;
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 768px) {
+            .top-nav {
+                padding: 0 20px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 6px;
+            }
+
+            .nav-brand {
+                justify-content: center;
+                padding: 10px 0 4px 0;
+            }
+
+            .nav-links {
+                justify-content: center;
+                padding: 6px 0 12px 0;
+                gap: 4px;
+            }
+
+            .nav-links a {
+                padding: 6px 14px;
+                font-size: 14px;
+            }
+
+            .document-card {
+                padding: 28px 20px 36px 20px;
+            }
+
+            .main-title {
+                font-size: 28px;
+            }
+
+            .section-head {
+                font-size: 20px;
+            }
+
+            .tutorial-list li {
+                padding-left: 24px;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .document-wrapper {
+                margin: 0 10px;
+                border-radius: 18px;
+            }
+
+            .top-nav {
+                padding: 0 12px;
+            }
+
+            .document-card {
+                padding: 20px 14px 28px 14px;
+            }
+
+            .main-title {
+                font-size: 24px;
+            }
+
+            .text-body {
+                font-size: 15px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+                padding: 5px 10px;
+            }
+
+            .nav-brand {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="document-wrapper">
+        <!-- ===== 顶部导航栏 ===== -->
+        <!-- ===== 顶部导航栏 ===== -->
+        <nav class="top-nav">
+            <div class="nav-brand">
+                <span class="brand-icon">⚙️</span>
+                <span>计算机组成 · 实验</span>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="active">首页</a>
+                <a href="javascript:void(0)" onclick="alert('Logisim教程暂未开放，敬请期待！')">Logisim</a>
+                <a href="javascript:void(0)" onclick="alert('Verilog教程暂未开放，敬请期待！')">Verilog</a>
+                <a href="./note/pre/MIPS汇编/MIPS汇编.html">MIPS</a>
+                <a href="javascript:void(0)" onclick="alert('P0实验教程暂未开放，敬请期待！')">P0</a>
+                <a href="javascript:void(0)" onclick="alert('P1实验教程暂未开放，敬请期待！')">P1</a>
+                <a href="javascript:void(0)" onclick="alert('P2实验教程暂未开放，敬请期待！')">P2</a>
+                <a href="javascript:void(0)" onclick="alert('P3实验教程暂未开放，敬请期待！')">P3</a>
+                <a href="javascript:void(0)" onclick="alert('P4实验教程暂未开放，敬请期待！')">P4</a>
+                <a href="javascript:void(0)" onclick="alert('P5实验教程暂未开放，敬请期待！')">P5</a>
+                <a href="javascript:void(0)" onclick="alert('P6实验教程暂未开放，敬请期待！')">P6</a>
+                <a href="javascript:void(0)" onclick="alert('P7实验教程暂未开放，敬请期待！')">P7</a>
+                <a href="javascript:void(0)" onclick="alert('仿真工具教程暂未开放，敬请期待！')">仿真工具</a>
+                <span class="nav-sub">| 教程导航</span>
+            </div>
+        </nav>
+
+                <!-- ===== 文档正文 ===== -->
+        <div class="document-card">
+            <h1 class="main-title">计算机组成原理</h1>
+
+            <!-- 将 index.md 的内容整合到 HTML 正文中，保留原有样式 -->
+            <h2 class="section-head">前言</h2>
+            <p class="text-body">
+                在计算机组成原理中，同学们将要学习计算机的各部分，特别是CPU的工作原理和组成部分。而在实验课中，大家最终将亲自实现一个带有中断异常处理的5阶段流水线MIPS CPU和配套外围设备。
+            </p>
+            <p class="text-body">
+                在开始搭建CPU以前，大家需要先学习数制、数字电路基础知识、Logisim、Verilog HDL与仿真工具、MIPS指令集及汇编语言等部分。他们依次分别对应教程平台的Logisim、Verilog-HDL与仿真工具和MIPS这三个章节。具体的学习目标和内容介绍将在后文的教程部分概览进行描述，方便大家进行学习。
+            </p>
+            <p class="text-body">
+                在学习完基础知识后，我们就进入到了CPU原理和实现方法的讲解部分，对CPU部件、单周期CPU、流水线CPU进行了解和实现。
+            </p>
+            <p class="text-body">
+                除了前言，本教程后面的内容可分为以下4个部分：
+            </p>
+
+            <ul class="tutorial-list">
+                <li>
+                    <strong>1. pre预习部分</strong>：这一部分包含三大块内容，分别是Logisim、Verilig HDL与仿真工具、MIPS指令集与汇编语言。在学习完基本的数字电路基础知识后，我们需要利用Logisim软件来搭建电路。Logisim是一个用于搭建电路的仿真软件，可以辅助我们数字电路的学习。正如大家使用C语言进行软件开发一样，开发硬件也需要一种特定的工具、编程语言。Verilig作为硬件开发语言，通过类似软件的语法来描述硬件，我们需要使用这种语言来搭建CPU，最终完成CPU的综合与功能模拟。同时，我们需要学习MIPS汇编，理解汇编语言的工作原理，最终让CPU可以运行我们的汇编程序。
+                </li>
+                <li>
+                    <strong>2. p0到p2部分</strong>：这三次实验分别深入学习Logisim、Verilog和MIPS三部分内容。
+                </li>
+                <li>
+                    <strong>3. p3和p4部分</strong>：从这两次实验开始，我们就进入了CPU的搭建环节。我们需要在p3中用Logisim画出一个单周期的CPU电路图，让这个CPU能够执行部分指定的指令，然后在p4中用Verilog硬件编程语言来把这个电路图转换成可以运行并且能够综合的代码。
+                </li>
+                <li>
+                    <strong>4. p5到p7部分</strong>：在这三次实验中，我们开始搭建5级流水线CPU。流水线的难度要远大于单周期，请务必认真对待。在p5中，我们将会实现一个支持跳转，计算，存取等功能的5级别流水线CPU。本次上机也是公认最难的一次。实验p6要求我们扩充CPU能够支持的指令的数目和种类。实验p7要求我们实现异常和中断的功能。
+                </li>
+            </ul>
+
+            <p class="text-body" style="margin-top: 16px;">
+                接下来，请开始愉快的学习之旅吧！欢迎入坑！
+            </p>
+
+            <!-- 保留原有的分隔线和底部占位，与原有结构一致 -->
+            <hr class="divider-light" />
+            <div style="height: 4px;"></div>
+        </div>
+        <!-- end document-card -->
+
+</body>
+</html>

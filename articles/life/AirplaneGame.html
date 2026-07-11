@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>星际捍卫者 - 航空航天小游戏 (优化燃料版)</title>
+    <style>
+        * {
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(circle at center, #0a0f2a, #03050b);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Orbitron', 'Courier New', monospace;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,255,255,0.2);
+            background: #00000055;
+            backdrop-filter: blur(2px);
+            padding: 12px;
+        }
+
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border-radius: 20px;
+            box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.4), 0 0 0 7px #0a142e, 0 15px 35px black;
+            cursor: none;
+        }
+
+        .info-panel {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            width: 100%;
+            margin-top: 18px;
+            gap: 20px;
+            background: rgba(0, 5, 15, 0.75);
+            backdrop-filter: blur(8px);
+            padding: 12px 25px;
+            border-radius: 60px;
+            border: 1px solid cyan;
+            box-shadow: 0 0 12px rgba(0,255,255,0.3);
+        }
+
+        .score-board, .fuel-board, .health-board {
+            font-weight: bold;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            text-shadow: 0 0 5px #0ff;
+            color: #eef5ff;
+        }
+
+        .score-board span, .fuel-board span, .health-board span {
+            color: #ffd966;
+            font-size: 1.9rem;
+            margin-left: 10px;
+            background: linear-gradient(135deg, #f0f0ff, #aaddff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 8px cyan;
+        }
+
+        .restart-btn {
+            background: #112244;
+            border: 2px solid #0ff;
+            color: cyan;
+            font-family: inherit;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 6px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            letter-spacing: 1.5px;
+        }
+
+        .restart-btn:hover {
+            background: cyan;
+            color: #03050b;
+            box-shadow: 0 0 18px cyan;
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 900px) {
+            .info-panel {
+                padding: 8px 16px;
+            }
+            .score-board, .fuel-board, .health-board {
+                font-size: 1rem;
+            }
+            .score-board span, .fuel-board span, .health-board span {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="game-container">
+        <canvas id="gameCanvas" width="1000" height="650"></canvas>
+        <div class="info-panel">
+            <div class="score-board">🔰 击落 <span id="scoreValue">0</span></div>
+            <div class="fuel-board">⛽ 燃料 <span id="fuelValue">100</span>%</div>
+            <div class="health-board">🛡️ 护盾 <span id="healthValue">100</span></div>
+            <button class="restart-btn" id="restartButton">🚀 重新起飞</button>
+        </div>
+    </div>
+    <div style="text-align:center; margin-top: 15px; color:#6c8eff; font-size:12px; font-family: monospace;">
+        🖱️ 鼠标 / 手指 移动控制战机 | 🤖 自动连射激光 | ✨ 拾取燃料包恢复更多燃料 | 💥 撞击敌机损失护盾 | 🛢️ 燃料消耗更慢
+    </div>
+</div>
+
+<script>
+    (function(){
+        // ---------- 画布元素 ----------
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // ---------- 游戏状态 ----------
+        let gameRunning = true;
+        let score = 0;              // 击落敌机得分
+        let health = 100;          // 护盾值 0~100
+        let fuel = 100;            // 燃料百分比, 不断消耗, 归零游戏结束
+        let gameOverFlag = false;   
+
+        // ---------- 实体池 ----------
+        let player = { x: canvas.width/2, y: canvas.height - 70, radius: 18, width: 28, height: 28 };
+        let enemies = [];          // 敌机数组
+        let bullets = [];          // 子弹数组
+        let fuelPacks = [];        // 燃料补给包
+        
+        // ---------- 特效 ----------
+        let explosions = [];        // 爆炸特效 {x, y, timer}
+        
+        // ---------- 射击冷却 ----------
+        let shootCooldown = 0;
+        const SHOOT_DELAY_FRAMES = 7;   // 大约60帧 => 每秒8~9发
+        
+        // ---------- 敌人生成控制 ----------
+        let enemySpawnCounter = 0;
+        let enemySpawnDelay = 28;        // 动态调整, 初始28帧生成一波
+        
+        // 燃料包生成控制
+        let fuelSpawnCounter = 0;
+        let fuelSpawnDelay = 150;         // 约2.5秒生成一次(60帧)
+        
+        // 难度参数 (随分数上升敌人生成变快)
+        let currentDifficulty = 1;
+        
+        // 游戏循环ID
+        let animationId = null;
+        
+        // 用于平滑鼠标/触摸控制
+        let mouseX = player.x, mouseY = player.y;
+        let pointerActive = false;
+        
+        // ---------- 辅助函数更新UI ----------
+        function updateUI() {
+            document.getElementById('scoreValue').innerText = Math.floor(score);
+            document.getElementById('healthValue').innerText = Math.floor(health);
+            document.getElementById('fuelValue').innerText = Math.floor(fuel);
+        }
+        
+        // ---------- 游戏结束逻辑 ----------
+        function endGame() {
+            if(!gameRunning) return;
+            gameRunning = false;
+            gameOverFlag = true;
+            updateUI();
+        }
+        
+        // 重置全部游戏变量
+        function restartGame() {
+            // 重置全局状态
+            gameRunning = true;
+            gameOverFlag = false;
+            score = 0;
+            health = 100;
+            fuel = 100;
+            enemies = [];
+            bullets = [];
+            fuelPacks = [];
+            explosions = [];
+            shootCooldown = 0;
+            enemySpawnCounter = 5;
+            fuelSpawnCounter = 10;
+            currentDifficulty = 1;
+            enemySpawnDelay = 28;
+            
+            player.x = canvas.width/2;
+            player.y = canvas.height - 70;
+            mouseX = player.x;
+            mouseY = player.y;
+            
+            updateUI();
+        }
+        
+        // ---------- 产生爆炸特效 ----------
+        function addExplosion(x, y) {
+            explosions.push({ x: x, y: y, life: 12 }); // 持续12帧
+        }
+        
+        // ---------- 发射子弹 ----------
+        function shootBullet() {
+            bullets.push({
+                x: player.x,
+                y: player.y - 12,
+                radius: 5,
+                width: 6,
+                height: 12,
+                speed: -9
+            });
+        }
+        
+        // ---------- 生成敌人 (多种类型) ----------
+        function spawnEnemy() {
+            // 类型: 0 普通敌机, 1 快速拦截机, 2 重装敌机(生命值高)
+            const typeRand = Math.random();
+            let type = 0;
+            let hp = 1;
+            let speedY = 3.2;
+            let radius = 16;
+            let color = "#dc4c4c";
+            let scoreWorth = 10;
+            
+            if(score > 300 && typeRand < 0.25) {
+                type = 2;
+                hp = 3;
+                speedY = 2.5;
+                radius = 24;
+                color = "#b87333";
+                scoreWorth = 35;
+            } else if(score > 100 && typeRand < 0.4) {
+                type = 1;
+                hp = 1;
+                speedY = 5.2;
+                radius = 14;
+                color = "#ffaa66";
+                scoreWorth = 15;
+            } else {
+                type = 0;
+                hp = 1;
+                speedY = 3.2 + Math.random() * 1.2;
+                radius = 16;
+                color = "#e34d4d";
+                scoreWorth = 10;
+            }
+            
+            let xPos = 30 + Math.random() * (canvas.width - 60);
+            enemies.push({
+                x: xPos,
+                y: -25,
+                radius: radius,
+                type: type,
+                hp: hp,
+                maxHp: hp,
+                speedY: speedY,
+                color: color,
+                scoreValue: scoreWorth,
+                width: radius*1.6,
+                height: radius*1.4
+            });
+        }
+        
+        // 生成燃料包 - 现在提供更多燃料
+        function spawnFuelPack() {
+            // 恢复量从20提升到28-35之间，随机更有趣
+            const fuelRestore = 28 + Math.floor(Math.random() * 12); // 28~39
+            fuelPacks.push({
+                x: 30 + Math.random() * (canvas.width - 60),
+                y: -20,
+                radius: 12,
+                width: 18,
+                height: 18,
+                speedY: 2.2,
+                value: fuelRestore
+            });
+        }
+        
+        // ---------- 更新逻辑 (每帧) ----------
+        function updateGame() {
+            if(!gameRunning) return;
+            
+            // 1. 燃料自然消耗 - 大幅降低消耗速度，原0.18改为0.075，约可以飞30秒以上不拾取也不至于过快失败
+            // 每帧减少0.075% → 大约1333帧从100%到0%，60帧下约22秒，但配合补给包完全足够，且更轻松
+            fuel = Math.max(0, fuel - 0.075);
+            if(fuel <= 0) {
+                endGame();
+                return;
+            }
+            
+            // 2. 难度动态: 分数每增加150, 敌人生成速度加快 & 最小延迟减少
+            let newDelay = Math.max(14, 28 - Math.floor(score / 180));
+            enemySpawnDelay = newDelay;
+            
+            // 3. 玩家移动 (基于鼠标/触摸)
+            let targetX = mouseX;
+            let targetY = mouseY;
+            // 边界限制
+            targetX = Math.min(Math.max(targetX, 15 + player.radius), canvas.width - 15 - player.radius);
+            targetY = Math.min(Math.max(targetY, 40 + player.radius), canvas.height - 20 - player.radius);
+            player.x = targetX;
+            player.y = targetY;
+            
+            // 4. 射击冷却
+            if(shootCooldown <= 0) {
+                shootBullet();
+                shootCooldown = SHOOT_DELAY_FRAMES;
+            } else {
+                shootCooldown--;
+            }
+            
+            // 5. 子弹更新
+            for(let i=0; i<bullets.length; i++) {
+                bullets[i].y += bullets[i].speed;
+                if(bullets[i].y + bullets[i].height < 0 || bullets[i].y > canvas.height + 100) {
+                    bullets.splice(i,1);
+                    i--;
+                }
+            }
+            
+            // 6. 敌人更新 & 碰撞子弹
+            for(let i=0; i<enemies.length; i++) {
+                const e = enemies[i];
+                e.y += e.speedY;
+                // 超出底部或顶部移除(超出底部减少生命)
+                if(e.y - e.radius > canvas.height + 80 || e.y + e.radius < -80) {
+                    enemies.splice(i,1);
+                    i--;
+                    continue;
+                }
+                
+                let enemyHit = false;
+                // 子弹碰撞
+                for(let j=0; j<bullets.length; j++) {
+                    const b = bullets[j];
+                    const dx = b.x - e.x;
+                    const dy = b.y - e.y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if(dist < e.radius + b.radius) {
+                        // 命中！
+                        bullets.splice(j,1);
+                        enemyHit = true;
+                        e.hp -= 1;
+                        if(e.hp <= 0) {
+                            // 摧毁敌机 加分
+                            score += e.scoreValue;
+                            addExplosion(e.x, e.y);
+                            enemies.splice(i,1);
+                            i--;
+                            updateUI();
+                        }
+                        break; // 一颗子弹只击中一个敌人一次
+                    }
+                }
+                if(enemyHit && enemies[i] && enemies[i].hp <=0) continue;
+                // 如果敌人还存在且碰撞后没死, 继续下一次循环
+            }
+            
+            // 再处理玩家与敌人的碰撞 (需要二次遍历, 上面改变数组可能导致漏检测，重新整理独立碰撞)
+            for(let i=0; i<enemies.length; i++) {
+                const e = enemies[i];
+                const dx = player.x - e.x;
+                const dy = player.y - e.y;
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                if(dist < player.radius + e.radius) {
+                    // 碰撞: 减少护盾, 移除敌机并产生爆炸
+                    let damage = 12;
+                    if(e.type === 2) damage = 20;
+                    else if(e.type === 1) damage = 9;
+                    health = Math.max(0, health - damage);
+                    addExplosion(e.x, e.y);
+                    enemies.splice(i,1);
+                    i--;
+                    updateUI();
+                    if(health <= 0) {
+                        endGame();
+                        return;
+                    }
+                }
+            }
+            
+            // 7. 燃料包更新 & 拾取
+            for(let i=0; i<fuelPacks.length; i++) {
+                const f = fuelPacks[i];
+                f.y += f.speedY;
+                if(f.y + f.radius > canvas.height + 50 || f.y + f.radius < -30) {
+                    fuelPacks.splice(i,1);
+                    i--;
+                    continue;
+                }
+                const dx = player.x - f.x;
+                const dy = player.y - f.y;
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                if(dist < player.radius + f.radius) {
+                    fuel = Math.min(100, fuel + f.value);
+                    addExplosion(f.x, f.y);
+                    fuelPacks.splice(i,1);
+                    i--;
+                    updateUI();
+                }
+            }
+            
+            // 8. 生成敌人计数器
+            if(enemySpawnCounter <= 0) {
+                // 根据分数同时产生敌机数量可变，增加挑战
+                let spawnCount = 1;
+                if(score > 500 && Math.random()<0.4) spawnCount = 2;
+                else if(score > 200 && Math.random()<0.3) spawnCount = 2;
+                for(let s=0; s<spawnCount; s++) {
+                    spawnEnemy();
+                }
+                enemySpawnCounter = enemySpawnDelay;
+            } else {
+                enemySpawnCounter--;
+            }
+            
+            // 9. 燃料包生成器 - 更合理的频率, 保证不太缺燃料
+            if(fuelSpawnCounter <= 0) {
+                // 只要不是满燃料，就有较大概率生成；满燃料时也偶尔生成但概率较低
+                let spawnChance = 0.55;
+                if(fuel > 85) spawnChance = 0.25;
+                if(fuel < 45) spawnChance = 0.8;
+                if(Math.random() < spawnChance) {
+                    spawnFuelPack();
+                }
+                fuelSpawnCounter = fuelSpawnDelay;
+                // 动态调整燃料包生成延迟，保证后期仍有机会
+                fuelSpawnDelay = Math.max(110, 150 - Math.floor(score/280));
+            } else {
+                fuelSpawnCounter--;
+            }
+            
+            // 爆炸特效更新
+            for(let i=0; i<explosions.length; i++) {
+                explosions[i].life--;
+                if(explosions[i].life <= 0) {
+                    explosions.splice(i,1);
+                    i--;
+                }
+            }
+            
+            // 确保UI更新 (分数UI已经更新在加分位置，但燃料/血量实时刷新)
+            updateUI();
+            
+            // 边界额外安全: 如果血量归零再次确认
+            if(health <= 0) {
+                endGame();
+            }
+        }
+        
+        // ---------- 绘图模块 (华丽航空航天风格) ----------
+        function drawStars() {
+            for(let i=0;i<300;i++) {
+                if(i%2 === 0) continue;
+                let sx = (i*131)%canvas.width;
+                let sy = (i*253)%canvas.height;
+                ctx.fillStyle = `rgba(255,240,200,${0.3+Math.sin(Date.now()*0.001+i)*0.2})`;
+                ctx.beginPath();
+                ctx.arc(sx, sy, 1.2, 0, Math.PI*2);
+                ctx.fill();
+            }
+            // 流动星空效果(随机闪烁)
+            for(let i=0;i<120;i++) {
+                let sx = (i*83 + Date.now()*0.2)%canvas.width;
+                let sy = (i*57)%canvas.height;
+                ctx.fillStyle = "#f8fcff";
+                ctx.beginPath();
+                ctx.arc(sx, sy, 0.8, 0, Math.PI*2);
+                ctx.fill();
+            }
+        }
+        
+        function drawPlayer() {
+            ctx.save();
+            ctx.shadowBlur = 12;
+            ctx.shadowColor = "#0af";
+            // 绘制航天战机
+            ctx.beginPath();
+            // 主体三角形 + 双翼
+            ctx.moveTo(player.x, player.y - 18);
+            ctx.lineTo(player.x - 20, player.y + 8);
+            ctx.lineTo(player.x - 8, player.y + 4);
+            ctx.lineTo(player.x - 8, player.y + 16);
+            ctx.lineTo(player.x, player.y + 12);
+            ctx.lineTo(player.x + 8, player.y + 16);
+            ctx.lineTo(player.x + 8, player.y + 4);
+            ctx.lineTo(player.x + 20, player.y + 8);
+            ctx.fillStyle = "#6cd4ff";
+            ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(player.x, player.y - 22);
+            ctx.lineTo(player.x - 12, player.y - 4);
+            ctx.lineTo(player.x, player.y - 2);
+            ctx.lineTo(player.x + 12, player.y - 4);
+            ctx.fillStyle = "#c8f0ff";
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(player.x, player.y-6, 7, 0, Math.PI*2);
+            ctx.fillStyle = "#ffe5a3";
+            ctx.fill();
+            ctx.fillStyle = "#2b65b1";
+            ctx.beginPath();
+            ctx.arc(player.x-2, player.y-8, 2, 0, Math.PI*2);
+            ctx.arc(player.x+2, player.y-8, 2, 0, Math.PI*2);
+            ctx.fill();
+            // 引擎光效
+            ctx.beginPath();
+            ctx.moveTo(player.x-6, player.y+14);
+            ctx.lineTo(player.x, player.y+24);
+            ctx.lineTo(player.x+6, player.y+14);
+            ctx.fillStyle = "#ffaa33";
+            ctx.shadowBlur = 10;
+            ctx.fill();
+            ctx.restore();
+        }
+        
+        function drawEnemy(e) {
+            ctx.save();
+            ctx.shadowBlur = 6;
+            ctx.shadowColor = "#a00";
+            if(e.type === 0) {
+                ctx.fillStyle = e.color;
+                ctx.beginPath();
+                ctx.moveTo(e.x, e.y-12);
+                ctx.lineTo(e.x-16, e.y+8);
+                ctx.lineTo(e.x-6, e.y+5);
+                ctx.lineTo(e.x-6, e.y+14);
+                ctx.lineTo(e.x, e.y+10);
+                ctx.lineTo(e.x+6, e.y+14);
+                ctx.lineTo(e.x+6, e.y+5);
+                ctx.lineTo(e.x+16, e.y+8);
+                ctx.fill();
+                ctx.fillStyle = "#ff9966";
+                ctx.beginPath();
+                ctx.arc(e.x, e.y-4, 6, 0, Math.PI*2);
+                ctx.fill();
+            } else if(e.type === 1) {
+                ctx.fillStyle = e.color;
+                ctx.beginPath();
+                ctx.moveTo(e.x, e.y-14);
+                ctx.lineTo(e.x-14, e.y+2);
+                ctx.lineTo(e.x-4, e.y);
+                ctx.lineTo(e.x-4, e.y+12);
+                ctx.lineTo(e.x, e.y+8);
+                ctx.lineTo(e.x+4, e.y+12);
+                ctx.lineTo(e.x+4, e.y);
+                ctx.lineTo(e.x+14, e.y+2);
+                ctx.fill();
+                ctx.fillStyle = "orange";
+                ctx.beginPath();
+                ctx.ellipse(e.x, e.y-3, 5, 4, 0, 0, Math.PI*2);
+                ctx.fill();
+            } else {
+                // 重装敌机
+                ctx.fillStyle = "#ac4e2e";
+                ctx.beginPath();
+                ctx.ellipse(e.x, e.y, 18, 14, 0, 0, Math.PI*2);
+                ctx.fill();
+                ctx.fillStyle = "#8b3c1c";
+                ctx.beginPath();
+                ctx.rect(e.x-12, e.y-6, 24, 8);
+                ctx.fill();
+                ctx.fillStyle = "#dd6644";
+                ctx.beginPath();
+                ctx.arc(e.x-6, e.y-2, 4, 0, Math.PI*2);
+                ctx.arc(e.x+6, e.y-2, 4, 0, Math.PI*2);
+                ctx.fill();
+                // 显示血量条
+                ctx.fillStyle = "#ff5555";
+                ctx.fillRect(e.x-15, e.y-18, 30, 5);
+                ctx.fillStyle = "#55ff55";
+                let hpPercent = e.hp / e.maxHp;
+                ctx.fillRect(e.x-15, e.y-18, 30 * hpPercent, 5);
+            }
+            ctx.restore();
+        }
+        
+        function drawBullet(b) {
+            ctx.fillStyle = "#ffff60";
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = "#f0f";
+            ctx.fillRect(b.x-3, b.y-8, 6, 14);
+            ctx.fillStyle = "cyan";
+            ctx.fillRect(b.x-1.5, b.y-12, 3, 10);
+        }
+        
+        function drawFuelPack(f) {
+            ctx.save();
+            ctx.shadowBlur = 5;
+            ctx.shadowColor = "lime";
+            ctx.fillStyle = "#44ff44cc";
+            ctx.beginPath();
+            ctx.ellipse(f.x, f.y, 12, 10, 0, 0, Math.PI*2);
+            ctx.fill();
+            ctx.fillStyle = "#ffff99";
+            ctx.font = "bold 14px monospace";
+            ctx.fillText("⛽", f.x-6, f.y+5);
+            ctx.restore();
+        }
+        
+        function drawExplosions() {
+            for(let ex of explosions) {
+                let alpha = ex.life / 12;
+                let size = 14 + (12 - ex.life)*0.6;
+                ctx.fillStyle = `rgba(255, 100, 30, ${alpha*0.9})`;
+                ctx.beginPath();
+                ctx.arc(ex.x, ex.y, size, 0, Math.PI*2);
+                ctx.fill();
+                ctx.fillStyle = `rgba(255, 200, 50, ${alpha})`;
+                ctx.beginPath();
+                ctx.arc(ex.x-2, ex.y-1, size*0.6, 0, Math.PI*2);
+                ctx.fill();
+            }
+        }
+        
+        function drawHUDandEffects() {
+            // 显示警告(低燃料) - 阈值调低一点，因为消耗变慢
+            if(fuel < 20 && gameRunning) {
+                ctx.font = "bold 18monospace";
+                ctx.fillStyle = "#ff5533";
+                ctx.shadowBlur = 0;
+                ctx.fillText("⚠ 燃料告急 寻找补给!", canvas.width/2-120, 45);
+            }
+            if(health < 30 && gameRunning) {
+                ctx.font = "bold 18monospace";
+                ctx.fillStyle = "#ff3355";
+                ctx.fillText("🛸 护盾受损 注意规避", canvas.width/2-110, 80);
+            }
+            if(gameOverFlag) {
+                ctx.font = "700 48px Orbitron";
+                ctx.fillStyle = "#ff3366";
+                ctx.shadowBlur = 12;
+                ctx.shadowColor = "black";
+                ctx.fillText("GAME OVER", canvas.width/2-160, canvas.height/2-50);
+                ctx.font = "24px monospace";
+                ctx.fillStyle = "cyan";
+                ctx.fillText("点击「重新起飞」继续捍卫星际", canvas.width/2-190, canvas.height/2+40);
+            }
+            // 得分特效, 准星
+            if(gameRunning){
+                ctx.beginPath();
+                ctx.arc(mouseX, mouseY, 12, 0, Math.PI*2);
+                ctx.strokeStyle = "cyan";
+                ctx.lineWidth = 1.8;
+                ctx.setLineDash([4, 6]);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(mouseX-20, mouseY);
+                ctx.lineTo(mouseX-8, mouseY);
+                ctx.moveTo(mouseX+8, mouseY);
+                ctx.lineTo(mouseX+20, mouseY);
+                ctx.moveTo(mouseX, mouseY-20);
+                ctx.lineTo(mouseX, mouseY-8);
+                ctx.moveTo(mouseX, mouseY+8);
+                ctx.lineTo(mouseX, mouseY+20);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+        }
+        
+        function draw() {
+            if(!ctx) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // 深邃太空渐变
+            let grad = ctx.createLinearGradient(0,0,0,canvas.height);
+            grad.addColorStop(0,"#03071e");
+            grad.addColorStop(1,"#0c1a3a");
+            ctx.fillStyle = grad;
+            ctx.fillRect(0,0,canvas.width,canvas.height);
+            drawStars();
+            
+            // 绘制所有动态元素
+            for(let b of bullets) drawBullet(b);
+            for(let e of enemies) drawEnemy(e);
+            for(let f of fuelPacks) drawFuelPack(f);
+            drawPlayer();
+            drawExplosions();
+            drawHUDandEffects();
+            
+            // 引擎粒子效果
+            if(gameRunning){
+                ctx.fillStyle = "#ffaa44aa";
+                for(let i=0;i<3;i++) {
+                    ctx.beginPath();
+                    ctx.arc(player.x-3+Math.random()*6, player.y+18+Math.random()*8, 3, 0, Math.PI*2);
+                    ctx.fill();
+                }
+            }
+        }
+        
+        // ---------- 交互 (鼠标 + 触摸) ----------
+        function handlePointerMove(e) {
+            if(!gameRunning) return;
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            let clientX, clientY;
+            if(e.touches) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+                e.preventDefault();
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            let canvasX = (clientX - rect.left) * scaleX;
+            let canvasY = (clientY - rect.top) * scaleY;
+            canvasX = Math.min(Math.max(canvasX, 20), canvas.width-20);
+            canvasY = Math.min(Math.max(canvasY, 40), canvas.height-30);
+            mouseX = canvasX;
+            mouseY = canvasY;
+        }
+        
+        function disableContextMenu(e) { e.preventDefault(); }
+        
+        // 注册事件
+        function bindEvents() {
+            canvas.addEventListener('mousemove', handlePointerMove);
+            canvas.addEventListener('touchmove', handlePointerMove, {passive: false});
+            canvas.addEventListener('touchstart', handlePointerMove, {passive: false});
+            canvas.addEventListener('contextmenu', disableContextMenu);
+            window.addEventListener('resize', ()=>{});
+        }
+        
+        // 动画循环
+        function gameLoop() {
+            if(gameRunning) {
+                updateGame();
+            }
+            draw();
+            animationId = requestAnimationFrame(gameLoop);
+        }
+        
+        // 初始化与重启按钮
+        function init() {
+            restartGame();
+            bindEvents();
+            gameLoop();
+            document.getElementById('restartButton').addEventListener('click', () => {
+                restartGame();
+                gameRunning = true;
+                gameOverFlag = false;
+                // 重置坐标避免飘移
+                mouseX = canvas.width/2;
+                mouseY = canvas.height-70;
+                player.x = mouseX;
+                player.y = mouseY;
+                updateUI();
+            });
+        }
+        
+        init();
+    })();
+</script>
+</body>
+</html>
