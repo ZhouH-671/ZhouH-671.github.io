@@ -563,7 +563,7 @@ MARS是一个轻量级的、用于教学的MIPS汇编语言**集成开发环境*
 - 最重要的是，Mars中的指令都是在它内部的CPU模型上运行的，无论单周期还是流水线，它内部的CPU模型都是我们实验设计的黄金校验模型，对我们的CPU设计有很大的指导作用。
 
 <span style="center">
-    <img src="./Mars_M1_T1_1.png"alt="Mars"width="100%">
+    <img src="./image/Mars_M1_T1_1.png"alt="Mars"width="100%">
 </span>
 
 图为MARS界面
@@ -634,14 +634,14 @@ CP0是一个系统控制的**协处理器**，而CP0存储器则是该处理器�
 ### MIPS指令集文档
 
 <ul>
-    <li>中文、精简版: <a href="./MIPS-C指令集_校对完成版_-指令排序.pdf" download="MIPS-C指令集_校对完成版.pdf">MIPS-C指令集</a></li>
-    <li>英文、完整版: <a href="./MIPS_Vol2_指令集_.pdf" download="MIPS_Vol2_指令集.pdf">MIPS32 Architecture For Programmers</a></li>
+    <li>中文、精简版: <a href="./resource/MIPS-C指令集_校对完成版_-指令排序.pdf" download="MIPS-C指令集_校对完成版.pdf">MIPS-C指令集</a></li>
+    <li>英文、完整版: <a href="./resource/MIPS_Vol2_指令集_.pdf" download="MIPS_Vol2_指令集.pdf">MIPS32 Architecture For Programmers</a></li>
 </ul>
 
 ### MARS相关
 
 <ul>
-    <li>MARS v4.5下载: <a href="./Mars4_5.jar" download="Mars4_5.jar">Mars4_5.jar</a></li>
+    <li>MARS v4.5下载: <a href="./resource/Mars4_5.jar" download="Mars4_5.jar">Mars4_5.jar</a></li>
 </ul>
 
 ### JAVA运行环境
@@ -653,7 +653,7 @@ CP0是一个系统控制的**协处理器**，而CP0存储器则是该处理器�
 ### 参考书目
 
 <ul>
-    <li>《See MIPS Run Linux》: <a href="./See_MIPS_Run_Linux.pdf" download="See_MIPS_Run_Linux.pdf">《See MIPS Run Linux》</a></li>
+    <li>《See MIPS Run Linux》: <a href="./resource/See_MIPS_Run_Linux.pdf" download="See_MIPS_Run_Linux.pdf">《See MIPS Run Linux》</a></li>
 </ul>
 
 # MIPS指令集架构
@@ -800,7 +800,7 @@ loop:
 R型指令的操作数最多，一般用于运算指令。例如 \`add\`,\`sub\`,\`sll\`等。其格式如下(左侧为高位，右侧为低位)：
 
 <span style="left">
-    <img src="./2.2.3.3.svg"alt="R型指令"width="500"height="100">
+    <img src="./image/2.2.3.3.svg"alt="R型指令"width="500"height="100">
 </span>
 
 &emsp;&emsp;- **I型指令**
@@ -808,7 +808,7 @@ R型指令的操作数最多，一般用于运算指令。例如 \`add\`,\`sub\`
 I型指令的特点是有**16位的立即数**(偏移也是一样的道理)。因此，I型指令一般用于 \`addi\`,\`subi\`,\`ori\`等与立即数相运算的指令(这里需要注意：**在写汇编语言的时候，需要使用负号来标记负数，而不要和机器码一样认为首位为一的就代表负数**)，或 \`beq\`,\`bgtz\`等比较跳转的指令，因为他们要让两个寄存器的值相比并让PC偏移offset这么多，刚好利用了全部的字段。还有存取指令，例如 \`sw\`,\`lw\`，他们在使用时需要对地址指定一个偏移量，也会用到立即数字段。
 
 <span style="left">
-    <img src="./2.2.3.4.svg"alt="I型指令"width="500"height="100">
+    <img src="./image/2.2.3.4.svg"alt="I型指令"width="500"height="100">
 </span>
 
 &emsp;&emsp;- **J型指令**
@@ -816,7 +816,7 @@ I型指令的特点是有**16位的立即数**(偏移也是一样的道理)。�
 J型指令很少，常见的为 \`j\`和 \`jal\`。他们需要直接跳转至某个地址，而非利用当前的PC值加上偏移量计算出新的地址，因此需要的位数比较多。
 
 <span style="left">
-    <img src="./2.2.3.5.svg" alt="J型指令"width="500"height="100">
+    <img src="./image/2.2.3.5.svg" alt="J型指令"width="500"height="100">
 </span>
 
 需要注意的是，严格来说，并非所有的指令都严格遵守上面三种格式，有的如 \`eret\`,\`syscall\`指令一样没有操作数；有的如 \`.jalr\`指令一样某些字段被固定为某个值。不过，就大部分指令而言，都可按上面三种格式进行解释，某些字段被固定也可以按照格式来识别为R，I，J中的一种，因此这三种格式要着重理解。
@@ -852,7 +852,7 @@ J型指令很少，常见的为 \`j\`和 \`jal\`。他们需要直接跳转至�
 下面我们结合文档《MIPS-C指令集》来讲解如何读懂一条机器码指令的功能与格式。下表为 \`add\`指令的指令详解：
 
 <span> 
-    <img src="./2.2.3.6.png"alt="add"width="80%">
+    <img src="./image/2.2.3.6.png"alt="add"width="80%">
 </span>
 
 - **编码**: 二进制指令各字段的值和功能。这里可以看出，\`add\`指令的opcode为000000；其后跟随着rs,rt,rd三个指示寄存器的字段；之后为全0的shamt字段，最后的func字段值为100000.
@@ -864,14 +864,14 @@ J型指令很少，常见的为 \`j\`和 \`jal\`。他们需要直接跳转至�
 
 下图更加直观地表示了汇编指令转变为机器码指令的过程：
 
-[汇编指令转变为机器码](./2.2.3.7.svg)
+[汇编指令转变为机器码](./image/2.2.3.7.svg)
 
 事实上在CPU中，机器码还要按照同样的格式进行解码，并使CPU执行相应的功能。相关的知识会在今后学到。
 
 上面的 \`add\`指令中，所有的操作数形式均为寄存器，那么当操作数为标签时会怎样呢？事实上，汇编器会将标签翻译为一个立即数，再转化为机器码，下面以另一个指令: \`beq\`为例子再进行一次详解。
 
 <span>
-    <img src="./2.2.3.8.png"alt="beq详解"width="80%">
+    <img src="./image/2.2.3.8.png"alt="beq详解"width="80%">
 </span>
 
 其所在的程序如下：
@@ -891,7 +891,7 @@ label:
 除了上述的运算指令和跳转指令之外，MIPS汇编中常用的指令还有存取指令，其中存取的指令结构基本相同。下面以最基本的 \`lw\`指令为例进行解读。
 
 <span>
-    <img src="./2.2.3.10.png"alt="lw"width="80%">
+    <img src="./image/2.2.3.10.png"alt="lw"width="80%">
 </span>
 
 - **编码**: \`lw\`是条I型指令，$op = 100011$，base字段其实就是一般I行指令格式中的rs寄存器字段。
@@ -916,13 +916,13 @@ label:
 最常用到的一条扩展指令是li指令，它用来为某个寄存器赋值，比如 \`li $a0, 100\`就是将100赋给 \`$s0\`寄存器。汇编器在翻译这条扩展指令时会根据需要，将它翻译成不同的基本指令或基本指令的组合。如下，第一条 \`li\`指令后面的立即数不多于16位，因此只被翻译成了一条 \`addiu\`；第二条 \`li\`指令后面的立即数多于16位，因此被翻译成了 \`lui\`+\`ori\`的组合。
 
 <span>
-    <img src="./mips_3_5_1.png"alt="li"width="80%">
+    <img src="./image/mips_3_5_1.png"alt="li"width="80%">
 </span>
 
 上面的例子就是利用现有基础指令组合出新的扩展指令。当然，我们也可以对现有指令进行简化或转写，例如前面提到过的 \`j 0xc0a\`，我们可以将其立即数改为一个标签，这样汇编器会在进行汇编时，会将标签所代表的立即数计算出来，形成基本指令的形式。例如下图：
 
 <span>
-    <img src="./2.2.5.2.png"alt="标签"width="80%">
+    <img src="./image/2.2.5.2.png"alt="标签"width="80%">
 </span>
 
 想要了解更多的扩展指令，可以查看Mars的Help文档中Extended(pseudo)Instrctions一栏。
@@ -1025,7 +1025,7 @@ loop_end:
 相比于“第一个汇编程序”小节中的输出“Hello World”的程序，这里多了 \`syscall\`输入和输出整数的用法，以及 \`move\`,\`bgt\`扩展指令，在Execute页面中对照Basic列和Source列的不同，就可以明白那条扩展指令是什么意思。利用这些扩展指令，可以简化我们编写汇编代码的工作量，并使得我们的汇编代码更加清晰。
 
 <span>
-    <img src="./mips_4_2_1.png"alt=""width="80%">
+    <img src="./image/mips_4_2_1.png"alt=""width="80%">
 </span>
 
 ### 在MIPS中使用数组
