@@ -4,109 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>计算机组成原理 · 实验导航</title>
+    <link rel="stylesheet" href="./css/common.css" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #f0f4fa;
-            font-family: 'Segoe UI', 'PingFang SC', Roboto, 'Helvetica Neue', sans-serif;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            min-height: 100vh;
-            padding-top: 30px;
-            padding-bottom: 50px;
-        }
-
-        /* 主卡片容器 */
-        .document-wrapper {
-            max-width: 1100px;
-            width: 100%;
-            background: white;
-            border-radius: 28px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(0, 20, 40, 0.04);
-            overflow: hidden;
-            margin: 0 20px;
-        }
-
-        /* ===== 顶部导航栏 ===== */
-        .top-nav {
-            background: #0b1a33;
-            padding: 0 40px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 2px solid #1f3a5f;
-            min-height: 64px;
-        }
-
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: white;
-            font-weight: 600;
-            font-size: 18px;
-            letter-spacing: 0.3px;
-            padding: 10px 0;
-        }
-
-        .nav-brand .brand-icon {
-            font-size: 22px;
-        }
-
-        .nav-links {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 0;
-        }
-
-        .nav-links a {
-            color: #cfdcee;
-            text-decoration: none;
-            padding: 8px 18px;
-            border-radius: 40px;
-            font-size: 15px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            background: transparent;
-            border: 1px solid transparent;
-        }
-
-        .nav-links a:hover {
-            background: #1f3a5f;
-            color: white;
-            border-color: #3a6a9f;
-        }
-
-        .nav-links a.active {
-            background: #2a5a8a;
-            color: white;
-            border-color: #4a7ab0;
-            box-shadow: 0 2px 8px rgba(42, 90, 138, 0.3);
-        }
-
-        .nav-links a.active:hover {
-            background: #356a9a;
-        }
-
-        /* 导航栏右侧辅助文字（可选） */
-        .nav-sub {
-            color: #8aa6c9;
-            font-size: 13px;
-            font-weight: 400;
-            letter-spacing: 0.2px;
-            padding: 0 6px;
-        }
-
-        /* ===== 文档内容 ===== */
+        /* ===== 首页独有样式 ===== */
         .document-card {
             padding: 40px 56px 48px 56px;
         }
@@ -114,19 +14,31 @@
         .main-title {
             font-size: 34px;
             font-weight: 700;
-            letter-spacing: 1px;
-            color: #0b1a33;
+            letter-spacing: -0.5px;
+            color: var(--text-dark);
             margin-bottom: 28px;
-            border-bottom: 2px solid #e6edf6;
             padding-bottom: 18px;
+            border-bottom: 3px solid var(--border-light);
+            position: relative;
+        }
+
+        .main-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-light), var(--primary-lighter));
+            border-radius: 3px;
         }
 
         .section-head {
             font-size: 22px;
             font-weight: 600;
-            color: #0b1a33;
-            margin-top: 28px;
-            margin-bottom: 12px;
+            color: var(--text-dark);
+            margin-top: 32px;
+            margin-bottom: 14px;
             letter-spacing: 0.3px;
         }
 
@@ -136,30 +48,31 @@
 
         .text-body {
             font-size: 16px;
-            line-height: 1.7;
-            color: #1e2f44;
-            margin-bottom: 20px;
-            text-align: justify;
+            line-height: 1.8;
+            color: var(--text-mid);
+            margin-bottom: 18px;
         }
 
         .text-body strong {
-            color: #0b1a33;
+            color: var(--text-dark);
             font-weight: 600;
         }
 
+        /* ===== 教程列表 ===== */
         .tutorial-list {
             list-style: none;
-            padding-left: 8px;
+            padding-left: 4px;
             margin: 18px 0 22px 0;
         }
 
         .tutorial-list li {
             font-size: 16px;
-            line-height: 1.7;
-            color: #1e2f44;
-            padding: 6px 0 6px 28px;
+            line-height: 1.8;
+            color: var(--text-mid);
+            padding: 8px 0 8px 32px;
             position: relative;
             border-bottom: 1px solid #f0f4fa;
+            transition: var(--transition);
         }
 
         .tutorial-list li:last-child {
@@ -169,29 +82,41 @@
         .tutorial-list li::before {
             content: "▹";
             position: absolute;
-            left: 4px;
-            color: #2a6b9c;
+            left: 6px;
+            color: var(--primary-light);
             font-weight: 600;
             font-size: 18px;
         }
 
+        .tutorial-list li:hover {
+            background: var(--bg-hover);
+            border-radius: var(--radius-sm);
+            padding-left: 36px;
+        }
+
+        .tutorial-list li strong {
+            color: var(--text-dark);
+        }
+
+        /* ===== 链接按钮 ===== */
         .nav-link {
             display: inline-block;
-            background: #eef3fa;
+            background: var(--bg-hover);
             padding: 2px 16px;
             border-radius: 20px;
             font-weight: 600;
-            color: #0b1a33;
+            color: var(--text-dark);
             text-decoration: none;
             font-size: 15px;
-            transition: background 0.15s, transform 0.1s;
+            transition: var(--transition);
             margin-left: 4px;
-            border: 1px solid #d5e0ec;
+            border: 1px solid var(--border-mid);
         }
 
         .nav-link:hover {
             background: #dce6f2;
-            transform: scale(1.02);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-hover);
         }
 
         .nav-link-sm {
@@ -200,25 +125,20 @@
             margin-left: 2px;
         }
 
-        .divider-light {
-            margin: 28px 0 24px 0;
-            border: 0;
-            height: 1px;
-            background: linear-gradient(to right, #d9e2ec, transparent);
-        }
-
+        /* ===== 提示框 ===== */
         .sim-tool-box {
-            background: #f2f6fd;
-            border-radius: 20px;
+            background: linear-gradient(135deg, #f2f6fd, #eaf0f8);
+            border-radius: var(--radius-code);
             padding: 24px 30px;
             margin: 28px 0 12px 0;
-            border-left: 6px solid #3a7bb5;
+            border-left: 6px solid var(--primary-light);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
         }
 
         .sim-tool-box .sim-title {
             font-size: 20px;
             font-weight: 600;
-            color: #0b1a33;
+            color: var(--text-dark);
             margin-bottom: 10px;
             letter-spacing: 0.2px;
         }
@@ -227,31 +147,15 @@
             margin-bottom: 6px;
         }
 
+        .divider-light {
+            margin: 28px 0 24px 0;
+            border: 0;
+            height: 1px;
+            background: linear-gradient(90deg, var(--border-light), transparent);
+        }
+
         /* ===== 响应式 ===== */
         @media (max-width: 768px) {
-            .top-nav {
-                padding: 0 20px;
-                flex-direction: column;
-                align-items: stretch;
-                gap: 6px;
-            }
-
-            .nav-brand {
-                justify-content: center;
-                padding: 10px 0 4px 0;
-            }
-
-            .nav-links {
-                justify-content: center;
-                padding: 6px 0 12px 0;
-                gap: 4px;
-            }
-
-            .nav-links a {
-                padding: 6px 14px;
-                font-size: 14px;
-            }
-
             .document-card {
                 padding: 28px 20px 36px 20px;
             }
@@ -265,7 +169,8 @@
             }
 
             .tutorial-list li {
-                padding-left: 24px;
+                padding-left: 28px;
+                font-size: 15px;
             }
         }
 
@@ -273,10 +178,6 @@
             .document-wrapper {
                 margin: 0 10px;
                 border-radius: 18px;
-            }
-
-            .top-nav {
-                padding: 0 12px;
             }
 
             .document-card {
@@ -287,17 +188,9 @@
                 font-size: 24px;
             }
 
-            .text-body {
+            .text-body,
+            .tutorial-list li {
                 font-size: 15px;
-            }
-
-            .nav-links a {
-                font-size: 13px;
-                padding: 5px 10px;
-            }
-
-            .nav-brand {
-                font-size: 16px;
             }
         }
     </style>
@@ -305,30 +198,8 @@
 <body>
 
     <div class="document-wrapper">
-        <!-- ===== 顶部导航栏 ===== -->
-        <!-- ===== 顶部导航栏 ===== -->
-        <nav class="top-nav">
-            <div class="nav-brand">
-                <span class="brand-icon">⚙️</span>
-                <span>计算机组成 · 实验</span>
-            </div>
-            <div class="nav-links">
-                <a href="#" class="active">首页</a>
-                <a href="javascript:void(0)" onclick="alert('Logisim教程暂未开放，敬请期待！')">Logisim</a>
-                <a href="javascript:void(0)" onclick="alert('Verilog教程暂未开放，敬请期待！')">Verilog</a>
-                <a href="./note/pre/MIPS汇编/MIPS汇编.html">MIPS</a>
-                <a href="javascript:void(0)" onclick="alert('P0实验教程暂未开放，敬请期待！')">P0</a>
-                <a href="javascript:void(0)" onclick="alert('P1实验教程暂未开放，敬请期待！')">P1</a>
-                <a href="javascript:void(0)" onclick="alert('P2实验教程暂未开放，敬请期待！')">P2</a>
-                <a href="javascript:void(0)" onclick="alert('P3实验教程暂未开放，敬请期待！')">P3</a>
-                <a href="javascript:void(0)" onclick="alert('P4实验教程暂未开放，敬请期待！')">P4</a>
-                <a href="javascript:void(0)" onclick="alert('P5实验教程暂未开放，敬请期待！')">P5</a>
-                <a href="javascript:void(0)" onclick="alert('P6实验教程暂未开放，敬请期待！')">P6</a>
-                <a href="javascript:void(0)" onclick="alert('P7实验教程暂未开放，敬请期待！')">P7</a>
-                <a href="javascript:void(0)" onclick="alert('仿真工具教程暂未开放，敬请期待！')">仿真工具</a>
-                <span class="nav-sub">| 教程导航</span>
-            </div>
-        </nav>
+        <!-- 导航栏容器：由 JavaScript 动态生成 -->
+        <div id="nav-container" data-active="home" data-base="./"></div>
 
                 <!-- ===== 文档正文 ===== -->
         <div class="document-card">
@@ -373,6 +244,6 @@
             <div style="height: 4px;"></div>
         </div>
         <!-- end document-card -->
-
+        <script src="./js/commonNav.js"></script>
 </body>
 </html>

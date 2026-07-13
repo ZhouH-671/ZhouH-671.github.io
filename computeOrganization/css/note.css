@@ -1,0 +1,186 @@
+/* ===== note.css - 笔记页面（带左侧目录）的公共样式 ===== */
+
+/* ===== 主布局 ===== */
+.main-content {
+    display: flex;
+    flex: 1;
+    min-height: 600px;
+}
+
+/* ===== 左侧目录 ===== */
+.sidebar-toc {
+    width: 280px;
+    background: #f8faff;
+    border-right: 1px solid var(--border-light, #e6edf6);
+    padding: 28px 18px 32px 22px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 80px;
+    align-self: flex-start;
+}
+
+.sidebar-toc::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sidebar-toc::-webkit-scrollbar-track {
+    background: #eef3fa;
+}
+
+.sidebar-toc::-webkit-scrollbar-thumb {
+    background: #b8cce0;
+    border-radius: 12px;
+}
+
+.sidebar-toc::-webkit-scrollbar-thumb:hover {
+    background: #a0b8d0;
+}
+
+.toc-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-dark, #0b1a33);
+    letter-spacing: 0.3px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--border-light, #e6edf6);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.toc-title span {
+    font-size: 20px;
+}
+
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-list li {
+    margin-bottom: 2px;
+}
+
+.toc-list a {
+    display: block;
+    padding: 6px 10px 6px 16px;
+    border-radius: var(--radius-sm, 10px);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-mid, #1e2f44);
+    text-decoration: none;
+    transition: var(--transition, all 0.25s ease);
+    border-left: 3px solid transparent;
+    line-height: 1.5;
+}
+
+.toc-list a:hover {
+    background: var(--bg-hover, #e6edf8);
+    border-left-color: var(--primary-light, #2a5a8a);
+    color: var(--text-dark, #0b1a33);
+}
+
+.toc-list a.toc-h2 {
+    padding-left: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-dark, #0b1a33);
+}
+
+.toc-list a.toc-h3 {
+    padding-left: 32px;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--text-light, #4a5f7a);
+}
+
+.toc-list a.toc-h4 {
+    padding-left: 52px;
+    font-weight: 400;
+    font-size: 13.5px;
+    color: var(--text-light, #4a5f7a);
+}
+
+.toc-list a.toc-h5 {
+    padding-left: 72px;
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--text-muted, #7a8fa8);
+}
+
+.toc-list a.active-toc {
+    background: var(--bg-active, #dce8f5);
+    border-left-color: var(--primary-light, #2a5a8a);
+    color: var(--text-dark, #0b1a33);
+    font-weight: 600;
+}
+
+/* ===== 右侧文档内容 ===== */
+.doc-content {
+    flex: 1;
+    padding: 40px 48px 48px 48px;
+    overflow: hidden;
+    min-width: 0;
+}
+
+.doc-content .main-title {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text-dark, #0b1a33);
+    margin-bottom: 28px;
+    padding-bottom: 18px;
+    border-bottom: 3px solid var(--border-light, #e6edf6);
+    position: relative;
+}
+
+.doc-content .main-title::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-light, #2a5a8a), var(--primary-lighter, #4a7ab0));
+    border-radius: 3px;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 1000px) {
+    .main-content {
+        flex-direction: column;
+    }
+
+    .sidebar-toc {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-light, #e6edf6);
+        position: relative;
+        top: 0;
+        padding: 18px 20px;
+        background: #fafcff;
+        max-height: 260px;
+        overflow-y: auto;
+    }
+
+    .doc-content {
+        padding: 28px 24px 36px 24px;
+    }
+}
+
+@media (max-width: 600px) {
+    .doc-content {
+        padding: 16px 14px 24px 14px;
+    }
+
+    .doc-content .main-title {
+        font-size: 26px;
+    }
+
+    .sidebar-toc {
+        padding: 14px 14px;
+        max-height: 200px;
+    }
+}

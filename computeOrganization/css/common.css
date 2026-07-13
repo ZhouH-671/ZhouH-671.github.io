@@ -1,0 +1,579 @@
+/* ===== common.css - 所有页面共享的样式 ===== */
+
+/* ===== CSS Variables ===== */
+:root {
+    --primary-dark: #0b1a33;
+    --primary-mid: #1a3a5c;
+    --primary-light: #2a5a8a;
+    --primary-lighter: #4a7ab0;
+    --primary-glass: rgba(11, 26, 51, 0.06);
+    
+    --text-dark: #0b1a33;
+    --text-mid: #1e2f44;
+    --text-light: #4a5f7a;
+    --text-muted: #7a8fa8;
+    
+    --bg-page: #f0f4fa;
+    --bg-card: #ffffff;
+    --bg-code: #f0f5fb;
+    --bg-hover: #e6edf8;
+    --bg-active: #dce8f5;
+    
+    --border-light: #e6edf6;
+    --border-mid: #d5e0ec;
+    
+    --shadow-card: 0 20px 50px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(0, 20, 40, 0.04);
+    --shadow-nav: 0 2px 8px rgba(42, 90, 138, 0.3);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.06);
+    
+    --radius-card: 28px;
+    --radius-nav: 40px;
+    --radius-code: 14px;
+    --radius-sm: 10px;
+    
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    --font-body: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Roboto, 'Helvetica Neue', sans-serif;
+    --font-code: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+}
+
+/* ===== Reset & Base ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg-page);
+    font-family: var(--font-body);
+    padding: 30px 20px 50px 20px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    color: var(--text-mid);
+    line-height: 1.7;
+}
+
+/* ===== Document Wrapper ===== */
+.document-wrapper {
+    max-width: 1300px;
+    width: 100%;
+    background: var(--bg-card);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+}
+
+/* ===== 顶部导航栏 ===== */
+.top-nav {
+    background: var(--primary-dark);
+    padding: 0 40px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #1f3a5f;
+    min-height: 68px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 0.3px;
+    padding: 10px 0;
+}
+
+.nav-brand .brand-icon {
+    font-size: 24px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    transition: transform 0.3s ease;
+}
+
+.nav-brand:hover .brand-icon {
+    transform: rotate(30deg) scale(1.1);
+}
+
+.nav-brand span:last-child {
+    background: linear-gradient(135deg, #ffffff 60%, #8aa6c9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 0;
+}
+
+.nav-links a {
+    color: #bfd0e6;
+    text-decoration: none;
+    padding: 7px 16px;
+    border-radius: var(--radius-nav);
+    font-size: 14px;
+    font-weight: 500;
+    transition: var(--transition);
+    background: transparent;
+    border: 1px solid transparent;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--primary-lighter);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 60%;
+}
+
+.nav-links a:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+}
+
+.nav-links a.active {
+    background: var(--primary-light);
+    color: white;
+    border-color: var(--primary-lighter);
+    box-shadow: var(--shadow-nav);
+}
+
+.nav-links a.active::after {
+    width: 60%;
+}
+
+.nav-links a.active:hover {
+    background: #356a9a;
+}
+
+.nav-sub {
+    color: #6a8aaa;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    padding: 0 4px 0 8px;
+    opacity: 0.7;
+}
+
+/* ===== 页面内容通用 ===== */
+.doc-content,
+.document-card {
+    font-family: var(--font-body);
+    color: var(--text-mid);
+}
+
+.doc-content p,
+.document-card p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-mid);
+    margin-bottom: 18px;
+}
+
+.doc-content li,
+.document-card li {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-mid);
+}
+
+.doc-content strong,
+.document-card strong {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+/* ===== 标题样式 ===== */
+.doc-content h1,
+.document-card h1 {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text-dark);
+    margin-top: 0;
+    margin-bottom: 28px;
+    padding-bottom: 18px;
+    border-bottom: 3px solid var(--border-light);
+    position: relative;
+}
+
+.doc-content h1::after,
+.document-card h1::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-light), var(--primary-lighter));
+    border-radius: 3px;
+}
+
+.doc-content h2,
+.document-card h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-top: 40px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border-light);
+}
+
+.doc-content h3,
+.document-card h3 {
+    font-size: 21px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-top: 30px;
+    margin-bottom: 12px;
+}
+
+.doc-content h4,
+.document-card h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-top: 24px;
+    margin-bottom: 10px;
+}
+
+.doc-content h5,
+.document-card h5 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--primary-mid);
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+/* ===== 代码样式 ===== */
+.doc-content code,
+.document-card code {
+    font-family: var(--font-code);
+    background: var(--bg-code);
+    border-radius: var(--radius-sm);
+    padding: 0.15em 0.5em;
+    font-size: 0.9em;
+    color: var(--text-dark);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.doc-content pre,
+.document-card pre {
+    padding: 20px 24px;
+    overflow-x: auto;
+    background: var(--bg-code);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-code);
+    margin: 16px 0 24px 0;
+    line-height: 1.7;
+    font-size: 14px;
+    position: relative;
+}
+
+.doc-content pre::before,
+.document-card pre::before {
+    content: '📄';
+    position: absolute;
+    top: 8px;
+    right: 14px;
+    font-size: 14px;
+    opacity: 0.3;
+}
+
+.doc-content pre code,
+.document-card pre code {
+    background: transparent;
+    padding: 0;
+    border: none;
+    font-size: 14px;
+    color: var(--text-dark);
+}
+
+/* ===== 表格样式 ===== */
+.doc-content table,
+.document-card table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0 28px 0;
+    font-size: 15px;
+    background: #fafcfe;
+    border-radius: var(--radius-code);
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+.doc-content table th,
+.document-card table th {
+    background: linear-gradient(135deg, #e6edf6, #dce6f2);
+    color: var(--text-dark);
+    font-weight: 600;
+    padding: 12px 18px;
+    text-align: left;
+    border: 1px solid var(--border-mid);
+}
+
+.doc-content table td,
+.document-card table td {
+    padding: 10px 18px;
+    border: 1px solid var(--border-light);
+    vertical-align: top;
+}
+
+.doc-content table tr:nth-child(even),
+.document-card table tr:nth-child(even) {
+    background: #f5f9fe;
+}
+
+.doc-content table tr:hover,
+.document-card table tr:hover {
+    background: #eaf2fa;
+    transition: var(--transition);
+}
+
+/* ===== 引用块 ===== */
+.doc-content blockquote,
+.document-card blockquote {
+    background: linear-gradient(135deg, #f2f7ff, #e8effa);
+    border-left: 5px solid var(--primary-light);
+    padding: 16px 24px;
+    margin: 20px 0;
+    border-radius: var(--radius-sm);
+    color: var(--text-mid);
+    font-size: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+/* ===== 列表样式 ===== */
+.doc-content ul,
+.document-card ul,
+.doc-content ol,
+.document-card ol {
+    margin: 12px 0 20px 24px;
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-mid);
+}
+
+.doc-content li,
+.document-card li {
+    margin-bottom: 6px;
+    padding-left: 4px;
+}
+
+.doc-content ul li::marker,
+.document-card ul li::marker {
+    color: var(--primary-light);
+}
+
+/* ===== 分割线 ===== */
+.doc-content hr,
+.document-card hr {
+    margin: 36px 0 28px 0;
+    border: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border-light), transparent);
+}
+
+/* ===== 链接样式 ===== */
+.doc-content a,
+.document-card a {
+    color: var(--primary-light);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: var(--transition);
+}
+
+.doc-content a:hover,
+.document-card a:hover {
+    color: var(--primary-lighter);
+    border-bottom-color: var(--primary-lighter);
+}
+
+/* ===== 图片样式 ===== */
+.doc-content img,
+.document-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-code);
+    margin: 16px 0 20px 0;
+    border: 1px solid var(--border-light);
+    display: block;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    transition: var(--transition);
+}
+
+.doc-content img:hover,
+.document-card img:hover {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== 提示框 ===== */
+.doc-content .sim-tool-box,
+.document-card .sim-tool-box {
+    background: linear-gradient(135deg, #f2f6fd, #eaf0f8);
+    border-radius: var(--radius-code);
+    padding: 24px 30px;
+    margin: 28px 0 12px 0;
+    border-left: 6px solid var(--primary-light);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+}
+
+.doc-content .sim-tool-box .sim-title,
+.document-card .sim-tool-box .sim-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    letter-spacing: 0.2px;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 1000px) {
+    .top-nav {
+        padding: 0 20px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        position: relative;
+    }
+
+    .nav-brand {
+        justify-content: center;
+        padding: 10px 0 4px 0;
+    }
+
+    .nav-links {
+        justify-content: center;
+        padding: 6px 0 12px 0;
+        gap: 3px;
+    }
+
+    .nav-links a {
+        padding: 5px 12px;
+        font-size: 13px;
+    }
+
+    body {
+        padding: 20px 10px 30px 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .doc-content,
+    .document-card {
+        padding: 24px 20px 32px 20px;
+    }
+
+    .doc-content h1,
+    .document-card h1 {
+        font-size: 28px;
+    }
+
+    .doc-content h2,
+    .document-card h2 {
+        font-size: 22px;
+    }
+
+    .doc-content h3,
+    .document-card h3 {
+        font-size: 19px;
+    }
+
+    .doc-content p,
+    .document-card p,
+    .doc-content li,
+    .document-card li {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px 6px 30px 6px;
+    }
+
+    .document-wrapper {
+        border-radius: 18px;
+    }
+
+    .top-nav {
+        padding: 0 12px;
+    }
+
+    .nav-links a {
+        font-size: 12px;
+        padding: 4px 10px;
+    }
+
+    .nav-brand {
+        font-size: 15px;
+    }
+
+    .nav-brand .brand-icon {
+        font-size: 20px;
+    }
+
+    .doc-content,
+    .document-card {
+        padding: 16px 14px 24px 14px;
+    }
+
+    .doc-content h1,
+    .document-card h1 {
+        font-size: 24px;
+    }
+
+    .doc-content h2,
+    .document-card h2 {
+        font-size: 20px;
+    }
+
+    .doc-content pre,
+    .document-card pre {
+        padding: 14px 16px;
+        font-size: 13px;
+    }
+
+    .doc-content table,
+    .document-card table {
+        font-size: 13px;
+    }
+
+    .doc-content table th,
+    .document-card table th,
+    .doc-content table td,
+    .document-card table td {
+        padding: 8px 12px;
+    }
+}
