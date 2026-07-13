@@ -28,6 +28,11 @@ function parseMarkdownToHtml(md) {
     };
 
     const processLine = (line) => {
+        const trimmed = line.trim();
+        if (trimmed.match(/^<(video|iframe|div|table|audio|canvas|svg|object|embed)[\s>]/i)) {
+            return line;  // 直接返回原始 HTML
+        }
+
         // 标题
         if (line.startsWith('# ')) {
             return `<h1>${processInline(line.slice(2))}</h1>`;
