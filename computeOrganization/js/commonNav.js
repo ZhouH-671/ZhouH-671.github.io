@@ -12,7 +12,7 @@ function renderNav(activePage = 'home', base = './') {
 
     const navItems = [
         { id: 'home', label: '🏠 首页', href: base + 'index.html' },
-        { id: 'logisim', label: 'Logisim', alert: 'Logisim教程暂未开放，敬请期待！' },
+        { id: 'logisim', label: 'Logisim', href: base +'note/pre/Logisim/Logisim.html' },
         { id: 'verilog', label: 'Verilog', alert: 'Verilog教程暂未开放，敬请期待！' },
         { id: 'mips', label: 'MIPS', href: base + 'note/pre/MIPS汇编/MIPS汇编.html' },
         { id: 'p0', label: 'P0', alert: 'P0实验教程暂未开放，敬请期待！' },

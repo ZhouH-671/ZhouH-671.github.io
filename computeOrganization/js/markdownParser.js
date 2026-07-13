@@ -14,14 +14,16 @@ function parseMarkdownToHtml(md) {
     let inTable = false;
     let tableRows = [];
     let tableAligns = [];
+    let inMathBlock = false;
+    let mathBlockLines = [];
 
     const processInline = (text) => {
         // 粗体 ** **
         text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
         // 反引号 `code`
         text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
-        // 转义 $
-        text = text.replace(/\$(.+?)\$/g, '<span class="math">$1</span>');
+        // 行内数学公式 $...$（不跨行）
+        text = text.replace(/\$(.+?)\$/g, '<span class="math-inline">$1</span>');
         return text;
     };
 
@@ -69,6 +71,40 @@ function parseMarkdownToHtml(md) {
     let i = 0;
     while (i < lines.length) {
         const line = lines[i];
+
+        // ===== 块级数学公式检测 $$...$$ =====
+        if (line.trim().startsWith('$$') && !inMathBlock) {
+            inMathBlock = true;
+            mathBlockLines = [];
+            // 如果 $$ 后面紧跟内容，则把 $$ 去掉后作为第一行
+            const contentAfter = line.trim().slice(2);
+            if (contentAfter.trim() !== '') {
+                mathBlockLines.push(contentAfter);
+            }
+            i++;
+            continue;
+        }
+
+        if (inMathBlock) {
+            // 检查是否遇到结束的 $$
+            if (line.trim().startsWith('$$')) {
+                inMathBlock = false;
+                // 如果 $$ 前面有内容（同行），则作为最后一行
+                const contentBefore = line.trim().slice(0, -2);
+                if (contentBefore.trim() !== '') {
+                    mathBlockLines.push(contentBefore);
+                }
+                // 渲染数学公式块
+                const mathContent = mathBlockLines.join('\n').trim();
+                html += `<div class="math-block">${mathContent}</div>`;
+                i++;
+                continue;
+            } else {
+                mathBlockLines.push(line);
+                i++;
+                continue;
+            }
+        }
 
         // 代码块检测
         if (line.trim().startsWith('```')) {
@@ -198,34 +234,6 @@ function parseMarkdownToHtml(md) {
     }
 
     return html;
-}
-
-/**
- * 生成 TOC
- */
-function generateTOC(md) {
-    const lines = md.split('\n');
-    const tocItems = [];
-    let inCode = false;
-    lines.forEach(line => {
-        if (line.trim().startsWith('```')) {
-            inCode = !inCode;
-            return;
-        }
-        if (inCode) return;
-        if (line.startsWith('# ')) {
-            tocItems.push({ level: 1, text: line.slice(2).trim(), id: `h1-${tocItems.length}` });
-        } else if (line.startsWith('## ')) {
-            tocItems.push({ level: 2, text: line.slice(3).trim(), id: `h2-${tocItems.length}` });
-        } else if (line.startsWith('### ')) {
-            tocItems.push({ level: 3, text: line.slice(4).trim(), id: `h3-${tocItems.length}` });
-        } else if (line.startsWith('#### ')) {
-            tocItems.push({ level: 4, text: line.slice(5).trim(), id: `h4-${tocItems.length}` });
-        } else if (line.startsWith('##### ')) {
-            tocItems.push({ level: 5, text: line.slice(6).trim(), id: `h5-${tocItems.length}` });
-        }
-    });
-    return tocItems;
 }
 
 /**

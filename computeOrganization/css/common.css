@@ -577,3 +577,46 @@ body {
         padding: 8px 12px;
     }
 }
+
+/* ===== 数学公式样式 ===== */
+
+/* 行内公式 */
+.math-inline {
+    font-family: 'Times New Roman', 'STIX', 'Latin Modern Math', serif;
+    font-style: italic;
+    color: var(--text-dark);
+    background: rgba(42, 90, 138, 0.06);
+    padding: 0.05em 0.3em;
+    border-radius: 4px;
+    font-size: 0.95em;
+}
+
+/* 块级公式 */
+.math-block {
+    font-family: 'Times New Roman', 'STIX', 'Latin Modern Math', serif;
+    font-style: italic;
+    color: var(--text-dark);
+    background: #f5f8fc;
+    padding: 20px 28px;
+    margin: 16px 0 24px 0;
+    border-radius: var(--radius-code, 14px);
+    border: 1px solid var(--border-light, #e6edf6);
+    text-align: center;
+    font-size: 1.2em;
+    line-height: 1.8;
+    overflow-x: auto;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+/* 块级公式中的上标和下标 */
+.math-block sup,
+.math-inline sup {
+    font-size: 0.7em;
+    vertical-align: super;
+}
+
+.math-block sub,
+.math-inline sub {
+    font-size: 0.7em;
+    vertical-align: sub;
+}
